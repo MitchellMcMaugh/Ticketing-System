@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>pillion</groupId>
+		<artifactId>gwt-hub</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>thehub-client</artifactId>
+	<packaging>gwt-app</packaging>
+
+	<properties>
+		<!-- Convenience property to set the GWT version -->
+		<gwt.version>2.8.2</gwt.version>
+
+		<!-- GWT 2.8 requires 1.8 -->
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<!-- <gwt-material.version>2.0-rc6</gwt-material.version> -->
+		<!-- <gwt-material.version>2.1-SNAPSHOT</gwt-material.version> -->
+		<gwt-material.version>2.1-SN-ME</gwt-material.version>
+		<jdbi.version>3.0.0</jdbi.version>
+
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>thehub-shared</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>thehub-shared</artifactId>
+			<version>${project.version}</version>
+			<classifier>sources</classifier>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-user</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-dev</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>net.ltgt.gwt.maven</groupId>
+				<artifactId>gwt-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<configuration>
+							<extraJvmArgs>-Xmx512M -Xss1024k</extraJvmArgs>
+						</configuration>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<moduleName>pillion.hba.hub.Barnacle</moduleName>
+					<skipModule>true</skipModule>
+					<moduleShortName>thehub</moduleShortName>
+					<failOnError>true</failOnError>
+					<sourceLevel>1.8</sourceLevel>
+ 					<compilerArgs>
+						<arg>-compileReport</arg>
+						<arg>-XcompilerMetrics</arg>
+					</compilerArgs>
+					<warDir>${project.build.directory}/${project.build.finalName}</warDir>
+					<classpathScope>compile+runtime</classpathScope>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

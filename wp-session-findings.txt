@@ -1,0 +1,45 @@
+**** the cookies *****
+
+wordpress_cef0b81c097b1bbcab03e88c1affb967=
+Craig+Lee ($username)
+1523083727 ($expiration)
+URUvVXhcU5uQxO8hz6VYpgKmwI4khDBLnK6vdsWGcch ($token)
+a14e05b408650d9d570234c983d75096ec770ab023858dfefd83ffbe567c65fb ($hmac) 
+
+wordpress_logged_in_cef0b81c097b1bbcab03e88c1affb967= (md5 hash of http://wordpress)
+Craig+Lee
+1523083727
+URUvVXhcU5uQxO8hz6VYpgKmwI4khDBLnK6vdsWGcch
+c4edf82cdaf5c8ba0f5f158e51a079d878d74a11bef247cb389703ae5d3647e4
+
+mnp_ba9a78ed=1522939723;
+
+wordpress_test_cookie=WP+Cookie+check
+ 
+wp-settings-84=libraryContent=browse&advImgDetails=show&mfold=o; wp-settings-time-84=1522910927
+
+****** about the cookies ***********
+
+cef0b81c097b1bbcab03e88c1affb967= (md5 hash of http://wordpress)
+
+******** the database **********
+
+a:1:{s:64:"bd8a60b8f8f1e38b42bf381f176032e4209b92fcac0e40851a81a6a61b4f289d";a:4:{s:10:"expiration";i:1523083727;s:2:"ip";s:13:"192.168.1.176";s:2:"ua";s:76:"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:59.0) Gecko/20100101 Firefox/59.0";s:5:"login";i:1522910927;}}
+
+*** which is a php array as **** 
+
+Array
+(
+[bd8a60b8f8f1e38b42bf381f176032e4209b92fcac0e40851a81a6a61b4f289d] => Array
+(
+[expiration] => 1523083727
+[ip] => 192.168.1.176
+[ua] => Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:59.0) Gecko/20100101 Firefox/59.0
+[login] => 1522910927
+)
+)
+
+*********** about the database ***********
+
+bd8a60b8f8f1e38b42bf381f176032e4209b92fcac0e40851a81a6a61b4f289d is the SHA256 of...
+URUvVXhcU5uQxO8hz6VYpgKmwI4khDBLnK6vdsWGcch (the cookie token)

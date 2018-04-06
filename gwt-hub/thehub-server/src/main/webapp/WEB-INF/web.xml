@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+	      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	      xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	      http://java.sun.com/xml/ns/javaee/web-app_3_1.xsd"
+version="3.1">
+
+	<servlet>
+		<servlet-name>MatterServiceServlet</servlet-name>
+		<servlet-class>pillion.paratus.server.MatterServiceImpl</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>LoginServiceServlet</servlet-name>
+		<servlet-class>pillion.paratus.server.LoginServiceImpl</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>bordereau</servlet-name>
+		<servlet-class>pillion.paratus.server.bordereau.BordereauServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>MatterServiceServlet</servlet-name>
+		<url-pattern>/paratus/matterService</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>LoginServiceServlet</servlet-name>
+		<url-pattern>/paratus/login</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>bordereau</servlet-name>
+		<url-pattern>/report/bordereau</url-pattern>
+	</servlet-mapping>
+</web-app>

@@ -43,3 +43,25 @@ Array
 
 bd8a60b8f8f1e38b42bf381f176032e4209b92fcac0e40851a81a6a61b4f289d is the SHA256 of...
 URUvVXhcU5uQxO8hz6VYpgKmwI4khDBLnK6vdsWGcch (the cookie token)
+
+
+************ now there's 2 of them *****************************
+
+(
+    [bd8a60b8f8f1e38b42bf381f176032e4209b92fcac0e40851a81a6a61b4f289d] => Array
+        (
+            [expiration] => 1523083727
+            [ip] => 192.168.1.176
+            [ua] => Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:59.0) Gecko/20100101 Firefox/59.0
+            [login] => 1522910927
+        )
+
+    [16941f9e5e7c5949e5b685b773daac92e2750526a174b33ab2e3a183233f5ca9] => Array
+        (
+            [expiration] => 1523164490
+            [ip] => 192.168.1.176
+            [ua] => Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:59.0) Gecko/20100101 Firefox/59.0
+            [login] => 1522991690
+        )
+
+)

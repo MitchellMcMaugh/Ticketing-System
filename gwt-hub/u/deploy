@@ -1,0 +1,9 @@
+#!/bin/bash
+
+. u/set-env
+
+#rm -r $CAT_HOME/logs/*
+#echo "" > $LOG_FILE
+cp  thehub-server/target/thehub-server-1.0-SNAPSHOT.war $CAT_HOME/webapps/hub-barnacle.war
+sleep 3
+#u/log

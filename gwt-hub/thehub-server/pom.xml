@@ -32,6 +32,17 @@
 			<artifactId>javax.servlet-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.xk72/pherialize -->
+		<dependency>
+			<groupId>com.xk72</groupId>
+			<artifactId>pherialize</artifactId>
+			<version>1.2.4</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.11</version>
+		</dependency>
 	</dependencies>
 
 	<build>

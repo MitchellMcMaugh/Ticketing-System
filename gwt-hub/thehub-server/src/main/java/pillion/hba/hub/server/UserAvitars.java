@@ -8,4 +8,10 @@ import java.util.Map;
  */
 public class UserAvitars {
 	Map<Long,String> avatars;
+
+	@Override
+	public String toString() {
+		return String.format("UserAvitars [avatars=%s]", avatars);
+	}
+	
 }

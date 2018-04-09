@@ -1,5 +1,8 @@
 package pillion.hba.hub.server;
 
-public class WPCapabilities {
-
+public enum WPCapabilities {
+	ADMINISTRATOR,
+	EDITOR,
+	AUTHOR,
+	SUBSCRIBER;
 }

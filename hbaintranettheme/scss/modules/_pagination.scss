@@ -1,0 +1,97 @@
+.pagination {
+	overflow: hidden;
+	padding: 30px 0;
+	border-top: 2px solid $line;
+	.page-numbers {
+		color: #000;
+		background: $lighterBlue;
+		padding: 3px 10px;
+		font-size: 14px;
+		float: left;
+		margin-right: 3px;
+		position: relative;
+		&.current {
+			background: $lightBlue;
+			color: #fff;
+		}
+	}
+	.next, .prev {
+		color: $lightBlue;
+		font-weight: 700;
+		background: transparent;
+		&:before, &:after {
+			content: "";
+			position: absolute;
+			width: 7px;
+			height: 1px;
+			background: $lightBlue;
+			@include transition(background 0.2s ease-in-out);
+		}
+	}
+	.next {
+		padding-right: 14px;
+		&:before, &:after {
+			right: 0;
+		}
+		&:before{
+			@include transform(rotate(-45deg));
+			top: 15px;
+		}
+		&:after {
+			@include transform(rotate(45deg));
+			top: 11px;
+		}
+	}
+	.prev {
+		padding-left: 14px;
+		&:before, &:after {
+			left: 0;
+		}
+		&:before{
+			@include transform(rotate(45deg));
+			top: 15px;
+		}
+		&:after {
+			@include transform(rotate(-45deg));
+			top: 11px;
+		}
+	}
+	@include respond-to(desktop) {
+		margin: 0 -30px;
+		display: block;
+		padding: 30px;
+		.page-numbers {
+			@include transition(color 0.2s ease-in-out);
+			&:hover {
+				color: $lightBlue;
+			}
+			&.current {
+				color: #fff;
+			}
+			&.prev, &.next {
+				&:before, &:after {
+					@include transition(background 0.2s ease-in-out);
+				}
+				&:hover {
+					color: #000;
+					&:before, &:after {
+						background: #000;
+					}
+				}
+			}
+			&.prev {
+				margin-right: 10px;
+			}
+			&.next {
+				margin-left: 10px;
+			}
+		}
+	}
+}
+
+
+
+
+
+
+

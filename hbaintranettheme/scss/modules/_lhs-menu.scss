@@ -1,0 +1,82 @@
+.lhs-menu {
+	padding: 30px 15px 0;
+	&.apps {
+		padding-top: 0;
+	}
+	a {
+		font-size: 14px;
+		font-weight: 700;
+		line-height: 1.2;
+		float: left;
+	}
+	li {
+		overflow: hidden;
+		padding-bottom: 10px;
+	}
+	.current-menu-item > a {
+		color: #000;
+	}
+	.sub-menu {
+		clear: left;
+		padding: 15px 0 0 15px;
+		a {
+			font-size: 12px;
+		}
+	}
+	@include respond-to(tablet) {
+		float: left;
+		@include box-sizing(border-box);
+		width: 25%;
+		padding-right: 30px;
+	}
+	@include respond-to(desktop) {
+		padding: 60px 30px;
+		width: 20%;
+		a {
+			font-size: 16px;
+			@include transition(color 0.2s ease-in-out);
+			&:hover, &:focus {
+				color: #000;
+			}
+		}
+		.sub-menu {
+			a {
+				font-size: 14px;
+			}
+		}
+	}
+	@include respond-to(desktopWide) {
+		padding: 60px 30px 60px 60px;
+	}
+}
+.single-post, .category {
+	.lhs-menu .menu-item-186 a {
+		color: #000;
+	}
+}
+.tax-event-category .lhs-menu .menu-item-189 a {
+	color: #000;
+}
+.category-social-stuff, .social-stuff {
+	.lhs-menu .menu-item-186 a {
+		color: $lightBlue;
+	}
+}
+.social-stuff {
+	.lhs-menu .menu-item-220 a {
+		color: #000;
+	}
+}
+.author {
+	.lhs-menu .menu-item-136 a {
+		color: #000;
+	}
+}
+.single-event {
+	.lhs-menu .menu-item-189 a {
+		color: #000;
+	}
+}
+
+
+

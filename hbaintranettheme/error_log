@@ -1,0 +1,1 @@
+[28-Sep-2016 02:27:13 UTC] PHP Fatal error:  Call to undefined function get_header() in /home/hbalegal/public_html/thehub/wp-content/themes/hbaintranettheme/index.php on line 19

@@ -1,0 +1,116 @@
+.news-item {
+	padding-bottom: 30px;
+	position: relative;
+	h4 {
+		clear: both;
+		padding-bottom: 3px;
+	}
+	.sticky-post {
+		background: url("#{$imagesPath}/i-pin.png");
+		@include background-size(17px 16px);
+		position: absolute;
+		top: 15px;
+		right: 15px;
+		width: 17px;
+		height: 16px;
+		text-indent: -9999px;
+	}
+	&.sticky-news-item {
+		margin-top: 7px;
+		background: $lighterBlue;
+		padding: 20px 20px 20px 0;
+		margin-bottom: 30px;
+		border-bottom: 2px solid $line;
+		@include box-sizing(border-box);
+		.read-more, .comments {
+			display: inline-block;
+		}
+		&:before {
+			content: "";
+			position: absolute;
+			left: -60px;
+			top: 0;
+			width: 60px;
+			height: 100%;
+			background: $lighterBlue;
+			border-bottom: 2px solid $line;
+		}
+	}
+	.read-more, .comments {
+		display: none;
+		font-size: 14px;
+		font-weight: 700;
+		margin-top: 14px;
+	}
+	.comments {
+		float: right;
+		&:after {
+			content: "";
+			display: table;
+			clear: both;
+		}
+	}
+	@include respond-to(desktop) {
+		&.sticky-news-item {
+			padding: 30px 30px 30px 0;
+		}
+		.read-more, .comments{
+			font-size: 16px;
+			@include transition(color 0.2s ease-in-out);
+			&:hover, &:focus {
+				color: #000;
+			}
+		}
+	}
+}
+.news-item-top {
+	padding-bottom: 10px;
+	overflow: hidden;
+	img {
+		float: left;
+		width: 50px;
+		height: 50px;
+		margin-right: 15px;
+		@include border-radius(50%);
+	}
+	.news-item-meta {
+		padding: 5px 0 0 65px;
+	}
+	@include respond-to(desktop) {
+		.news-item-meta {
+			padding: 1px 0 0 65px;
+		}
+	}
+}
+.home-meltwater {
+	border-top: 2px solid $line;
+	padding-top: 30px;
+	h3 {
+		margin-bottom: 15px;
+	}
+	.news-item {
+		padding-bottom: 15px;
+		h4 {
+			font-size: 14px;
+		}
+	}
+	.news-item-top {
+		padding-bottom: 0;
+		img, h5 {
+			display: none;
+		}
+		.news-item-meta {
+			padding: 0;
+		}
+	}
+	@include respond-to(desktop) {
+		.news-item {
+			h4 {
+				font-size: 18px;
+			}
+		}
+	}
+}
+
+
+

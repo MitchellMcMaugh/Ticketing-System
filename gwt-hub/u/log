@@ -1,0 +1,4 @@
+#!/bin/bash
+
+. u/set-env
+tail -fn300 $LOG_FILE

@@ -1,0 +1,94 @@
+/* standard mixins
+-------------------------------------------------------------- */
+
+// the mixins here should be reusable in any project
+
+@mixin placeholderStyling {
+	::-webkit-input-placeholder { @content; }
+	::-moz-placeholder { @content; }
+	:-ms-input-placeholder { @content; }
+}
+
+@mixin border-radius($radius) {
+	border-radius: $radius;
+	-webkit-background-clip: padding-box;
+	-moz-background-clip: padding-box;
+	background-clip: padding-box;
+}
+
+@mixin transition($value) {
+	-webkit-transition: $value;
+	-moz-transition: $value;
+	transition: $value;
+}
+
+@mixin transform($value) {
+	-webkit-transform: $value;
+	-moz-transform: $value;
+	-ms-transform: $value;
+	transform: $value;
+}
+
+@mixin box-sizing($boxModel) {
+	-webkit-box-sizing: $boxModel;
+	-moz-box-sizing: $boxModel;
+	box-sizing: $boxModel;
+}
+
+@mixin background-size($backSize) {
+	-webkit-background-size: $backSize;
+	-moz-background-size: $backSize;
+	-o-background-size: $backSize;
+	background-size: $backSize;
+}
+
+@mixin user-select($value) {
+	-webkit-user-select: $value;
+	-moz-user-select: $value;
+	-khtml-user-select: $value;
+	-ms-user-select: $value;
+}
+
+@mixin box-shadow($boxShadow) {
+	-webkit-box-shadow: $boxShadow;
+	-moz-box-shadow: $boxShadow;
+	box-shadow: $boxShadow;
+}
+
+@mixin clearfix {
+	&:before, &:after {
+		content: "";
+		display: table;
+	}
+	&:after {
+		clear: both;
+	}
+}
+
+/* responsive mixins
+-------------------------------------------------------------- */
+
+// not all @media queries are listed here
+// there are more  @media queries located within other .scss files too
+
+@mixin respond-to($media) {
+	@if $media == mobileOnly {
+		@media screen and (max-width: 720px) { @content }
+	}
+	@else if $media == tablet {
+		@media screen and (min-width: 721px) { @content }
+	}
+	@else if $media == tabletOnly {
+		@media screen and (min-width: 721px) and (max-width: 1099px) { @content }
+	}
+	@else if $media == tabletDown {
+		@media screen and (max-width: 1099px) { @content }
+	}
+	@else if $media == desktop {
+		@media screen and (min-width: 1100px) { @content }
+	}
+	@else if $media == desktopWide {
+		@media screen and (min-width: 1600px) { @content }
+	}
+}
+

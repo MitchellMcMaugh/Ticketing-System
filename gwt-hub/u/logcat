@@ -1,0 +1,5 @@
+#!/bin/bash
+
+. u/set-env
+
+tail -fn200 $CAT_HOME/logs/catalina.out 

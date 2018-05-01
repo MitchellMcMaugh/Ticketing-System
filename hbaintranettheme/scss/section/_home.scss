@@ -1,0 +1,405 @@
+.home-title {
+	overflow: hidden;
+	padding-bottom: 10px;
+	h2 {
+		float: left;
+	}
+	.more {
+		float: right;
+		font-size: 14px;
+		font-weight: 700;
+		margin-top: 14px;
+	}
+	@include respond-to(desktop) {
+		.more {
+			font-size: 16px;
+			margin-top: 19px;
+			@include transition(color 0.2s ease-in-out);
+			&:hover, &:focus {
+				color: #000;
+			}
+		}
+	}
+	@include respond-to(desktopWide) {
+		.more {
+			margin-top: 26px;
+		}
+	}
+}
+.home-lhs {
+	@include box-sizing(border-box);
+	padding: 30px 15px;
+	@include respond-to(desktop) {
+		padding: 60px 30px;
+		width: 50%;
+		float: left;
+	}
+	@include respond-to(desktopWide) {
+		padding: 60px;
+	}
+}
+.home-rhs {
+	@include box-sizing(border-box);
+	padding: 30px 15px;
+	background: $lighterBlue;
+	overflow: hidden;
+	@include respond-to(desktop) {
+		padding: 60px 30px;
+		width: 50%;
+		float: left;
+		background: transparent;
+	}
+	@include respond-to(desktopWide) {
+		padding: 60px;
+	}
+}
+.home-social {
+	.social-stuff {
+		padding-bottom: 30px;
+		.widget-title {
+			display: none;
+		}
+		.eo-events {
+			li {
+				padding-bottom: 15px;
+			}
+			a {
+				color: #000;
+			}
+		}
+	}
+	.cta {
+		font-weight: 700;
+		font-size: 14px;
+	}
+	.cta-post {
+		margin-top: 20px;
+		display: inline-block;
+	}
+	.promos {
+
+	}
+	@include respond-to(desktop) {
+		.social-stuff {
+			width: 50%;
+			float: left;
+			.eo-events {
+				a {
+					@include transition(color 0.2s ease-in-out);
+					&:hover, &:focus {
+						color: $lightBlue;
+					}
+				}
+			}
+		}
+		.cta {
+			font-size: 16px;
+			@include transition(color 0.2s ease-in-out);
+			&:hover, &:focus {
+				color: #000;
+			}
+		}
+		.promos {
+			width: 50%;
+			float: left;
+		}
+	}
+}
+.home-calendar {
+	clear: both;
+	@include box-sizing(border-box);
+	padding-bottom: 10px;
+	.widget-title {
+		padding-bottom: 15px;
+	}
+	.eo-events {
+		padding-bottom: 15px;
+		li {
+			padding-bottom: 15px;
+		}
+		a {
+			color: #000;
+		}
+	}
+	.cta {
+		font-weight: 700;
+		font-size: 14px;
+		position: relative;
+		top: -15px;
+		padding-bottom: 20px;
+	}
+	@include respond-to(tablet) {
+		width: 50%;
+		float: left;
+		padding-right: 15px;
+	}
+	@include respond-to(desktop) {
+		border-top: 2px solid $line;
+		padding-top: 30px;
+		.eo-events {
+			a {
+				@include transition(color 0.2s ease-in-out);
+				&:hover, &:focus {
+					color: $lightBlue;
+				}
+			}
+		}
+		.cta {
+			font-size: 16px;
+			@include transition(color 0.2s ease-in-out);
+			&:hover, &:focus {
+				color: #000;
+			}
+		}
+	}
+	@include respond-to(desktopWide) {
+		padding-right: 30px;
+	}
+
+}
+.home-people-links {
+	@include box-sizing(border-box);
+	@include respond-to(tablet) {
+		width: 50%;
+		float: left;
+		padding-left: 15px;
+	}
+	@include respond-to(desktop) {
+		border-top: 2px solid $line;
+		padding-top: 30px;
+	}
+	@include respond-to(desktopWide) {
+		padding-left: 30px;
+	}
+}
+.home-people {
+	padding-bottom: 15px;
+}
+.home-links {
+	p {
+		font-size: 14px;
+		padding-bottom: 3px;
+		a {
+			font-weight: 700;
+		}	
+	}
+	@include respond-to(desktop) {
+		p {
+			font-size: 16px;
+			a {
+				@include transition(color 0.2s ease-in-out);
+				&:hover, &:focus {
+					color: #000;
+				}
+			}
+		}
+	}	
+}
+.home-bg {
+	display: none;
+	@include respond-to(desktop) {
+		display: block;
+		position: fixed;
+		left: 50%;
+		top: 0;
+		width: 50%;
+		height: 100%;
+		background: $lighterBlue;
+		z-index: 1;
+	}
+}
+.home-meltwater {
+	.melt-box {
+		position: relative;
+		&:after, &:before {
+			content: "";
+			width: 100%;
+			height: 20%;
+			left: 0;
+			position: absolute;
+			z-index: 10;
+		}
+		&:before {
+			top: 0;
+			background: rgba(255,255,255,1);
+			background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+			background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,255,255,1)), color-stop(100%, rgba(255,255,255,0)));
+			background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+			background: -o-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+			background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+			background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff', GradientType=0 );
+		}
+		&:after {
+			bottom: 0;
+			background: rgba(255,255,255,0);
+			background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+			background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,255,255,0)), color-stop(100%, rgba(255,255,255,1)));
+			background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+			background: -o-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+			background: -ms-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+			background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff', GradientType=0 );
+		}
+	}
+	iframe {
+		width: 100%;
+		position: relative;
+	}
+}
+.promos {
+	padding-bottom: 30px;
+	.promo-container {
+		position: relative;
+	}
+	.prev, .next {
+		width: 22px;
+		height: 22px;
+		position: relative;
+		text-indent: -9999px;
+		position: absolute;
+		bottom: 81px;
+		right: 30px;
+		z-index: 150;
+		@include border-radius(50%);
+		&:before, &:after {
+			content: "";
+			position: absolute;
+			width: 7px;
+			height: 1px;
+			background: #fff;
+			right: 8px;
+			@include transition(background 0.2s ease-in-out);
+		}
+		&:before{
+			@include transform(rotate(45deg));
+			top: 12px;
+		}
+		&:after {
+			@include transform(rotate(-45deg));
+			top: 8px;
+		}
+	}
+	.next {
+		right: 7px;
+		&:before{
+			@include transform(rotate(-45deg));
+			top: 12px;
+		}
+		&:after {
+			@include transform(rotate(45deg));
+			top: 8px;
+		}
+	}
+	.promo {
+		width: 100%;
+		position: absolute;
+		left: 0;
+		top: 0;
+		.promo-image {
+			@include background-size(cover);
+			background-position: center center;
+			width: 100%;
+			padding-top: 70%;
+			position: relative;
+			a {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				left: 0;
+				top: 0;
+			}
+		}
+		h4 {
+			position: absolute;
+			width: 100%;
+			left: 0;
+			bottom: 0;
+			background: rgba(13,34,63,.8);
+			color: #fff;
+			font-size: 14px;
+			padding: 10px 110px 10px 15px;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			@include box-sizing(border-box);
+			@include transition(all 0.2s ease-in-out);
+		}
+		.comments {
+			position: absolute;
+			right: 58px;
+			bottom: 81px;
+			background: #fff;
+			color: $darkBlue;
+			font-size: 14px;
+			line-height: 1;
+			font-weight: 700;
+			padding: 4px 5px;
+			min-width: 12px;
+			text-align: center;
+			@include border-radius(12px);
+		}
+		.comment-hide {
+			display: none;
+		}
+		.comment-show {
+			font-size: 14px;
+			padding: 25px 15px 25px 80px;
+			font-style: italic;
+			color: rgba(1,1,1,.5);
+			background: #fff;
+			border-bottom: 2px solid $line;
+			@include transition(border-color 0.3s ease-in-out);
+		}
+		.avatar {
+			position: absolute;
+			left: 15px;
+			bottom: 12px;
+			width: 50px;
+			height: 50px;
+			@include border-radius(25px);
+		}
+	}
+	@include respond-to(desktop) {
+		padding-left: 20px;
+		@include box-sizing(border-box);
+		.prev, .next {
+			@include transition(background 0.2s ease-in-out);
+			&:hover {
+				&:before, &:after {
+					background: $lightBlue;
+				}
+			}
+		}
+		.promo {
+			.promo-image {
+				a:hover {
+					h4 {
+						color: $lightBlue;
+					}
+				}
+			}
+			a:hover {
+				.comment-show {
+					border-color: $lightBlue;
+				}
+			}
+		}
+	}
+	@include respond-to(desktopWide) {
+		padding-left: 30px;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

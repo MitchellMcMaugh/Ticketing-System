@@ -1,0 +1,15 @@
+#!/bin/bash
+
+. u/set-env
+
+$CAT_HOME/bin/shutdown.sh &
+
+disown
+sleep 3
+if [ -f $CAT_HOME/pid ];
+then
+  PID="`cat pid`"
+  kill $PID
+  rm $CAT_HOME/pid
+  echo "killed process $PID"
+fi

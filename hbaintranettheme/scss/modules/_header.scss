@@ -1,0 +1,302 @@
+.head {
+	background: #fff;
+	@include clearfix;
+	z-index: 100;
+	border-bottom: 5px solid $darkBlue;
+	.logo {
+		margin: 15px;
+		float: left;
+		border: 2px solid $darkBlue;
+		padding: 3px 15px;
+		font-weight: 700;
+		font-size: 14px;
+		color: $darkBlue;
+	}
+	@include respond-to(tabletDown) {
+		position: relative;
+		.searchHead {
+			display: none;
+		}
+		.toggle {
+			position: absolute;
+			right: 15px;
+			top: 20px;
+			width: 22px;
+			height: 2px;
+			background: $darkBlue;
+			text-indent: -9999px;
+			border-top: 10px solid #fff;
+			border-bottom: 10px solid #fff;
+			&:before, &:after {
+				content: "";
+				position: absolute;
+				left: 0;
+				width: 22px;
+				height: 2px;
+				background: $darkBlue;
+				@include transition(all 0.2s ease-in-out);
+			}
+			&:before {
+				top: -5px;
+			}
+			&:after {
+				bottom: -5px;
+			}
+			&.active {
+				background-color: #fff;
+				&:before {
+					@include transform(rotate(45deg));
+					top: 0;
+				}
+				&:after {
+					@include transform(rotate(-45deg));
+					bottom: 0;
+				}
+			}
+		}
+		.navigation {
+			display: none;
+			background: $darkBlue;
+			clear: both;
+		}
+		.primary-menu {
+			> li:last-child {
+				> a {
+					display: none;
+				}
+			}
+			li {
+				border-bottom: 1px solid rgba(255,255,255,0.15);
+				.sub-menu {
+					padding: 15px 0;
+					li {
+						border: 0;
+					}
+					a {
+						font-size: 14px;
+						font-weight: 400;
+						padding: 5px 15px;
+					}
+				}
+				a {
+					position: relative;
+					display: block;
+					padding: 20px 15px;
+					color: #fff;
+					font-size: 16px;
+					line-height: 1;
+					font-weight: 700;
+				}
+				&.current-menu-item a {
+					color: $lightBlue;
+				}
+			}
+		}
+		.searchHeadMobile {
+			position: relative;
+			.inputText {
+				display: block;
+				width: 100%;
+				padding: 10px 50px 10px 15px;
+				border: 0;
+				font-size: 14px;
+				@include box-sizing(border-box);
+				@include border-radius(0);
+				&:focus {
+					-webkit-appearance: none;
+					outline: 0;
+				}
+			}
+			.btnSearch {
+				position: absolute;
+				height: 100%;
+				width: 50px;
+				right: 0;
+				top: 0;
+				display: block;
+				text-indent: -9999px;
+				background: transparent url("#{$imagesPath}/i-search-blue.png") center center no-repeat;
+				@include background-size(16px 16px);
+				border: 0;
+			}
+		}
+	}
+	@include respond-to(desktop) {
+		position: fixed;
+		width: 100%;
+		top: 0;
+		left: 0;
+		.logo {
+			margin: 15px 0 15px 30px;
+			padding: 6px 20px;
+			font-size: 16px;
+		}
+		.toggle, .searchHeadMobile {
+			display: none;
+		}
+		.navigation {
+			float: left;
+			display: block !important;
+		}
+		.primary-menu {
+			float: left;
+			padding: 16px 0 0 22px;
+			li {
+				float: left;
+				position: relative;
+				.sub-menu {
+					display: none;
+					position: absolute;
+					top: 100%;
+					left: 0;
+					border: 1px solid rgba(13,34,63,0.1);
+					background: #fff;
+					padding: 15px 0;
+					a {
+						font-size: 14px;
+						font-weight: 400;
+						padding: 5px 15px;
+						white-space: nowrap;
+					}
+				}
+				a {
+					position: relative;
+					display: inline-block;
+					color: $darkBlue;
+					font-size: 16px;
+					padding: 12px 10px;
+					line-height: 1;
+					font-weight: 700;
+					@include transition(color 0.2s ease-in-out);
+					&:hover, &:focus, &.selected {
+						color: $lightBlue;
+					}
+				}
+				&.menu-item-has-children > a {
+					padding-right: 25px;
+					&:before, &:after {
+						content: "";
+						position: absolute;
+						width: 7px;
+						height: 1px;
+						background: $darkBlue;
+						top: 20px;
+						@include transition(background 0.2s ease-in-out);
+					}
+					&:before{
+						@include transform(rotate(45deg));
+						right: 10px;
+					}
+					&:after {
+						@include transform(rotate(-45deg));
+						right: 6px;
+					}
+					&:hover {
+						&:before, &:after {
+							background: $lightBlue;
+						}
+					}
+				}
+				&.hovering {
+					.sub-menu {
+						display: block;
+					}
+					> a {
+						color: $lightBlue;
+					}
+					&.menu-item-has-children > a {
+						&:before, &:after {
+							background: $lightBlue;
+						}
+					}
+				}
+				&.current-menu-item > a {
+					color: $lightBlue;
+				}
+			}
+		}
+		.searchHead {
+			margin: 15px 30px 0 0;
+			float: right;
+			position: relative;
+			.inputText {
+				display: block;
+				width: 0;
+				padding: 10px 0 9px 16px;
+				border: 0;
+				font-size: 14px;
+				border: 0;
+				border-bottom: 1px solid rgba(13,34,63,0);
+				cursor: pointer;
+				background: #fff url("#{$imagesPath}/i-search-blue.png") 0px 13px no-repeat;
+				@include background-size(16px 16px);
+				@include transition(all 0.5s ease-in-out);
+				@include box-sizing(border-box);
+				&:focus {
+					-webkit-appearance: none;
+					outline: 0;
+					width: 170px;
+					padding: 10px 0 9px 27px;
+					border-bottom: 1px solid rgba(13,34,63,1);
+				}
+			}
+			.btnSearch {
+				display: none;
+				position: absolute;
+				height: 100%;
+				width: 50px;
+				right: 0;
+				top: 0;
+				
+				border: 0;
+			}
+		}
+	}
+	@include respond-to(desktopWide) {
+		.logo {
+			margin: 15px 0 15px 60px;
+		}
+		.searchHead {
+			margin: 15px 60px 0 0;
+			.inputText {
+				&:focus {
+					width: 250px;
+				}
+			}
+		}
+	}
+}
+.page-template-hba-way-template, .page-template-people-template {
+	.head .primary-menu li.menu-item-227 > a {
+		color: $lightBlue;
+	} 
+}
+.page-template-client-service-template {
+	.head .primary-menu li.menu-item-160 > a {
+		color: $lightBlue;
+	} 
+}
+.page-template-self-service-template {
+	.head .primary-menu li.menu-item-237 > a {
+		color: $lightBlue;
+	} 
+}
+.category, .tax-event-category, .all, .social-stuff, .single-event {
+	.head .primary-menu li.menu-item-184 > a {
+		color: $lightBlue;
+	} 
+}
+.page-template-applications-template {
+	.head .primary-menu li.menu-item-71 > a {
+		color: $lightBlue;
+		&:before, &:after {
+			background: $lightBlue;
+		}
+	} 
+}
+
+
+
+
+
+

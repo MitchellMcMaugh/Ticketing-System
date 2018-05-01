@@ -1,0 +1,38 @@
+.wpcf7 {
+	.hide {
+		display: none;
+	}
+	textarea {
+		border: 2px solid $line;
+		@include box-sizing(border-box);
+		width: 100%;
+		height: 200px;
+		@include transition(border-color 0.2s ease-in-out);
+		padding: 15px;
+		&:focus {
+			border-color: $lightBlue;
+			outline: none;
+		}
+	}
+	.wpcf7-submit {
+		border: 0;
+		background: transparent;
+		font-weight: 700;
+		color: $lightBlue;
+	}
+	div.wpcf7-response-output {
+		margin: 0 0 30px;
+	}
+	div.wpcf7-mail-sent-ok {
+		border-color: $line;
+		background-color: $lighterBlue;
+	}
+	@include respond-to(desktop) {
+		.wpcf7-submit {
+			@include transition(color 0.2s ease-in-out);
+			&:hover, &:focus {
+				color: #000;
+			}
+		}
+	}
+}

@@ -1,0 +1,5 @@
+Setup In Wordpress
+
+Pages -> Add New
+Appearance -> menus
+

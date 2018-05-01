@@ -1,0 +1,3 @@
+
+CAT_HOME=/home/craig/apps/tomcat
+LOG_FILE=$CAT_HOME/logs/catalina.out

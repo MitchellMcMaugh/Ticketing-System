@@ -1,0 +1,7 @@
+#!/bin/bash
+
+. u/set-env
+echo "" > $LOG_FILE
+$CAT_HOME/bin/startup.sh & echo $! > $CAT_HOME/pid
+sleep 2
+tail -f $LOG_FILE 

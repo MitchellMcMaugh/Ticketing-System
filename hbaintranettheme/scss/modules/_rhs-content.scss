@@ -1,0 +1,68 @@
+.rhs-content {
+	padding: 0 15px;
+	@include respond-to(tablet) {
+		display: none;
+		float: left;
+		@include box-sizing(border-box);
+		width: 100%;
+	}
+	@include respond-to(desktop) {
+		display: block;
+		padding: 60px 30px 60px 60px;
+		width: 30%;
+	}
+	@include respond-to(desktopWide) {
+		padding: 60px;
+	}
+}
+
+.news-title {
+	overflow: hidden;
+	padding-bottom: 10px;
+	h2 {
+		float: left;
+		font-size: 26px;
+	}
+	.more {
+		float: right;
+		font-size: 14px;
+		font-weight: 700;
+		margin-top: 14px;
+	}
+	@include respond-to(desktop) {
+		.more {
+			font-size: 16px;
+			margin-top: 11px;
+			@include transition(color 0.2s ease-in-out);
+			&:hover, &:focus {
+				color: #000;
+			}
+		}
+	}
+}
+.news-calendar {
+	clear: both;
+	@include box-sizing(border-box);
+	.widget-title {
+		padding-bottom: 15px;
+	}
+	.eo-events {
+		padding-bottom: 15px;
+		li {
+			padding-bottom: 15px;
+		}
+		a {
+			color: #000;
+		}
+	}
+	@include respond-to(desktop) {
+		.eo-events {
+			a {
+				@include transition(color 0.2s ease-in-out);
+				&:hover, &:focus {
+					color: $lightBlue;
+				}
+			}
+		}
+	}
+}

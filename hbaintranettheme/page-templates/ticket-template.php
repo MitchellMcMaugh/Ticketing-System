@@ -13,8 +13,8 @@
  * @subpackage Twenty_Twelve
  * @since Twenty Twelve 1.0
  */
-
-get_header(); ?>
+get_header();
+?>
 
 <div class="main-content">
 
@@ -28,11 +28,11 @@ get_header(); ?>
 		<div class="menu">
 			<?php if ( has_nav_menu( 'self-service-menu' ) ) : ?>
 			<?php
-						wp_nav_menu( array(
-							'theme_location' => 'self-service-menu',
-							'menu_class'     => 'self-service-menu',
-						 ) );
-					?>
+        wp_nav_menu(array(
+            'theme_location' => 'self-service-menu',
+            'menu_class' => 'self-service-menu'
+        ));
+        ?>
 			<?php endif; ?>
 		</div>
 		<?php endif; ?>
@@ -44,7 +44,8 @@ get_header(); ?>
 				<?php the_field('page_title'); ?>
 			</h2>
 		</div>
-		<div class="content-middle list-tickets">
+		<div id="tickets-list-tickets-panel"
+			class="content-middle list-tickets">
 			<table class="tbl-tickets" width="100%" cellpadding="0"
 				cellspacing="0" border="0">
 				<tr>
@@ -55,15 +56,17 @@ get_header(); ?>
 							<option>Complete</option>
 					</select>
 						<button id="tickets-new-ticket">New Ticket</button>
+				
 				</tr>
 				<tr>
 					<td colspan="5">&nbsp;</td>
 				</tr>
 			</table>
-			<div id="tickets-ticket-table"/>
+			<div id="tickets-ticket-table" ></div>
 		</div>
 
-		<div class="content-middle view-ticket" style="display: none">
+		<div id="tickets-view-ticket-panel" class="content-middle view-ticket"
+			style="display: none">
 			<table class="tbl-tickets" width="100%" cellpadding="0"
 				cellspacing="0" border="0">
 				<tr>
@@ -80,8 +83,7 @@ get_header(); ?>
 						doesn't work</td>
 				</tr>
 				<tr>
-					<td colspan="5" class="contains-form"><b>Status: In
-							Progress</b></td>
+					<td colspan="5" class="contains-form"><b>Status: In Progress</b></td>
 				</tr>
 				<tr>
 					<td colspan="5">&nbsp;</td>
@@ -90,20 +92,19 @@ get_header(); ?>
 					<td colspan="5">Details</td>
 				</tr>
 				<tr>
-					<td colspan="5" class="contains-text">Lorem ipsum dolor sit
-						amet, consectetur adipiscing elit. Praesent bibendum mattis
-						congue. Aenean pulvinar ac sapien ut tempus. Class aptent taciti
-						sociosqu ad litora torquent per conubia nostra, per inceptos
-						himenaeos. Vivamus ornare sem cursus, interdum massa sed, varius
-						dolor. In gravida suscipit commodo. Nam non sapien in libero
-						faucibus facilisis. Nulla in est efficitur, pharetra ligula ut,
-						porta nibh. Quisque ut magna tincidunt enim euismod cursus. Cras
-						risus nibh, aliquam eget arcu scelerisque, tristique scelerisque
-						nisl. Cras cursus mauris at ullamcorper venenatis. Nullam
-						consectetur tempor sagittis. Etiam hendrerit, leo at fringilla
-						ornare, nisl libero rhoncus elit, sit amet porttitor mauris neque
-						sed lectus. Nam sollicitudin elit tellus, eget aliquam diam
-						viverra vel.</td>
+					<td colspan="5" class="contains-text">Lorem ipsum dolor sit amet,
+						consectetur adipiscing elit. Praesent bibendum mattis congue.
+						Aenean pulvinar ac sapien ut tempus. Class aptent taciti sociosqu
+						ad litora torquent per conubia nostra, per inceptos himenaeos.
+						Vivamus ornare sem cursus, interdum massa sed, varius dolor. In
+						gravida suscipit commodo. Nam non sapien in libero faucibus
+						facilisis. Nulla in est efficitur, pharetra ligula ut, porta nibh.
+						Quisque ut magna tincidunt enim euismod cursus. Cras risus nibh,
+						aliquam eget arcu scelerisque, tristique scelerisque nisl. Cras
+						cursus mauris at ullamcorper venenatis. Nullam consectetur tempor
+						sagittis. Etiam hendrerit, leo at fringilla ornare, nisl libero
+						rhoncus elit, sit amet porttitor mauris neque sed lectus. Nam
+						sollicitudin elit tellus, eget aliquam diam viverra vel.</td>
 				</tr>
 				<tr>
 					<td colspan="5">&nbsp;</td>
@@ -132,7 +133,8 @@ get_header(); ?>
 				</tr>
 			</table>
 		</div>
-		<div class="content-middle new-ticket" style="display: none">
+		<div id="tickets-new-ticket-panel" class="content-middle new-ticket"
+			style="display: none">
 			<table class="tbl-tickets" width="100%" cellpadding="0"
 				cellspacing="0" border="0">
 				<tr>
@@ -147,6 +149,7 @@ get_header(); ?>
 							<option>2</option>
 							<option>3</option>
 					</select>
+				
 				</tr>
 				<tr>
 					<td colspan="5">&nbsp;</td>

@@ -1,13 +1,21 @@
 package pillion.hba.hub.client;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style.Display;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Grid;
 
+import pillion.hba.hub.shared.RedmineService;
+import pillion.hba.hub.shared.RedmineServiceAsync;
+import pillion.hba.hub.shared.Tickets;
+
 public class TicketPage {
+	
+	private final RedmineServiceAsync redmineService = GWT.create(RedmineService.class);
 	
 	private static final String[] TICKET_TABLE_HEADINGS = {
 			"Logged",
@@ -41,6 +49,12 @@ public class TicketPage {
 		ticketTableElement.appendChild(ticketTable.getElement());
 		ticketTable.setText(0, 0, "Boo");
 		addHeader();
+		redmineService.getTickets(new AsyncCallback<Tickets>() {
+			public void onSuccess(Tickets result) {
+			}
+			public void onFailure(Throwable caught) {
+			}
+		});
 //		ticketTeble.w
 		
 	}

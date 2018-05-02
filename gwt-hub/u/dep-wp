@@ -1,0 +1,24 @@
+#!/bin/sh
+
+REMOTE_SERVER=wordpress
+REMOTE_WWW_PATH=/var/www/html/wp-content/themes/
+REMOTE_USER=ubuntu
+SU_PREFIX=sudo
+
+rsync -rtx --delete \
+ --exclude .git \
+ --exclude .settings \
+ --exclude .project \
+ --exclude .gitignore \
+ --exclude .buildpath \
+ --exclude stubs \
+ ../hbaintranettheme $REMOTE_SERVER:$REMOTE_WWW_PATH
+echo "Done syncing wordpress."
+
+#	ssh $REMOTE_SERVER '
+#	 '$SU_PREFIX' chown -R '$REMOTE_USER':www-data '$REMOTE_WWW_PATH'
+#	 find '$REMOTE_WWW_PATH' -type d -exec chmod u=rwx,g=rx,o= '{}' \;
+#	 find '$REMOTE_WWW_PATH' -type f -exec chmod u=rw,g=r,o= '{}' \;
+#	 chmod -R ug=rwx,o-rwx '$REMOTE_WWW_PATH'/sites/default/files
+#	'
+#	echo "Done fixing drupal permissions."

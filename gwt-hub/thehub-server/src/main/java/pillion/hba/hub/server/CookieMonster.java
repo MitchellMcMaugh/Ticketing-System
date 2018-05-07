@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/CookieMonster")
+@WebServlet("/barnacle/CookieMonster")
 public class CookieMonster extends HttpServlet {
        
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -38,7 +38,7 @@ public class CookieMonster extends HttpServlet {
 	      
 	    }
 	    UserMetadata munchedCookies = WPDataService.munchCookies(cookies);
-		out.println("<center> <table style=\"width:70%\">" + (munchedCookies!=null?munchedCookies.toHtmlRows():"<tr><th>No Login cookie</th></tr>") + "</table></center>");
+		out.println("<center> <table style=\"width:70%\">" + (munchedCookies!=null?munchedCookies.toHtmlRows():"<tr><th>No Login cookie</th><th>Or no user metadata</th></tr>") + "</table></center>");
 	    
 	    out.println("</body>");
 	    out.println("</html>");

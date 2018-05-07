@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Optional;
 
 import javax.servlet.http.Cookie;
 
@@ -24,7 +25,7 @@ public class WPDataService {
 	
 	private static final String LOGGED_IN_COOKIE = "wordpress_logged_in_";
 
-	public static UserMetadata userMetadataFromUserName(String userNickname) {
+	public static UserMetadata userMetadataFromUserName(String userName) {
 		UserMetadata umd = new UserMetadata();
 
 		try {
@@ -32,11 +33,22 @@ public class WPDataService {
 
 			Handle handle = jdbi.open();
 
-			Long userId = handle
+			Optional<Long> maybeUuserId = handle
 					.createQuery(
-							"SELECT user_id FROM wp.wp_usermeta where meta_key = 'nickname' and meta_value=:nickname")
-					.bind("nickname", userNickname).mapTo(Long.class).findOnly();
-
+							"SELECT id FROM wp.wp_users where user_nicename = :nicename")
+					.bind("nicename", userName).mapTo(Long.class).findFirst();
+			
+			Long userId = maybeUuserId.orElseGet(() -> {
+				return handle
+				.createQuery(
+						"SELECT user_id FROM wp.wp_usermeta where meta_key = 'nickname' and meta_value=:nickname")
+						.bind("nickname", userName).mapTo(Long.class).findFirst().orElse(0l);
+			}); 
+			
+			if(userId == 0l) {
+				return null;
+			}
+			
 			List<Map<String, Object>> rows = handle
 					.createQuery("SELECT * FROM wp.wp_usermeta where user_id=:userId").bind("userId", userId).mapToMap()
 					.list();

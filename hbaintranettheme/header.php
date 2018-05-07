@@ -28,7 +28,7 @@ $sec = "900";
 	<?php endif; ?>
 	<?php wp_head(); ?>
 	<link rel="shortcut icon" type="image/x-icon" href="<?php echo site_url() ?>/wp-content/themes/hbaintranettheme/favicon.ico">
-	<script type="text/javascript" src="<?php echo site_url() ?>/hub-barnacle/barnacle.nocache.js"></script>
+	<script type="text/javascript" src="<?php echo site_url() ?>/b/barnacle/barnacle.nocache.js"></script>
 </head>
 
 <body <?php body_class(); ?>>

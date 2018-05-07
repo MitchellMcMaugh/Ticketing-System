@@ -1,5 +1,15 @@
-Setup In Wordpress
+### Setup In Wordpress
 
 Pages -> Add New
 Appearance -> menus
 
+### Add LDAP Plugin 
+
+### Update Database
+
+for each user in AD
+
+* find the corresponding hub account
+* get the id and add: <pre>INSERT INTO wp_usermeta (user_id,meta_key,meta_value) VALUES (:userId,'wpDirAuthFlag','1');</pre>
+* update userlogin and nicename to be the ad username: 
+<pre>UPDATE wp.wp_users SET user_login=:adLogin, user_nicename=:adLogin WHERE ID=:userId;</pre>

@@ -1,5 +1,6 @@
 package pillion.hba.hub.server.rm;
 
+import java.util.Collections;
 import java.util.List;
 
 import com.taskadapter.redmineapi.RedmineException;
@@ -7,6 +8,8 @@ import com.taskadapter.redmineapi.RedmineManager;
 import com.taskadapter.redmineapi.RedmineManagerFactory;
 import com.taskadapter.redmineapi.bean.Issue;
 import com.taskadapter.redmineapi.bean.IssueFactory;
+import com.taskadapter.redmineapi.bean.User;
+import com.taskadapter.redmineapi.internal.ResultsWrapper;
 
 public class RM {
 
@@ -29,6 +32,17 @@ public class RM {
 			System.out.println(issue.toString());
 		}
 		return issues;
+	}
+	
+	public static List<Issue> findUserByName(String userName) throws RedmineException {
+		
+		RedmineManager mgr = RedmineManagerFactory.createWithApiKey(uri, apiAccessKey);
+		ResultsWrapper<User> result = mgr.getUserManager().getUsers(Collections.singletonMap("", userName));
+		List<User> users = result.getResults();
+//		for (Issue issue : issues) {
+//			System.out.println(issue.toString());
+//		}
+		return null;
 	}
 
 	public static void newTicket() throws RedmineException {

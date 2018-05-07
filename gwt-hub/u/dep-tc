@@ -4,6 +4,6 @@
 
 #rm -r $CAT_HOME/logs/*
 #echo "" > $LOG_FILE
-cp  thehub-server/target/thehub-server-1.0-SNAPSHOT.war $CAT_HOME/webapps/hub-barnacle.war
+cp  thehub-server/target/thehub-server-1.0-SNAPSHOT.war $CAT_HOME/webapps/b.war
 sleep 3
 #u/log

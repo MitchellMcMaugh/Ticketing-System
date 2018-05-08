@@ -1,4 +1,4 @@
-package pillion.hba.hub.server;
+package pillion.hba.hub.server.wp;
 
 import java.util.List;
 

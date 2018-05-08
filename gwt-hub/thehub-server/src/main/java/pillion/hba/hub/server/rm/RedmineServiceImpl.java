@@ -8,6 +8,7 @@ import com.taskadapter.redmineapi.RedmineException;
 import com.taskadapter.redmineapi.bean.Issue;
 
 import pillion.hba.hub.server.HubRemoteServiceServlet;
+import pillion.hba.hub.server.wp.UserMetadata;
 import pillion.hba.hub.shared.RedmineService;
 import pillion.hba.hub.shared.Ticket;
 import pillion.hba.hub.shared.Tickets;
@@ -30,6 +31,7 @@ public class RedmineServiceImpl extends HubRemoteServiceServlet implements Redmi
 	@Override
 	public Tickets getTickets() {
 		try {
+			UserMetadata user = getLoggedInUser();
 			return new Tickets(RM.findTickets().stream().map(i -> fromIssue(i)).collect(Collectors.toList()));
 		} catch (RedmineException e) {
 			e.printStackTrace();

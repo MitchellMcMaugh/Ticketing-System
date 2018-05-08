@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import pillion.hba.hub.server.wp.UserMetadata;
+import pillion.hba.hub.server.wp.WPDataService;
+
 @WebServlet("/barnacle/CookieMonster")
 public class CookieMonster extends HttpServlet {
        

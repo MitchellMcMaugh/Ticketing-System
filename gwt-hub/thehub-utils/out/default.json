@@ -1,0 +1,915 @@
+{
+  "fieldProfiles" : [ {
+    "key" : "NULL",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "MATTER_SHORT_DESC",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "EDITABLE",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "MATTER_LONG_DESC",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "EDITABLE",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "MATTER_REFERENCE",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "EDITABLE",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "SUBMITTED",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "TRIAGED",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "CLIENT_ID",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "CLIENT_NAME",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "CAC_MATTER_ID",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "CONTACT1_FIRST_NAME",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "CONTACT1_LAST_NAME",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "CONTACT1_OTHER_NAMES",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "CONTACT1_POSITION_TITLE",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "CONTACT1_DOB",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "CONTACT1_AGE",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "CONTACT1_PHONE",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "CONTACT1_EMAIL",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "CONTACT2_FIRST_NAME",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "CONTACT2_LAST_NAME",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "CONTACT2_OTHER_NAMES",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "CONTACT2_POSITION_TITLE",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "CONTACT2_DOB",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "CONTACT2_AGE",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "CONTACT2_PHONE",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "CONTACT2_EMAIL",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "REF_CERT_REF",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "REF_CLAIM_REF",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "REF_REFS",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "REF_QUANTA",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "EDITABLE"
+    }
+  }, {
+    "key" : "REF_PPL",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "EDITABLE"
+    }
+  }, {
+    "key" : "INSURED_FULL_NAME",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "EDITABLE",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "INSURED_RD_SPTC",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "EDITABLE",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "INSURED_COUNTRY",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "EDITABLE",
+      "COMPLETE" : "EDITABLE"
+    }
+  }, {
+    "key" : "INSURED_2_ADDR",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "EDITABLE",
+      "COMPLETE" : "EDITABLE"
+    }
+  }, {
+    "key" : "INSURED_2_PCZIP",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "EDITABLE",
+      "COMPLETE" : "EDITABLE"
+    }
+  }, {
+    "key" : "INSURED_LOC_RISK_2_ID",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "EDITABLE",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "INSURED_RD_POL_NO",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "EDITABLE",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "INSURED_RD_POL_POL_PER",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "EDITABLE",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "INSURED_RD_POL_BROKER",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "EDITABLE",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "INSURED_RD_POL_BIND_SLIP",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "EDITABLE",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "INSURED_RD_POL_POL_YEAR",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "EDITABLE",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "CONTRACT_DETAILS_VERH_NAME",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "CONTRACT_DETAILS_CHOLDER_PIN",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "CONTRACT_DETAILS_TPA_NAME",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "CONTRACT_DETAILS_AGT_NO",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "CONTRACT_DETAILS_UMR",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "CONTRACT_DETAILS_INCEPT",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "CONTRACT_DETAILS_EXP",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "CONTRACT_DETAILS_REPORT_PERIOD_START",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "CONTRACT_DETAILS_REPORT_PER_END",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "CONTRACT_DETAILS_LASS_BUS",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "CONTRACT_DETAILS_LLOYD_RISK_CODE",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "CONTRACT_DETAILS_SECT_NO",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "CONTRACT_DETAILS_ORIG_CURRENCY",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "CONTRACT_DETAILS_SETTLE_CURRENCY",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "CONTRACT_DETAILS_INS_TYPE",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "CLAIMS_PERFORM_MI_STATUS_FIRST_NOT_ACK",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "CLAIMS_PERFORM_MI_DATE_FIRST_RES_EST",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "CLAIMS_PERFORM_MI_DIARY_DATE",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "CLAIMS_PERFORM_MI_PEER_REV_DATE",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "CLAIMS_PERFORM_MI_FIRST_PARTY_CORORO",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "CLAIMS_PERFORM_MI_INITIAL_REPORT",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "MOTOR_CLAIM_MOTOR_MAKE",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "MOTOR_CLAIM_MOTOR_MODE",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "MOTOR_CLAIM_MOTOR_DRIVER_AGE",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "MOTOR_CLAIM_MOTOR_OWN_DAM_PAID",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "MOTOR_CLAIM_MOTOR_OWN_DAM_RES",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "MOTOR_CLAIM_MOTOR_TP_DAM_PAID",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "MOTOR_CLAIM_MOTOR_TP_DAM_RES",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "MOTOR_CLAIM_MOTOR_TP_PERS_PAID",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "MOTOR_CLAIM_MOTOR_TP_RES",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "MOTOR_CLAIM_MOTOR_EXP_OWN_DAM_TO",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "MOTOR_CLAIM_MOTOR_EXP_OWN_DAM_RES",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "MOTOR_CLAIM_MOTOR_EXP_TP_DAM_TO",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "MOTOR_CLAIM_MOTOR_EXP_TP_RES",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "MOTOR_CLAIM_MOTOR_EXP_TP_PI_RES",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "MOTOR_CLAIM_MOTOR_EXP_TP_PI_TO",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "EXPERTS_ROLE",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "EXPERTS_FIRM_CO",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "EXPERTS_REF_NO",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "EXPERTS_ADDR",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "EXPERTS_ST_PR_TER",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "EXPERTS_PCZIP",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "EXPERTS_COUNTRY",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "EXPERTS_NOTES",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "CLAIM_STATUS_CHANGES_LM_OPEN",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "CLAIM_STATUS_CHANGES_LM_COVER",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "CLAIM_STATUS_CHANGES_LM_AGD_AMNT",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "CLAIM_STATUS_CHANGES_LM_PAID",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "CLAIM_STATUS_CHANGES_LM_FEES",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "CLAIM_STATUS_CHANGES_LM_REOPEN",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "CLAIM_STATUS_CHANGES_LM_SUB",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "NOTES_DATE",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "EDITABLE"
+    }
+  }, {
+    "key" : "NOTES_NOTES",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "TRANS_DETAILS_PAID_THIS_MTH",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "TRANS_DETAILS_PAID_FEES",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "TRANS_DETAILS_PAID_PREV_INDEM",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "TRANS_DETAILS_PAID_PREV",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "TRANS_DETAILS_RES_INDEM",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "TRANS_DETAILS_PAID_RES_FEES",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "TRANS_DETAILS_CHANGE_INDEMNITY",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "TRANS_DETAILS_CHANGE_FEES",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "TRANS_DETAILS_TOTAL_INDEM",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "TRANS_DETAILS_TOTAL_FEES",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "TRANS_DETAILS_INIT_RES",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "BUS_CLASS_BUS_CLASS",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "BUS_CLASS_BUS_CLASSS_CED",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "CLAIM_CAUSE_CODE",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "EDITABLE"
+    }
+  }, {
+    "key" : "CLAIM_DESC",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "EDITABLE",
+      "COMPLETE" : "EDITABLE"
+    }
+  }, {
+    "key" : "CLAIM_DATE_FROM",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "EDITABLE",
+      "COMPLETE" : "EDITABLE"
+    }
+  }, {
+    "key" : "CLAIM_DATE_TO",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "EDITABLE",
+      "COMPLETE" : "EDITABLE"
+    }
+  }, {
+    "key" : "CLAIM_DATE_MADE",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "EDITABLE",
+      "COMPLETE" : "EDITABLE"
+    }
+  }, {
+    "key" : "CLAIM_STATUS_CLM_PAID",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "EDITABLE",
+      "COMPLETE" : "EDITABLE"
+    }
+  }, {
+    "key" : "CLAIM_STATUS",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "EDITABLE",
+      "COMPLETE" : "EDITABLE"
+    }
+  }, {
+    "key" : "CLAIM_REFER",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "EDITABLE",
+      "COMPLETE" : "EDITABLE"
+    }
+  }, {
+    "key" : "CLAIM_DENID",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "EDITABLE"
+    }
+  }, {
+    "key" : "CLAIM_REAS",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "CLAIM_NAME",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "EDITABLE",
+      "COMPLETE" : "EDITABLE"
+    }
+  }, {
+    "key" : "CLAIM_INSUR",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "EDITABLE",
+      "COMPLETE" : "EDITABLE"
+    }
+  }, {
+    "key" : "CLAIM_DATE_ADV",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "EDITABLE",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "CLAIM_DATE_CLOSED",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "EDITABLE"
+    }
+  }, {
+    "key" : "CLAIM_LLOYD_CAT_CODE",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "EDITABLE"
+    }
+  }, {
+    "key" : "US_DETAILS_COUNTY",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "US_DETAILS_FIING_ST",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "US_DETAILS_PCS",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "US_DETAILS_MEDICARE_INJ",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "US_DETAILS_MEDICARE_PERFORM",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "US_DETAILS_MEDICARE_OUTCOME",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "US_DETAILS_MEDICARE_PAY",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  }, {
+    "key" : "US_DETAILS_MEDICARE_MSP",
+    "profileAccess" : {
+      "FULL" : "EDITABLE",
+      "MIN" : "HIDDEN",
+      "COMPLETE" : "HIDDEN"
+    }
+  } ],
+  "defaultProfile" : "MIN",
+  "visibleProfiles" : null
+}

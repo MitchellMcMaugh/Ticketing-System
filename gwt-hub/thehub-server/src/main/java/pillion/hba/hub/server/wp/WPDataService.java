@@ -1,4 +1,4 @@
-package pillion.hba.hub.server;
+package pillion.hba.hub.server.wp;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -25,6 +25,20 @@ public class WPDataService {
 	
 	private static final String LOGGED_IN_COOKIE = "wordpress_logged_in_";
 
+	public static WPUser userFromUserName(String userName) {
+		
+		Jdbi jdbi = Jdbi.create(DBUtils.getMySQLDataSource("mysql,wp,wp,wp"));
+
+		Handle handle = jdbi.open();
+
+		Optional<Long> maybeUuserId = handle
+				.createQuery(
+						"SELECT * FROM wp.wp_users where user_nicename = :nicename")
+				.bind("nicename", userName).mapTo(Long.class).findFirst();
+return null;
+	}
+	
+	
 	public static UserMetadata userMetadataFromUserName(String userName) {
 		UserMetadata umd = new UserMetadata();
 

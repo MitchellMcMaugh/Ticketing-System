@@ -37,7 +37,7 @@ public class RM {
 	public static List<Issue> findUserByName(String userName) throws RedmineException {
 		
 		RedmineManager mgr = RedmineManagerFactory.createWithApiKey(uri, apiAccessKey);
-		ResultsWrapper<User> result = mgr.getUserManager().getUsers(Collections.singletonMap("", userName));
+		ResultsWrapper<User> result = mgr.getUserManager().getUsers(Collections.singletonMap("name", userName));
 		List<User> users = result.getResults();
 //		for (Issue issue : issues) {
 //			System.out.println(issue.toString());

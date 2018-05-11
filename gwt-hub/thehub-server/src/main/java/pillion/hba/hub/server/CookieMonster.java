@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import pillion.hba.hub.server.wp.UserMetadata;
 import pillion.hba.hub.server.wp.WPDataService;
+import pillion.hba.hub.server.wp.WPUser;
 
 @WebServlet("/barnacle/CookieMonster")
 public class CookieMonster extends HttpServlet {
@@ -33,6 +34,7 @@ public class CookieMonster extends HttpServlet {
 	      out.println("<center><h1>No Cookies found</h1>");
 	    } else {
 	      out.println("<center><img src=\"http://images2.fanpop.com/images/photos/3500000/Cookie-Monster-cookie-monster-3512347-250-224.jpg\"> <table style=\"width:70%\">");
+	      out.println("<h1>Cookies!</h1>");
 	      out.printf("<tr><th>name</th><th>value</th><th>comment</th><th>max age</th></tr>");
 	      for (Cookie c : cookies) {
 	        out.printf("<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>",c.getName(),URLDecoder.decode(c.getValue(),"UTF-8").replaceAll("\\|", "\n|"), c.getComment(),c.getMaxAge());
@@ -40,9 +42,13 @@ public class CookieMonster extends HttpServlet {
 	      out.println("</table></center>");
 	      
 	    }
-	    UserMetadata munchedCookies = WPDataService.munchCookies(cookies);
-		out.println("<center> <table style=\"width:70%\">" + (munchedCookies!=null?munchedCookies.toHtmlRows():"<tr><th>No Login cookie</th><th>Or no user metadata</th></tr>") + "</table></center>");
-	    
+	    WPUser user = WPDataService.munchCookies(cookies);
+		out.println("<br/> <center> <h1>Wordpress User</h1> <table style=\"width:70%\">" + (user!=null?user.toHtmlRows():"<tr><th>No Login cookie</th><th>Or no user metadata</th></tr>") + "</table></center>");
+	    UserMetadata metadata = user.getMetadata();
+	    if(metadata != null) {
+			out.println("<br/> <center> <h1>Wordpress User Metadata</h1> <table style=\"width:70%\">" + (user!=null?metadata.toHtmlRows():"<tr><th>No Login cookie</th><th>Or no user metadata</th></tr>") + "</table></center>");
+	    	
+	    }
 	    out.println("</body>");
 	    out.println("</html>");
 	    out.flush();

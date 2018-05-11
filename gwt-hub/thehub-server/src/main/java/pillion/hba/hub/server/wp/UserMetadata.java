@@ -1,6 +1,9 @@
 package pillion.hba.hub.server.wp;
 
+import java.util.Date;
 import java.util.List;
+
+import org.apache.commons.codec.digest.DigestUtils;
 
 public class UserMetadata {
 	
@@ -35,6 +38,16 @@ public class UserMetadata {
 	public UserAvitars wpUserAvatars;
 	public String wpUserAvatarsRating;
 	public List<SessionToken> sessionTokens;
+
+	public UserMetadata(){
+		
+	}
+	
+	public UserMetadata(String token) {
+		String shaedToken = DigestUtils.sha256Hex(token);
+		loggedIn =  sessionTokens.stream().filter(st -> new Date().before(st.expiration))
+		.anyMatch(st -> st.tokenSha.equals(shaedToken));
+	}
 	
 	@Override
 	public String toString() {

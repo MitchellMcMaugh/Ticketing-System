@@ -14,8 +14,8 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.google.gwt.user.server.rpc.SerializationPolicy;
 import com.google.gwt.user.server.rpc.SerializationPolicyLoader;
 
-import pillion.hba.hub.server.wp.UserMetadata;
 import pillion.hba.hub.server.wp.WPDataService;
+import pillion.hba.hub.server.wp.WPUser;
 
 public class HubRemoteServiceServlet extends RemoteServiceServlet {
 
@@ -57,7 +57,7 @@ public class HubRemoteServiceServlet extends RemoteServiceServlet {
 	}
 	
 	
-	protected UserMetadata getLoggedInUser() {
+	protected WPUser getLoggedInUser() {
 		return WPDataService.munchCookies( getThreadLocalRequest().getCookies());
 	}
 

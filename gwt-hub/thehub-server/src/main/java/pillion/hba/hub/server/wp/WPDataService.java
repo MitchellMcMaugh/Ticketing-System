@@ -25,21 +25,22 @@ public class WPDataService {
 	
 	private static final String LOGGED_IN_COOKIE = "wordpress_logged_in_";
 
-	public static WPUser userFromUserName(String userName) {
+	public static Optional<WPUser> userFromUserName(String userName) {
 		
 		Jdbi jdbi = Jdbi.create(DBUtils.getMySQLDataSource("mysql,wp,wp,wp"));
 
+		jdbi.registerRowMapper(WPUser.class,WPRowMappers.wpUserRowMapper);
+		
 		Handle handle = jdbi.open();
 
-		Optional<Long> maybeUuserId = handle
-				.createQuery(
-						"SELECT * FROM wp.wp_users where user_nicename = :nicename")
-				.bind("nicename", userName).mapTo(Long.class).findFirst();
-return null;
+		return handle.createQuery("SELECT * FROM wp.wp_users where user_login = :loginName")
+				.bind("loginName", userName)
+				.mapTo(WPUser.class).findFirst();
+		
 	}
 	
 	
-	public static UserMetadata userMetadataFromUserName(String userName) {
+	public static UserMetadata userMetadataFromUserName(Integer userId) {
 		UserMetadata umd = new UserMetadata();
 
 		try {
@@ -47,22 +48,6 @@ return null;
 
 			Handle handle = jdbi.open();
 
-			Optional<Long> maybeUuserId = handle
-					.createQuery(
-							"SELECT id FROM wp.wp_users where user_nicename = :nicename")
-					.bind("nicename", userName).mapTo(Long.class).findFirst();
-			
-			Long userId = maybeUuserId.orElseGet(() -> {
-				return handle
-				.createQuery(
-						"SELECT user_id FROM wp.wp_usermeta where meta_key = 'nickname' and meta_value=:nickname")
-						.bind("nickname", userName).mapTo(Long.class).findFirst().orElse(0l);
-			}); 
-			
-			if(userId == 0l) {
-				return null;
-			}
-			
 			List<Map<String, Object>> rows = handle
 					.createQuery("SELECT * FROM wp.wp_usermeta where user_id=:userId").bind("userId", userId).mapToMap()
 					.list();
@@ -94,8 +79,8 @@ return null;
 					umd.wpCapabilities = toWpCapabilities(value); break;
 				case "wp_user_level":
 					umd.wpUserLevel = value; break;
-//				case "pm_profile_bio":
-//					umd.pmProfileBio = value; break;
+				case "pm_profile_bio":
+					umd.pmProfileBio = value; break;
 				case "dismissed_wp_pointers":
 					umd.dismissedWpPointers = value; break;
 				case "ja_disable_user":
@@ -185,14 +170,14 @@ return null;
 	
 	public static void main(String... args) {
 		System.out.println(
-				userMetadataFromUserName("Craig Lee").toString().replaceAll("\\[","\\[\n   ").replaceAll(", ",",\n   ")
+				userFromUserName("Craig Lee").toString().replaceAll("\\[","\\[\n   ").replaceAll(", ",",\n   ")
 		);
 	}
 
-	public static UserMetadata munchCookies(Cookie[] cookies) {
+	public static WPUser munchCookies(Cookie[] cookies) {
 		String urlMd5 = null;
 		String[] cookieBits = null;
-		UserMetadata meta = null;
+		WPUser user = null;
 		if(cookies != null) {
 			for (Cookie c : cookies) {
 				if (c.getName().startsWith(LOGGED_IN_COOKIE)) {
@@ -203,12 +188,17 @@ return null;
 				}
 			}
 			if (cookieBits != null) {
-				meta = userMetadataFromUserName(cookieBits[0]);
 				String shaedToken = DigestUtils.sha256Hex(cookieBits[2]);
-				meta.loggedIn = meta.sessionTokens.stream().filter(st -> new Date().before(st.expiration))
-						.anyMatch(st -> st.tokenSha.equals(shaedToken));
+				user = userFromUserName(cookieBits[0]).orElse(null);
+				
+				if(user != null) {
+					user.setMetadata(userMetadataFromUserName(user.getId()));
+					user.getMetadata().loggedIn = user.getMetadata().sessionTokens.stream()
+							.filter(st -> new Date().before(st.expiration))
+							.anyMatch(st -> st.tokenSha.equals(shaedToken));
+				}
 			}
 		}
-		return meta;
+		return user;
 	}
 }

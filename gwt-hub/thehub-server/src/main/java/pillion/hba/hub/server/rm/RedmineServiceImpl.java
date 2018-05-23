@@ -41,5 +41,21 @@ public class RedmineServiceImpl extends HubRemoteServiceServlet implements Redmi
 		}
 		return null;
 	}
-
+	
+	@Override
+	public Ticket newTicket(String ticketPriority, String ticketCategory, String ticketShortDescription, String ticketDetails) {
+		try {
+			WPUser user = getLoggedInUser();
+			User redmineUser = RM.findUserByName(user.getUserLogin());
+			String redmineUserString = redmineUser.toString();
+			RM.newTicket(redmineUserString, ticketPriority, ticketCategory, ticketShortDescription, ticketDetails);
+			
+			
+		} catch (RedmineException e) {
+			e.printStackTrace();
+		}
+		return null;
+	
+	}
+	
 }

@@ -54,4 +54,6 @@ public class Ticket implements Serializable{
 				+ description + ", title=" + title + ", assignee=" + assignee + "]";
 	}
 	
+	
+	
 }

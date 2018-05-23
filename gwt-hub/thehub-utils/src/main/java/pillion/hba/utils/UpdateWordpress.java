@@ -79,6 +79,7 @@ public class UpdateWordpress {
 				String lastName = adUser.getString(ADAttribute.SN);
 				String adLogin = adUser.getString(ADAttribute.S_A_M_ACCOUNT_NAME);
 				String probableCurrentLogin = firstName + " " + lastName;
+				System.out.println("probableCurrentLogin " + probableCurrentLogin);
 				WPUser userToUpdate = usersByName.get(probableCurrentLogin);
 				if(firstName==null || lastName == null) continue;
 	
@@ -95,13 +96,13 @@ public class UpdateWordpress {
 					u.bind("userId", userToUpdate.getId());
 					u.execute();
 				}else{ 
-//					System.out.printf("no account for %s %s\n", firstName, lastName);
+					System.out.printf("no account for %s %s\n", firstName, lastName);
 				}
 					
 			}
 			handle.commit();
 			
-			users.forEach(u -> System.out.println(u));
+//			users.forEach(u -> System.out.println(u));
 		}catch(Exception e) {
 			e.printStackTrace();
 			handle.rollback();

@@ -10,6 +10,9 @@
         <dependent-module archiveName="thehub-shared-1.0-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/thehub-shared/thehub-shared">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="thehub-client-1.0-SNAPSHOT.war" deploy-path="/WEB-INF/lib" handle="module:/resource/thehub-client/thehub-client">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <dependent-module deploy-path="/" handle="module:/overlay/prj/thehub-client?includes=**/**&amp;excludes=META-INF/MANIFEST.MF">
             <dependency-type>consumes</dependency-type>
         </dependent-module>

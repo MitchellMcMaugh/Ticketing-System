@@ -6,28 +6,48 @@ import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.Style.Display;
 import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FileUpload;
 import com.google.gwt.user.client.ui.Grid;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.ListBox;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.Anchor;
+import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.DateLabel;
+import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.DecoratorPanel;
+import com.google.gwt.user.client.ui.DockPanel;
+import com.google.gwt.user.client.ui.LayoutPanel;
+import com.google.gwt.user.client.ui.FlowPanel;
+
+import java.util.Comparator;
+import java.util.Date;
 
 import pillion.hba.hub.shared.RedmineService;
 import pillion.hba.hub.shared.RedmineServiceAsync;
 import pillion.hba.hub.shared.Ticket;
 import pillion.hba.hub.shared.Tickets;
+import pillion.hba.hub.client.Tickets.NewTicket;
+import pillion.hba.hub.shared.Comment;
+import pillion.hba.hub.shared.Comments;
+import pillion.hba.hub.client.Tickets.TicketDetails;
 
 
 
 public class TicketPage {
 	
-	private final RedmineServiceAsync redmineService = GWT.create(RedmineService.class);
+	private static RedmineServiceAsync redmineService = GWT.create(RedmineService.class);
 	
-	DateTimeFormat sdf = DateTimeFormat.getFormat("dd/MM/yyyy");
+	static DateTimeFormat sdf = DateTimeFormat.getFormat("dd/MM/yyyy");
 	
 	private static final String[] TICKET_TABLE_HEADINGS = {
 			"Logged",
@@ -37,164 +57,154 @@ public class TicketPage {
 			"Assignee"
 	};
 	
-	private Button newTicketButton;
-	private Grid ticketTable;
+	private static int rowCount;
+	public static Button newTicketButton = new Button();
+	public static ListBox ticketFilterPriorityListBox = new ListBox();
+	public static ListBox ticketFilterCategoryListBox = new ListBox();
+	
+	//private Button newTicketButton;
+	static FlexTable ticketTable = new FlexTable();;
 	private Element listTicketsPanel, newTicketPanel, viewTicketPanel;
 	
-	//Added by Mitchell McMaugh 22/05/2018
-	//Function: Add submit button.
-	private Button submitTicketButton;
-	
-	//Added by Mitchell McMaugh 16/05/2018
-	//Function: Add cancel button.
-	private Button cancelTicketButton;
-	
-	//Added by Mitchell McMaugh 17/05/2018
-	//Function: Add Add Attachment button.
-	//private Button addAttachmentButton;
-	
-	//Added by Mitchell McMaugh 21/05/2018
-	//Function: Add textboxes.
-	private TextBox shortDescriptionText;
-	private TextArea detailsText;
-	
-	//Added by Mitchell McMaugh 21/05/2018
-	//Function: Cancel Button Confirmation Value
-	private boolean cancelTrueFalse;
-	
-	//Added by Mitchell McMaugh 21/05/2018
-	//Function: Add Priority Drop Down
-	private ListBox newTicketPriority;
-	
-	//Added by Mitchell McMaugh 21/05/2018
-	//Function: Add Category Drop Down
-	private ListBox newTicketCategory;
-	
-	//Added by Mitchell McMaugh 21/05/2018
-	//Function: Add Attachment
-	private FileUpload newTicketAttachment;
 	
 	//Added by Mitchell McMaugh 21/05/2018
 	//Function: Add filter Drop Down
-	private ListBox filterTickets;
+	//private ListBox filterTickets;
 	
 	public void go() {
-		Element newTicketButtonElement = Document.get().getElementById("tickets-new-ticket");
-		newTicketButton = Button.wrap(newTicketButtonElement);
-		listTicketsPanel = Document.get().getElementById("tickets-list-tickets-panel");
-		viewTicketPanel = Document.get().getElementById("tickets-view-ticket-panel");
-		newTicketPanel = Document.get().getElementById("tickets-new-ticket-panel");
-		Element ticketTableElement = Document.get().getElementById("tickets-ticket-table");
-		
-		//Added by Mitchell McMaugh 22/05/2018
-		//Function: Add submit button.
-		Element submitButtonElement = Document.get().getElementById("tickets-new-submit");
-		submitTicketButton = Button.wrap(submitButtonElement);
-		submitTicketButton.addClickHandler((ClickEvent event) -> submitTicket());
+		//RootPanel.get("rhs-content").clear();
 		
 		
-		//Added by Mitchell McMaugh 15/05/2018
-		//Function: Add cancel button.
-		Element cancelButtonElement = Document.get().getElementById("tickets-cancel");
-		cancelTicketButton = Button.wrap(cancelButtonElement);
-		cancelTicketButton.addClickHandler((ClickEvent event) -> cancelTicket());
 		
-		//Added by Mitchell McMaugh 17/05/2018
-		//Function: Add Add Attachment button.
-//		Element attachmentButtonElement = Document.get().getElementById("tickets-add-attachment");
-//		addAttachmentButton = Button.wrap(attachmentButtonElement);
-//		addAttachmentButton.addClickHandler((ClickEvent event) -> addAttachment());
+		//listTicketsPanel = Document.get().getElementById("one");
+		//viewTicketPanel = Document.get().getElementById("tickets-view-ticket-panel");
+		//newTicketPanel = Document.get().getElementById("tickets-new-ticket-panel");
+		//Element ticketTableElement = Document.get().getElementById("two");
 		
-		//Added by Mitchell McMaugh 21/05/2018
-		//Function: Add textboxes.
-		//Short Description TextBox
-		Element shortDescriptionElement = Document.get().getElementById("tickets-short-description");
-		shortDescriptionText = TextBox.wrap(shortDescriptionElement);
-		//Details TextArea
-		Element detailsTextElement = Document.get().getElementById("tickets-details-text");
-		detailsText = TextArea.wrap(detailsTextElement);
 		
-		//Added by Mitchell McMaugh 21/05/2018
-		//Function: Add listboxes
-		//Priority Listbox
-		Element newTicketPriorityElement = Document.get().getElementById("tickets-new-priority");
-		newTicketPriority = ListBox.wrap(newTicketPriorityElement);
-		//Category Listbox
-		Element newTicketCategoryElement = Document.get().getElementById("tickets-new-category");
-		newTicketCategory = ListBox.wrap(newTicketCategoryElement);
-		//Filter Listbox
-		Element filterTicketsElement = Document.get().getElementById("tickets-filter");
-		filterTickets = ListBox.wrap(filterTicketsElement);
 		
-		//Added by Mitchell McMaugh 21/05/2018
-		//Function: Add attachments.
-		//Element newTicketAttachmentElement = Document.get().getElementById("tickets-new-file-upload");
-		//newTicketAttachment = FileUpload.wrap(newTicketAttachmentElement);
+		//ticketTableElement.appendChild(ticketTable.getElement());
 		
-		newTicketButton.addClickHandler((ClickEvent event) -> newTicket());
-		ticketTable = new Grid(1,5);
+		
+		
+		
+		
+		
+		
+		newTicketButton.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				FlowPanel newTicketFlex = new FlowPanel();
+				newTicketFlex = pillion.hba.hub.client.Tickets.NewTicket.newTicket();
+				RootPanel.get("tablebit").remove(ticketTable);
+				ticketTable.clear();
+				//RootPanel.get("two").clear();
+				ticketTable.removeAllRows();
+				RootPanel.get("newticketticketbit").add(newTicketFlex);
+				RootPanel.get("topbit").remove(newTicketButton);
+				RootPanel.get("topbit").remove(ticketFilterCategoryListBox);
+				RootPanel.get("topbit").remove(ticketFilterPriorityListBox);
+				
+				
+			}
+		
+		});
+		
+		ticketsForm();
+		
+		
+		
+	}
+	
+	public static void ticketsForm() {
+		ticketFilterCategoryListBox.clear();
+		ticketFilterPriorityListBox.clear();
+		
+		redmineService.getTickets(new AsyncCallback<Tickets>() {
+			public void onSuccess(Tickets result) { populateTickets(result);}
+			public void onFailure(Throwable e) { throw new RuntimeException(e); }
+		});
+		
+		//New Ticket Button
+		RootPanel.get("topbit").add(newTicketButton);
+		newTicketButton.setText("New Ticket");
+		newTicketButton.setStyleName("buttonz");
+		
+		//Filter Tickets
+		ticketFilterCategoryListBox.addItem("Category Filter");
+		ticketFilterCategoryListBox.addItem("Affinity Issue");
+		ticketFilterCategoryListBox.addItem("Big Hand");
+		ticketFilterCategoryListBox.addItem("Hardware Issue");
+		ticketFilterCategoryListBox.addItem("Lost File Issue");
+		ticketFilterCategoryListBox.addItem("Microsoft Office 365 Issue");
+		ticketFilterCategoryListBox.addItem("Microsoft Windows Issue");
+		ticketFilterCategoryListBox.addItem("Remote Desktop Issue");
+		ticketFilterCategoryListBox.addItem("Software Issue");
+		ticketFilterCategoryListBox.addItem("User Login Issue");
+		ticketFilterCategoryListBox.addItem("Other Issue");
+		ticketFilterCategoryListBox.setSelectedIndex(0);
+		ticketFilterCategoryListBox.setStyleName("listBoxez");
+		RootPanel.get("topbit").add(ticketFilterPriorityListBox);
+		
+				
+		ticketFilterPriorityListBox.addItem("Priority Filter");
+		ticketFilterPriorityListBox.addItem("Low");
+		ticketFilterPriorityListBox.addItem("Normal");
+		ticketFilterPriorityListBox.addItem("High");
+		ticketFilterPriorityListBox.addItem("Urgent");
+		ticketFilterPriorityListBox.setSelectedIndex(0);
+		ticketFilterPriorityListBox.setStyleName("listBoxez");
+		RootPanel.get("topbit").add(ticketFilterCategoryListBox);
+		
 		ticketTable.setStyleName("tbl-ticket-list");
 		ticketTable.setWidth("100%");
 		ticketTable.setCellPadding(0);
 		ticketTable.setCellSpacing(0);
 		ticketTable.setBorderWidth(0);
-		ticketTableElement.appendChild(ticketTable.getElement());
-		ticketTable.setText(0, 0, "Boo");
-		addHeader();
-		redmineService.getTickets(new AsyncCallback<Tickets>() {
-			public void onSuccess(Tickets result) { populateTickets(result);}
-			public void onFailure(Throwable e) { throw new RuntimeException(e); }
-		});
-	}
-
-	private void newTicket() {
-		listTicketsPanel.getStyle().setDisplay(Display.NONE);
-		newTicketPanel.getStyle().setDisplay(Display.BLOCK);
+		
+		
+		
+		//Adds Header to Table
+		for(int i=0;i<5;i++) ticketTable.setText(0, i, TICKET_TABLE_HEADINGS[i]);
+		ticketTable.getRowFormatter().setStyleName(0, "tbl-head");
+		RootPanel.get("tablebit").add(ticketTable);
 	}
 	
-	private void populateTickets(Tickets tickets) {
+	public static void populateTickets(Tickets tickets) {
 		int startRow = ticketTable.getRowCount();
 		int noOfTickets = tickets.size();
-		ticketTable.resizeRows(startRow + noOfTickets);
+		//ticketTable.resizeRows(startRow + noOfTickets);
+		String labelName;
 		for(int i = 0;	i < noOfTickets; i++) {
-			addRow(tickets.get(i), i + startRow);
-		}
-	}
-	
-	//Added by Mitchell McMaugh 22/05/2018
-	//Function: Submit new Issue/ Ticket
-	public void submitTicket()  {
-		String shortDescriptionTextValue = shortDescriptionText.getText();
-		String detailsTextValue = detailsText.getText();
-		String ticketPriorityValue = newTicketPriority.getSelectedItemText().toString().toUpperCase();
-		String ticketCategoryValue = newTicketCategory.getSelectedItemText().toString().toUpperCase();
-		redmineService.newTicket(ticketPriorityValue, ticketCategoryValue, shortDescriptionTextValue, detailsTextValue, new AsyncCallback<Ticket>() {
-
-			public void onFailure(Throwable e) { throw new RuntimeException(e); }
-
-			public void onSuccess(Ticket result) {	}}
+			//addRow(tickets.get(i), i + startRow);
+			Ticket t = tickets.get(i);
+			labelName = new String();
+			labelName = String.valueOf(i) + tickets.get(i).getTitle();
+			int rowNo = i + startRow;
+			ticketTable.setText(rowNo, 0, sdf.format(t.getLogged()));
+			ticketTable.setText(rowNo, 1, t.getPriority());
+			ticketTable.setText(rowNo, 2, t.getStatus());		
+			ticketTable.setText(rowNo, 4, t.getAssignee());
 			
-	);}
 
-	
-	//Added by Mitchell McMaugh 15/05/2018
-	//Function: Cancel current new ticket form and return to ticket overview.
-	private void cancelTicket() {
-		cancelTrueFalse = Window.confirm("Are you sure you want to cancel?");
-		if (cancelTrueFalse == true){
-			listTicketsPanel.getStyle().setDisplay(Display.BLOCK);
-			newTicketPanel.getStyle().setDisplay(Display.NONE);
-			//Clears Short Description Textbox and Details TextArea.
-			shortDescriptionText.setValue(null);
-			detailsText.setValue(null);
-			}
+			Label ticketDetailLabel = new Label();
+			ticketTable.setWidget(rowNo, 3, ticketDetailLabel);
+			ticketDetailLabel.setStyleName("title");
+			ticketDetailLabel.setText(t.getTitle());
+			ticketDetailLabel.addClickHandler(new ClickHandler() {
+				public void onClick(ClickEvent event) {
+					FlowPanel tDetails = pillion.hba.hub.client.Tickets.TicketDetails.ticketDetails(t);
+	            	RootPanel.get("tablebit").remove(ticketTable);
+					ticketTable.clear();
+					ticketTable.removeAllRows();
+					RootPanel.get("topbit").remove(newTicketButton);
+					RootPanel.get("topbit").remove(ticketFilterCategoryListBox);
+					RootPanel.get("topbit").remove(ticketFilterPriorityListBox);
+	            	RootPanel.get("detailbit").add(tDetails);
+	            	
+	            	
+	            }
+	        });
 		}
-	
-	//Added by Mitchell McMaugh 17/05/2018
-	//Function: Add attachment to ticket.
-	private void addAttachment() {
-
-		
 	}
 	
 	private void addHeader() {
@@ -202,14 +212,16 @@ public class TicketPage {
 		ticketTable.getRowFormatter().setStyleName(0, "tbl-head");
 	}
 
-	private void addRow(Ticket t, int rowNo) {
+	public static void addRow(Ticket t, int rowNo) {
+		
 		ticketTable.setText(rowNo, 0, sdf.format(t.getLogged()));
 		ticketTable.setText(rowNo, 1, t.getPriority());
 		ticketTable.setText(rowNo, 2, t.getStatus());
-		ticketTable.setText(rowNo, 3, t.getTitle());
+		//ticketTable.setText(rowNo, 3, t.getTitle());
+				
 		ticketTable.setText(rowNo, 4, t.getAssignee());
 //		ticketTable.setText(rowNo, , t.get));
 		
-	}
-
+	}	
+	
 }

@@ -3,7 +3,7 @@ package pillion.hba.hub.shared;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Ticket implements Serializable{
+public class File implements Serializable{
 	private Date logged;
 	private String priority;
 	private String status;
@@ -11,7 +11,13 @@ public class Ticket implements Serializable{
 	private String title;
 	private String assignee;
 	private int ticketID;
-	//private byte[] attachmentArray[];
+	
+	private String author;
+	private String contentType;
+	private Date createdOn;
+	private String fileName;
+	private String fileSize;
+	
 	
 	public int getTicketID() {
 		return ticketID;

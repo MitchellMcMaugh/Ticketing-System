@@ -1,13 +1,15 @@
 package pillion.hba.hub.server.rm;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
-import com.google.gwt.user.client.Window;
+import java.util.ArrayList;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.*;
 
-import org.apache.commons.collections4.map.HashedMap;
-
-import com.google.gwt.user.client.Window;
+import com.taskadapter.redmineapi.IssueManager;
 import com.taskadapter.redmineapi.Params;
 import com.taskadapter.redmineapi.RedmineException;
 import com.taskadapter.redmineapi.RedmineManager;
@@ -15,11 +17,17 @@ import com.taskadapter.redmineapi.RedmineManagerFactory;
 import com.taskadapter.redmineapi.bean.CustomFieldDefinition;
 import com.taskadapter.redmineapi.bean.Issue;
 import com.taskadapter.redmineapi.bean.IssueFactory;
-import com.taskadapter.redmineapi.bean.IssueStatus;
 import com.taskadapter.redmineapi.bean.User;
 import com.taskadapter.redmineapi.internal.ResultsWrapper;
+import com.taskadapter.redmineapi.AttachmentManager;
+import com.taskadapter.redmineapi.bean.Attachment;
 
-import pillion.hba.hub.shared.Ticket;
+import pillion.hba.hub.shared.Comments;
+
+import com.taskadapter.redmineapi.IssueManager;
+import com.taskadapter.redmineapi.Include;
+import com.taskadapter.redmineapi.bean.Journal;
+import com.taskadapter.redmineapi.bean.JournalFactory;
 
 public class RM {
 
@@ -43,13 +51,6 @@ public class RM {
 		Integer queryId = null; // any
 
 		RedmineManager mgr = RedmineManagerFactory.createWithApiKey(uri, apiAccessKey);
-//		List<Issue> issues = mgr.getIssueManager().getIssues(projectKey, queryId);
-		
-//		Map<String,String> params = new HashedMap<>();
-//		params.put("project_id", "7");
-//		params.put("LoggedBy","craiglee");
-//		ResultsWrapper<Issue> issues = mgr.getIssueManager().getIssues(params);
-		
 		
 		System.out.println("findTickets userId " + userId);
 		
@@ -68,6 +69,15 @@ public class RM {
 		return results;
 	}
 	
+	public static Collection<Journal> findJournals(Integer issueID) throws RedmineException {
+		
+		RedmineManager mgr = RedmineManagerFactory.createWithApiKey(uri, apiAccessKey);
+		Issue issue = mgr.getIssueManager().getIssueById(issueID, Include.journals);
+		Collection<Journal> journals = issue.getJournals();
+		return journals;
+		
+	}
+	
 	public static User findUserByName(String userName) throws RedmineException {
 		
 		RedmineManager mgr = RedmineManagerFactory.createWithApiKey(uri, apiAccessKey);
@@ -80,76 +90,94 @@ public class RM {
 		}
 	}
 
-//	public static void newTicket(int issue_num, String name) throws RedmineException {
-//		RedmineManager mgr = RedmineManagerFactory.createWithApiKey(uri, apiAccessKey);
-//		Issue issue = IssueFactory.create(10, "test123");
-////		Version ver = VersionFactory.create(512);
-////		issue.setTargetVersion(ver);
-//		issue.setStatusId(8);
-////		IssueCategory cat = IssueCategoryFactory.create(673);
-////		issue.setCategory(cat);
-////		ProjectManager projectManager = mgr.getProjectManager();
-//		// Project projectByKey = projectManager.getProjectByKey("testid");
-//		issue.setProjectId(10);
-//		mgr.getIssueManager().createIssue(issue);
-//		
-//	}
-	
 	//Added By Mitchell McMaugh 22/05/2018
 	//Function: Create New Ticket/ Issue
-	
-	public static void newTicket(String ticketCreator, String issueStatus, String issuePriority, String issueSubject, String issueDetails) throws RedmineException {
+	public static Integer newTicket(String ticketCreator, String issuePriority, String issueCategory, String issueSubject, String issueDetails) throws RedmineException {
 		//Variables
+		
 		RedmineManager mgr = RedmineManagerFactory.createWithApiKey(uri, apiAccessKey);
-		Issue issue = IssueFactory.create(10, issueSubject);
+		String issueName = issueCategory + "// " + issueSubject;
+		Issue issue = IssueFactory.create(10, issueName);
 		Issue ticketIssue = mgr.getIssueManager().createIssue(issue);
 		
-		//Set Issue
-		switch (issueStatus) {
-		case "scheduled":
-			ticketIssue.setStatusId(1);
-			break;
-		case "inProgress":
-			ticketIssue.setStatusId(2);
-			break;
-		case "resolved":
-			ticketIssue.setStatusId(3);
-			break;
-		case "feedback":
-			ticketIssue.setStatusId(4);
-			break;
-		case "closed":
-			ticketIssue.setStatusId(5);
-			break;
-		case "newBacklog":
-			ticketIssue.setStatusId(7);
-			break;
-		default: ticketIssue.setStatusId(5);}
+		ticketIssue.setAuthorName(ticketCreator);
 		
 		//Set Priority
 		switch (issuePriority) {
-		case "LOW":
+		case "Low":
 			ticketIssue.setPriorityId(1);
 			break;
-		case "NORMAL":
+		case "Normal":
 			ticketIssue.setPriorityId(2);
 			break;
-		case "HIGH":
+		case "High":
 			ticketIssue.setPriorityId(3);
 			break;
-		case "URGENT":
+		case "Urgent":
 			ticketIssue.setPriorityId(4);
 			break;
 		default: ticketIssue.setPriorityId(1);}
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		ticketIssue.setSubject(issueSubject);
-		ticketIssue.setNotes(issueDetails);
+		ticketIssue.setDescription(issueDetails);
+		ticketIssue.setSubject(issueName);
+		
+		Integer issueID = ticketIssue.getId();
 		
 		mgr.getIssueManager().update(ticketIssue);
-
 		
+		return issueID;
+		
+	}
+	
+	public static void newCommentRM(User redmineUser, String comment, int issueID) throws RedmineException {
+		RedmineManager mgr = RedmineManagerFactory.createWithApiKey(uri, apiAccessKey);
+		Issue issue = mgr.getIssueManager().getIssueById(issueID);
+		Date date = new Date();
+
+		issue.setNotes(date + "\n" + "###" + " " + redmineUser.getFullName() + ":" + "\n \n" +  comment);
+		mgr.getIssueManager().update(issue);
+
+	}
+
+	public static void newAttachment(Integer issueID, byte[] fileArray)  throws IOException, RedmineException {
+		RedmineManager mgr = RedmineManagerFactory.createWithApiKey(uri, apiAccessKey);
+		
+		//Attachment attachmentFile = mgr.getAttachmentManager().uploadAttachment(String.valueOf(issueID), "Image", fileArray);
+		
+		Attachment attachmentFile = mgr.getAttachmentManager().uploadAttachment("Test", "Type", fileArray);
+
+		mgr.getIssueManager().getIssueById(issueID).addAttachment(attachmentFile);
+		
+//		try (FileOutputStream fos = new FileOutputStream("/var/lib/redmine/default/files")) {
+//			   File myFile = fos.write(fileArray);
+//			   mgr.getAttachmentManager().addAttachmentToIssue(issueID, myFile, "Image");
+//			   
+//			   //fos.close(); There is no more need for this line since you had created the instance of "fos" inside the try. And this will automatically close the OutputStream
+//			}
 		
 		
 	}
+	
 }
 

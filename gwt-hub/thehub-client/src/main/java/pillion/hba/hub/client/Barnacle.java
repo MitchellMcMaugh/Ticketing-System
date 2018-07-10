@@ -10,6 +10,7 @@ import pillion.hba.hub.shared.RedmineServiceAsync;
 public class Barnacle implements EntryPoint {
 
 	private static final String TICKET_PAGE_CLASSNAME = "page-template-ticket-template";
+	private static final String ONLINE_FORM_PAGE_CLASSNAME = "page-template-online-forms-template";
 	
 	@Override
 	public void onModuleLoad() {
@@ -18,6 +19,9 @@ public class Barnacle implements EntryPoint {
 			
 			if(cname.trim().equals(TICKET_PAGE_CLASSNAME)) {
 				new TicketPage().go();
+			}
+			if(cname.trim().equals(ONLINE_FORM_PAGE_CLASSNAME)) {
+				new OnlineForm().go();
 			}
 		}
 		

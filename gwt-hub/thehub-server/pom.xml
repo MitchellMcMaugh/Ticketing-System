@@ -32,6 +32,11 @@
 			<artifactId>javax.servlet-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.3.3</version>
+		</dependency> 
 		<!-- https://mvnrepository.com/artifact/com.xk72/pherialize -->
 		<dependency>
 			<groupId>com.xk72</groupId>

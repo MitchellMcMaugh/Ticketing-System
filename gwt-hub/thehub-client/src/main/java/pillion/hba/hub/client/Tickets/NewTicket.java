@@ -4,7 +4,8 @@ import com.google.gwt.core.client.GWT;
 
 //import java.io.File;
 import java.io.IOException;
-import java.nio.file.*;
+//import java.nio.file.Path;
+//import java.nio.file.Files;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -26,6 +27,7 @@ import pillion.hba.hub.client.TicketPage;
 import com.google.gwt.user.client.ui.FileUpload;
 
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.FormPanel;
 
 public class NewTicket {
 	
@@ -35,14 +37,11 @@ public class NewTicket {
 	
 	static FileUpload upload = new FileUpload();
 	
+	static FormPanel form = new FormPanel();
+	
 	static byte[] data;
 	
 	public static FlowPanel newTicket() {
-
-		int startRow = 0;
-		int spacing = 0;
-		
-		int columnStart = 0;
 		
 		Button submitTicketButton = new Button();
 		Button cancelTicketButton = new Button();
@@ -123,8 +122,16 @@ public class NewTicket {
 			    upload.click();
 			    //String filename = upload.getFilename();
 			    
+				
+			    form.setAction("/b/barnacle/attch");
+				
+				form.setEncoding(FormPanel.ENCODING_MULTIPART);
+			    form.setMethod(FormPanel.METHOD_POST);
+			    
+			    Window.confirm("brancle attch");
 			    
 			    
+			    newTicketFlex.add(form);
 		
 			}});
 		
@@ -171,22 +178,13 @@ public class NewTicket {
 		submitTicketButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				
-				String fileName = upload.getFilename();
-				//File file = fileName;
-				
-				
-				if (fileName == "" || fileName == null) {
-					data = null;
-				}
-				else {
-					Path path = Paths.get(fileName);
-					try {
-						data = Files.readAllBytes(path);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					}
+				//String fileName = upload.getFilename();
+									//File file = fileName;
+	
+			
+				//String path = fileName;
+				form.submit();
+					
 				
 				
 				
@@ -215,7 +213,7 @@ public class NewTicket {
 				else if (ticketCategoryListBoxValue == "" || ticketCategoryListBoxValue == "Category") {Window.alert("Category must not be blank!");}
 				
 				else  {
-					redmineService.newTicket(ticketPriorityListBoxValue, ticketCategoryListBoxValue, titleTextValue, detailsTextAreaValue, data,  new AsyncCallback<Ticket>() {
+					redmineService.newTicket(ticketPriorityListBoxValue, ticketCategoryListBoxValue, titleTextValue, detailsTextAreaValue,  new AsyncCallback<Ticket>() {
 						public void onFailure(Throwable e) { throw new RuntimeException(e); }
 						public void onSuccess(Ticket result) {	
 							//Clears Short Description Textbox and Details TextArea.

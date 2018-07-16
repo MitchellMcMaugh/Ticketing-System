@@ -11,7 +11,6 @@ public class Ticket implements Serializable{
 	private String title;
 	private String assignee;
 	private int ticketID;
-	//private byte[] attachmentArray[];
 	
 	public int getTicketID() {
 		return ticketID;

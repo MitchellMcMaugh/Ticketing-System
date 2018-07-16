@@ -3,13 +3,11 @@ package pillion.hba.hub.server.rm;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.ArrayList;
-import java.io.File;
-import java.io.FileOutputStream;
+
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
 
-import com.taskadapter.redmineapi.IssueManager;
 import com.taskadapter.redmineapi.Params;
 import com.taskadapter.redmineapi.RedmineException;
 import com.taskadapter.redmineapi.RedmineManager;
@@ -19,15 +17,11 @@ import com.taskadapter.redmineapi.bean.Issue;
 import com.taskadapter.redmineapi.bean.IssueFactory;
 import com.taskadapter.redmineapi.bean.User;
 import com.taskadapter.redmineapi.internal.ResultsWrapper;
-import com.taskadapter.redmineapi.AttachmentManager;
 import com.taskadapter.redmineapi.bean.Attachment;
+import com.taskadapter.redmineapi.bean.Project;
 
-import pillion.hba.hub.shared.Comments;
-
-import com.taskadapter.redmineapi.IssueManager;
 import com.taskadapter.redmineapi.Include;
 import com.taskadapter.redmineapi.bean.Journal;
-import com.taskadapter.redmineapi.bean.JournalFactory;
 
 public class RM {
 
@@ -66,6 +60,12 @@ public class RM {
 		ResultsWrapper<Issue> issues = mgr.getIssueManager().getIssues(params);
 		List<Issue> results = issues.getResults();
 		System.out.println("findTickets results " + results.size());
+//		List<Project> projects = mgr.getProjectManager().getProjects();
+//		for (int i = 0; i <= projects.size(); i++) {
+//			Project x = projects.get(i);
+//			System.out.println(x.getId());
+//			System.out.println(x.getName());
+//		}
 		return results;
 	}
 	
@@ -160,14 +160,21 @@ public class RM {
 
 	}
 
-	public static void newAttachment(Integer issueID, byte[] fileArray)  throws IOException, RedmineException {
+	public static void newAttachment(Integer issueID, String itemName, String itemType, InputStream fileArray)  throws IOException, RedmineException {
 		RedmineManager mgr = RedmineManagerFactory.createWithApiKey(uri, apiAccessKey);
+		
+		System.out.println("GOT HERE 1");
 		
 		//Attachment attachmentFile = mgr.getAttachmentManager().uploadAttachment(String.valueOf(issueID), "Image", fileArray);
 		
-		Attachment attachmentFile = mgr.getAttachmentManager().uploadAttachment("Test", "Type", fileArray);
+		//Attachment attachmentFile = mgr.getAttachmentManager().uploadAttachment("Test", "Type", fileArray);
+		Attachment attachmentFile = mgr.getAttachmentManager().uploadAttachment(itemName, itemType, fileArray);
+		
+		System.out.println("GOT HERE 2");
 
 		mgr.getIssueManager().getIssueById(issueID).addAttachment(attachmentFile);
+		
+		System.out.println("GOT HERE 3");
 		
 //		try (FileOutputStream fos = new FileOutputStream("/var/lib/redmine/default/files")) {
 //			   File myFile = fos.write(fileArray);
@@ -178,6 +185,9 @@ public class RM {
 		
 		
 	}
+	
+	  
+
 	
 }
 

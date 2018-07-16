@@ -4,10 +4,13 @@ package pillion.hba.hub.server.rm;
 import java.util.stream.Collectors;
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+//import java.util.*;
+import java.io.PrintWriter;
 
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.taskadapter.redmineapi.RedmineException;
 import com.taskadapter.redmineapi.bean.Issue;
@@ -81,20 +84,13 @@ public class RedmineServiceImpl extends HubRemoteServiceServlet implements Redmi
 	}
 	
 	//@Override
-	public Ticket newTicket(String ticketPriority, String ticketCategory, String ticketShortDescription, String ticketDetails, byte[] attachment) {
+	public Ticket newTicket(String ticketPriority, String ticketCategory, String ticketShortDescription, String ticketDetails) {
 		try {
 			WPUser user = getLoggedInUser();
 			User redmineUser = RM.findUserByName(user.getUserLogin());
 			String redmineUserString = redmineUser.toString();
 			Integer issueID = RM.newTicket(redmineUserString, ticketPriority, ticketCategory, ticketShortDescription, ticketDetails);	
-			try {
-				if (attachment != null) {
-					RM.newAttachment(issueID, attachment);
-				}
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			
 		} catch (RedmineException e) {
 			e.printStackTrace();
 		}

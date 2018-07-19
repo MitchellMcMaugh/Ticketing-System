@@ -3,7 +3,7 @@ package pillion.hba.hub.server.rm;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-
+import java.util.stream.Collectors;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
@@ -13,11 +13,16 @@ import com.taskadapter.redmineapi.RedmineException;
 import com.taskadapter.redmineapi.RedmineManager;
 import com.taskadapter.redmineapi.RedmineManagerFactory;
 import com.taskadapter.redmineapi.bean.CustomFieldDefinition;
+import com.taskadapter.redmineapi.bean.CustomFieldFactory;
 import com.taskadapter.redmineapi.bean.Issue;
 import com.taskadapter.redmineapi.bean.IssueFactory;
 import com.taskadapter.redmineapi.bean.User;
 import com.taskadapter.redmineapi.internal.ResultsWrapper;
+
+import pillion.hba.hub.server.wp.WPUser;
+
 import com.taskadapter.redmineapi.bean.Attachment;
+import com.taskadapter.redmineapi.bean.CustomField;
 import com.taskadapter.redmineapi.bean.Project;
 
 import com.taskadapter.redmineapi.Include;
@@ -51,7 +56,6 @@ public class RM {
 		for(CustomFieldDefinition cfd :	mgr.getCustomFieldManager().getCustomFieldDefinitions()) {
 			System.out.println(cfd);
 		}
-		 
 		 
 		Params params = new Params();
 		params.add("project_id", "10");
@@ -92,15 +96,13 @@ public class RM {
 
 	//Added By Mitchell McMaugh 22/05/2018
 	//Function: Create New Ticket/ Issue
-	public static Integer newTicket(String ticketCreator, String issuePriority, String issueCategory, String issueSubject, String issueDetails) throws RedmineException {
-		//Variables
+	public static Integer newTicket(User ticketCreator, String issuePriority, String issueCategory, String issueSubject, String issueDetails) throws RedmineException {
 		
+		//Variables
 		RedmineManager mgr = RedmineManagerFactory.createWithApiKey(uri, apiAccessKey);
-		String issueName = issueCategory + "// " + issueSubject;
+		String issueName = issueSubject;
 		Issue issue = IssueFactory.create(10, issueName);
 		Issue ticketIssue = mgr.getIssueManager().createIssue(issue);
-		
-		ticketIssue.setAuthorName(ticketCreator);
 		
 		//Set Priority
 		switch (issuePriority) {
@@ -118,33 +120,34 @@ public class RM {
 			break;
 		default: ticketIssue.setPriorityId(1);}
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		//Set Details
 		ticketIssue.setSubject(issueSubject);
 		ticketIssue.setDescription(issueDetails);
 		ticketIssue.setSubject(issueName);
+		ticketIssue.getCustomFieldById(4).setValue(issueCategory);
 		
+		ticketCreator.getId();
+		
+		
+		//Try to set LoggedBy field.
 		Integer issueID = ticketIssue.getId();
+		String loggedBy = ticketCreator.getFullName();
+		System.out.println(loggedBy);
 		
+		
+		ticketIssue.getCustomFieldById(1).setValue(ticketCreator.getId().toString());
+		
+		
+
+//		CustomField field = ticketIssue.getCustomFieldById(1);
+//		ticketIssue.addCustomField(CustomFieldFactory.create(field.getId(), field.getName(), loggedBy));
+		
+		//Ticket Issue needs to be updated.
 		mgr.getIssueManager().update(ticketIssue);
+		
+		//Testing to see if loggedBy worked.
+//		System.out.println(ticketCreator.toString());
+//		System.out.println(loggedBy);
 		
 		return issueID;
 		
@@ -165,9 +168,6 @@ public class RM {
 		
 		System.out.println("GOT HERE 1");
 		
-		//Attachment attachmentFile = mgr.getAttachmentManager().uploadAttachment(String.valueOf(issueID), "Image", fileArray);
-		
-		//Attachment attachmentFile = mgr.getAttachmentManager().uploadAttachment("Test", "Type", fileArray);
 		Attachment attachmentFile = mgr.getAttachmentManager().uploadAttachment(itemName, itemType, fileArray);
 		
 		System.out.println("GOT HERE 2");
@@ -175,13 +175,6 @@ public class RM {
 		mgr.getIssueManager().getIssueById(issueID).addAttachment(attachmentFile);
 		
 		System.out.println("GOT HERE 3");
-		
-//		try (FileOutputStream fos = new FileOutputStream("/var/lib/redmine/default/files")) {
-//			   File myFile = fos.write(fileArray);
-//			   mgr.getAttachmentManager().addAttachmentToIssue(issueID, myFile, "Image");
-//			   
-//			   //fos.close(); There is no more need for this line since you had created the instance of "fos" inside the try. And this will automatically close the OutputStream
-//			}
 		
 		
 	}

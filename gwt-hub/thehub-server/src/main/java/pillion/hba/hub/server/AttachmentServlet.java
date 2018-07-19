@@ -39,17 +39,6 @@ import pillion.hba.hub.server.rm.RM;
 @WebServlet("/barnacle/attch")
 public class AttachmentServlet  extends HttpServlet {
 	
-	private static Logger l = LogManager.getLogger(AttachmentServlet.class);
-	
-	private static final long serialVersionUID = 1L;
-    
-    // location to store file uploaded
-    private static final String UPLOAD_DIRECTORY = "upload";
- 
-    // upload settings
-    private static final int MEMORY_THRESHOLD   = 1024 * 1024 * 3;  // 3MB
-    private static final int MAX_FILE_SIZE      = 1024 * 1024 * 40; // 40MB
-    private static final int MAX_REQUEST_SIZE   = 1024 * 1024 * 50; // 50MB
 
 //	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //		System.out.println("GOT HERE 5");	
@@ -99,72 +88,50 @@ public class AttachmentServlet  extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// checks if the request actually contains upload file
+		
+		ServletFileUpload upload = new ServletFileUpload();
+		
         if (!ServletFileUpload.isMultipartContent(request)) {
             // if not, we stop here
-            PrintWriter writer = response.getWriter();
-            writer.println("Error: Form must has enctype=multipart/form-data.");
-            writer.flush();
+            System.out.println("Error: Form must has enctype=multipart/form-data.");
             return;
         }
- 
-     // configures upload settings
-        DiskFileItemFactory factory = new DiskFileItemFactory();
-        // sets memory threshold - beyond which files are stored in disk
-        factory.setSizeThreshold(MEMORY_THRESHOLD);
-        // sets temporary location to store files
-        factory.setRepository(new File(System.getProperty("java.io.tmpdir")));
- 
-        ServletFileUpload upload = new ServletFileUpload(factory);
-         
-        // sets maximum size of upload file
-        upload.setFileSizeMax(MAX_FILE_SIZE);
-         
-        // sets maximum size of request (include file + form data)
-        upload.setSizeMax(MAX_REQUEST_SIZE);
- 
-        // constructs the directory path to store upload file
-        // this path is relative to application's directory
-        String uploadPath = getServletContext().getRealPath("") + File.separator + UPLOAD_DIRECTORY;
-         
-        // creates the directory if it does not exist
-        File uploadDir = new File(uploadPath);
-        if (!uploadDir.exists()) {
-            uploadDir.mkdir();
-        }
- 
-        try {
-            // parses the request's content to extract file data
-            @SuppressWarnings("unchecked")
-            List<FileItem> formItems = upload.parseRequest(request);
- 
-            if (formItems != null && formItems.size() > 0) {
-                // iterates over form's fields
-                for (FileItem item : formItems) {
-                    // processes only fields that are not form fields
-                    if (!item.isFormField()) {
-                        String fileName = new File(item.getName()).getName();
-                        String filePath = uploadPath + File.separator + fileName;
-                        File storeFile = new File(filePath);
- 
-                        // saves the file on disk
-                        item.write(storeFile);
-                        request.setAttribute("message",
-                            "Upload has been done successfully!");
-                    }
-                }
+        System.out.println("Got Here Test 1");
+        System.out.println("Got Here Test 2");
+        FileItemIterator iter;
+        System.out.println("Got Here Test 3");
+		try {
+			System.out.println("Got Here Test 4");
+			iter = upload.getItemIterator(request);
+			System.out.println(iter.toString());
+			System.out.println("Got Here Test 5");
+        while (iter.hasNext()) {
+        	System.out.println("Got Here Test 6");
+            FileItemStream item = iter.next();
+            System.out.println("Got Here Test 7");
+            String name = item.getFieldName();
+            System.out.println("Got Here Test 8");
+            InputStream stream = item.openStream();
+            System.out.println("Got Here Test 9");
+            if (item.isFormField()) {
+            	System.out.println("Got Here Test 10");
+                System.out.println("Form field " + name + " with value " + Streams.asString(stream) + " detected.");
+                System.out.println("Got Here Test 11");
+            } else {
+            	System.out.println("Got Here Test 12");
+                System.out.println("File field " + name + " with file name " + item.getName() + " detected.");
+                System.out.println("Got Here Test 13");
+                try {RM.newAttachment(408, item.getName(), item.getContentType(), stream);}
+		    	
+		    	catch (RedmineException e){e.printStackTrace();}
+            	}
             }
-        } catch (Exception ex) {
-            request.setAttribute("message",
-                    "There was an error: " + ex.getMessage());
-        }
-        // redirects client to message page
-        getServletContext().getRequestDispatcher("/message.jsp").forward(
-                request, response);
-    }
-        
-	
-	
-	
+        System.out.println("Got Here Test 14");
+		} catch (FileUploadException e) {
+			e.printStackTrace();
+		}
+		System.out.println("Got Here Test 15");
+      }
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	      resp.setContentType("text/html");
@@ -176,5 +143,4 @@ public class AttachmentServlet  extends HttpServlet {
 	      out.println("</head>");
 	      out.println("<body>");
 	}
-
 }

@@ -38,6 +38,7 @@ public class RedmineServiceImpl extends HubRemoteServiceServlet implements Redmi
 		Ticket ticket = new Ticket();
 		ticket.setLogged(issue.getCreatedOn());
 		ticket.setAssignee(issue.getAssigneeName());
+		ticket.setCategory(issue.getCustomFieldById(4).getValue());
 		ticket.setDescription(issue.getDescription());
 		ticket.setTitle(issue.getSubject());
 		ticket.setPriority(issue.getPriorityText());
@@ -88,8 +89,8 @@ public class RedmineServiceImpl extends HubRemoteServiceServlet implements Redmi
 		try {
 			WPUser user = getLoggedInUser();
 			User redmineUser = RM.findUserByName(user.getUserLogin());
-			String redmineUserString = redmineUser.toString();
-			Integer issueID = RM.newTicket(redmineUserString, ticketPriority, ticketCategory, ticketShortDescription, ticketDetails);	
+			//String redmineUserString = redmineUser.toString();
+			Integer issueID = RM.newTicket(redmineUser, ticketPriority, ticketCategory, ticketShortDescription, ticketDetails);	
 			
 		} catch (RedmineException e) {
 			e.printStackTrace();

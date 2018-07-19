@@ -10,7 +10,6 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.Label;
@@ -19,11 +18,6 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.DateLabel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.DecoratorPanel;
-import com.google.gwt.user.client.ui.DockLayoutPanel.Direction;
-import com.google.gwt.user.client.ui.DockPanel;
-import com.google.gwt.user.client.ui.LayoutPanel;
-
 
 import pillion.hba.hub.shared.RedmineService;
 import pillion.hba.hub.shared.RedmineServiceAsync;
@@ -34,9 +28,6 @@ import pillion.hba.hub.shared.Comments;
 public class TicketDetails {
 
 	static FlowPanel vPanel = new FlowPanel();
-	//static LayoutPanel vPanel = new LayoutPanel();
-	//static DockPanel vPanel = new DecoratorPanel();
-	//static VerticalPanel vPanel = new VerticalPanel();
 	static FlexTable ticketDetailsTable = new FlexTable();
 	static FlexTable buttonsFlex = new FlexTable();
 	static FlexTable titleFlex = new FlexTable();
@@ -53,14 +44,8 @@ public class TicketDetails {
 		ticketDetailsTable.clear();
 		ticketDetailsTable.removeAllRows();
 		
-		int TitleStart = ordinalIndexOf(t.getTitle(), "/", 2) + 1;
-		int CategoryEnd = ordinalIndexOf(t.getTitle(), "/", 1);
-		//Window.confirm(String.valueOf(CategoryEnd));
-		
 		// C R E A T I N G     D I S P L A Y
 
-		
-		
 		//Title
 		FlowPanel hPanelTitle = new FlowPanel();
 		hPanelTitle.setStyleName("hPanelTitle");
@@ -72,29 +57,23 @@ public class TicketDetails {
 		VerticalPanel hPanelDetailsLabel = new VerticalPanel();
 		hPanelDetailsLabel.setStyleName("hPanelDetailsLabel");
 
-		
-		
-		
 		//Assignee
 		assigneeFlex.setStyleName("assigneeFlex");
 		
-		
 		// C R E A T I N G     D E T A I L S
 		
-		String title = t.getTitle().substring(TitleStart);
-		String category = t.getTitle().substring(0, CategoryEnd);
+		String title = t.getTitle();
+		//t.getTitle().substring(TitleStart);
+		String category = t.getCategory();
+		
 		
 		// T I T L E
 		Label ticketTitleLabel = new Label();
-		
-		
 		
 		ticketTitleLabel.setText(title);
 		titleFlex.setWidget(0, 1, ticketTitleLabel);
 		
 		ticketTitleLabel.setStyleName("ticketDetailsTitleLabel");
-		
-		
 		
 		// D A T E     L O G G E D
 		Label ticketDateLoggedLabel = new Label();
@@ -111,8 +90,6 @@ public class TicketDetails {
 		ticketDateLogged.setStyleName("ticketDetailsResult");
 		ticketDateLoggedLabel.setStyleName("ticketDetailsDateLabel");	
 		
-		
-		
 		// P R I O R I T Y
 		Label ticketPriorityLabel = new Label();
 		Label ticketPriority = new Label();
@@ -125,8 +102,6 @@ public class TicketDetails {
 		
 		ticketPriorityLabel.setStyleName("ticketDetailsPriorityLabel");
 		ticketPriority.setStyleName("ticketDetailsResult");
-		
-		
 		
 		// C A T E G O R Y
 		Label ticketCategoryLabel = new Label();
@@ -141,8 +116,6 @@ public class TicketDetails {
 		ticketCategoryLabel.setStyleName("ticketDetailsCategoryLabel");
 		ticketCategory.setStyleName("ticketDetailsResult");
 		
-		
-		
 		// S T A T U S
 		Label ticketStatusLabel = new Label();
 		Label ticketStatus = new Label();
@@ -155,8 +128,6 @@ public class TicketDetails {
 		
 		ticketStatusLabel.setStyleName("ticketDetailsStatusLabel");
 		ticketStatus.setStyleName("ticketDetailsResult");
-		
-		
 		
 		// A S S I G N E E
 		Label ticketAssigneeLabel = new Label();
@@ -171,8 +142,6 @@ public class TicketDetails {
 		ticketAssigneeLabel.setStyleName("ticketDetailsAssigneeLabel");
 		ticketAssignee.setStyleName("ticketDetailsResult");
 		
-		
-		
 		// D E T A I L S
 		Label ticketDetailsLabel = new Label();
 		Label ticketDetails = new Label();
@@ -186,8 +155,7 @@ public class TicketDetails {
 		ticketDetailsLabel.setStyleName("ticketDetailsDetailsLabel");
 		ticketDetails.setStyleName("ticketDetailsTextResult");
 		
-		
-		
+		//Get comments from Ticket.
 		redmineService.getComments(t.getTicketID(), new AsyncCallback<Comments>() {
 	
 			public void onFailure(Throwable e) { throw new RuntimeException(e);}
@@ -195,10 +163,16 @@ public class TicketDetails {
 			public void onSuccess(Comments result) {
 				int NamePosition = 0;
 				int PicPosition = -1;
+				
+				//Sort by date reversed.
 				result.sort(Comparator.comparing(Comment::getLogged).reversed());
+				
+				commentsFlex.setStyleName("commentsFlex");
 				
 				for (int i = 0;i <= result.size(); i++) {					
 					if (result.get(i).getComment() != null && result.get(i).getComment() != "") {
+						
+						//Image
 						Image userImage = new Image();
 						userImage.addStyleName("userImage");
 						userImage.setUrl("http://www.weirdhut.com/wp-content/uploads/2013/01/Funny-Cat-tongue.jpg");
@@ -225,8 +199,7 @@ public class TicketDetails {
 						dateTimeLabel.setValue(result.get(i).getLogged());
 						commentsFlex.setWidget(PicPosition, 2, dateTimeLabel);
 						
-						//rowCount = commentsFlex.getRowCount();
-	
+						//Text stripping
 						int CommentStart = ordinalIndexOf(comment, ":", 3) + 2;
 						int NameStart = ordinalIndexOf(comment, "#", 3) + 2;
 						
@@ -259,11 +232,9 @@ public class TicketDetails {
 							
 						}
 						
-						
-						
 					}
 					if (i == result.size() - 1) {
-						
+						//Add new comment section.
 						Button ticketSubmitCommentButton = new Button();
 						ticketSubmitCommentButton.setStyleName("buttonz");
 						ticketSubmitCommentButton.setText("Submit Comment");
@@ -272,17 +243,16 @@ public class TicketDetails {
 								
 								String comment = ticketAddCommentTextArea.getText();
 								
-								//String comment = "FIX";
-								Window.confirm(comment + String.valueOf(t.getTicketID()));
+								//Window.confirm(comment + String.valueOf(t.getTicketID()));
 								if (comment != "" && comment != null) {
 								redmineService.newComment(comment, t.getTicketID(), new AsyncCallback<Comment>() {
 					
 									public void onFailure(Throwable e) { throw new RuntimeException(e); }
-					
+									
+									//On successful comment return to main screen.
 									public void onSuccess(Comment result) {							
 										hPanelTitle.clear();
 										hPanelDetailsLabel.clear();
-										//fPanelDetails.clear();
 										
 										dateFlex.removeAllRows();
 										dateFlex.clear();
@@ -318,12 +288,10 @@ public class TicketDetails {
 							
 					    });
 						
-						//Window.confirm("Ack1");
 						Image userImage2 = new Image();
 						userImage2.addStyleName("userImage");
 						userImage2.setUrl("http://www.weirdhut.com/wp-content/uploads/2013/01/Funny-Cat-tongue.jpg");
 
-						
 						commentsFlex.insertRow(0);
 						commentsFlex.insertRow(1);
 						
@@ -337,19 +305,15 @@ public class TicketDetails {
 						Label nameLabel2 = new Label();
 						nameLabel2.setText("Name");
 						
-						Label dateLabel2 = new Label();
-						dateLabel2.setText("AHH");
-						
-						//TextArea ticketAddCommentTextArea = new TextArea();
+//						Label dateLabel2 = new Label();
+						//CHANGE TO CORRECT
+//						dateLabel2.setText("AHH");
 						
 						commentsFlex.setWidget(0, 0, userImage2);
 						commentsFlex.setWidget(1, 0, nameLabel2);
 						commentsFlex.setWidget(0, 1, ticketAddCommentTextArea);
 						commentsFlex.setWidget(0, 2, ticketSubmitCommentButton);
 						
-						//buttonsFlex.getColumnFormatter().setWidth(0, "15%");
-						
-						//buttonsFlex.getFlexCellFormatter().setColSpan(2, 0, 20);
 						ticketAddCommentTextArea.setStyleName("buttonzFlexTextArea");
 						
 						ticketAddCommentTextArea.setVisibleLines(5);
@@ -365,19 +329,10 @@ public class TicketDetails {
 						
 						//Name 1 Rowspan
 						commentsFlex.getFlexCellFormatter().setRowSpan(1, 0, 1);
-						
-						//Window.confirm("Ack2");
 					}
 				}
-				
-				
-		
 			}
 		});
-		
-		
-		
-		
 		
 		Button ticketAddCommentButton = new Button();
 		ticketAddCommentButton.setStyleName("buttonz");
@@ -405,18 +360,11 @@ public class TicketDetails {
 	    });
 		
 		buttonsFlex.setSize("90%", "100%");
-		buttonsFlex.setStyleName("buttonzflex");
 		
-		//buttonsFlex.getFlexCellFormatter().setWidth(1, 1, "10%");
-		//TextArea ticketAddCommentTextArea = new TextArea();
-
-	
+		//I've forgotten why I set this twice.
+		buttonsFlex.setStyleName("buttonzflex");
 				
 		buttonsFlex.setStyleName("buttonsFlexz");
-		
-		
-	
-	
 		
 		Button backButton = new Button();
 		backButton.setStyleName("buttonz");
@@ -433,8 +381,6 @@ public class TicketDetails {
 				hPanelTitle.clear();
 				
 				hPanelDetailsLabel.clear();
-			//	fPanelDetails.clear();
-				
 				
 				buttonsFlex.removeAllRows();
 				buttonsFlex.clear();
@@ -448,7 +394,7 @@ public class TicketDetails {
 				vPanel.remove(commentsFlex);
 
 				vPanel.clear();
-
+				
 				pillion.hba.hub.client.TicketPage.ticketsForm();
 				
 	        	
@@ -464,8 +410,6 @@ public class TicketDetails {
 		
 		vPanel.add(assigneeFlex);
 		vPanel.add(hPanelDetailsLabel);
-//		vPanel.add(fPanelDetails);
-		//vPanel.add(detailsFlex);
 		vPanel.add(buttonsFlex);
 		vPanel.add(commentsFlex);
 		

@@ -11,6 +11,7 @@ public class Ticket implements Serializable{
 	private String title;
 	private String assignee;
 	private int ticketID;
+	private String category;
 	
 	public int getTicketID() {
 		return ticketID;
@@ -54,6 +55,13 @@ public class Ticket implements Serializable{
 	}
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	public String getCategory() {
+		return category;
+	}
+	
+	public void setCategory(String category) {
+		this.category = category;
 	}
 	
 	

@@ -1,0 +1,21 @@
+Needs Doing
+
+Attachment to redmine issue
+
+Add current attachment on NewTicket page when attachment is selected
+
+Add current attachments on TicketDetails
+
+TicketDetails comments section should get and show correct users picture from wordpress
+
+Edit comment. Delete comment. Comments should still remain in redmine, just marked with DELETED/ EDITED.
+
+Edit ticket.
+
+TicketDetails add comment name, get name from Wordpress
+
+Private comments in redmine should not be shown. Redmine also needs a solution/ resolution section. Perhaps private notes could be tied to this somehow.
+
+Pagination of celltable.
+
+Start date isn't currently being added to ticket.

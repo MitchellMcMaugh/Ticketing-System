@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: My Tickets Template
+ * Template Name: Online Forms Template
  *
  * Description: Twenty Twelve loves the no-sidebar look as much as
  * you do. Use this page template to remove the sidebar from any page.
@@ -44,20 +44,16 @@ get_header();
 				<?php the_field('page_title'); ?>
 			</h2>
 		</div>
-		
-		<div id="topbit"></div>
-		<div id="tablebit"></div>
-		<div id="detailbit"></div>
-		<div id="newticketbit">
-			<div id="newtickettopbit"></div>
-			<div id="newticketticketbit"></div>
+
+			<div id = "one" class="one"></div>
+    		<div id="two" class="two"></div>		
+			</div>
+
 		</div>
-		
-		
 		<!-- End posts -->
 	</div>
-		
-	<!-- <div class="rhs-content"></div> -->
+
+	
 
 
 </div>

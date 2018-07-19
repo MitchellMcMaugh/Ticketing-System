@@ -840,7 +840,7 @@ html.swipebox-html.swipebox-touch {
     color: #0d223f
 }
 
-@media screen and (max-width: 1099px) {
+@media screen and (max-width: 1090px) {
 	.news-item .sticky-post {display:none;}
 	.header-values {
 		left:15px !important;
@@ -1484,7 +1484,10 @@ html.swipebox-html.swipebox-touch {
 }
 
 .center-content {
-    padding: 20px 0 0
+    
+    width: 100%;
+    height: 500px;
+    padding:10px;
 }
 
 @media screen and (min-width: 721px) {
@@ -1500,7 +1503,7 @@ html.swipebox-html.swipebox-touch {
 @media screen and (min-width: 1100px) {
     .center-content {
         padding: 60px 0 30px;
-        width: 50%;
+
     }
 }
 
@@ -1508,7 +1511,8 @@ html.swipebox-html.swipebox-touch {
     padding: 30px 15px;
     background: #f0f7fc;
     border-bottom: 2px solid #ddedf8;
-    position: relative
+    position: relative;
+    width:100%;
 }
 
 .content-head p {
@@ -3257,4 +3261,556 @@ ul.tiles li:after {display:none;}
 }
 .list-tickets .tbl-tickets tr:nth-child(odd) {
 	background:#f1f2f2;
+}
+
+.form-selection-menu {
+		height: 200px;
+    	overflow: scroll;
+}
+.form-do {
+	margin-left: 400px;
+}
+
+.gwt-DatePicker {
+  border: 1px solid #ccc;
+  border-top:1px solid #999;
+  cursor: default;
+}
+.gwt-DatePicker td,
+.datePickerMonthSelector td:focus {
+  outline: none;
+}
+.datePickerMonthSelector td:focus {
+  outline: none;
+}
+.datePickerDays {
+  width: 100%;
+  background: white;
+}
+.datePickerDay,
+.datePickerWeekdayLabel,
+.datePickerWeekendLabel {
+  font-size: 85%;
+  text-align: center;
+  padding: 4px;
+  outline: none;
+  font-weight:bold;
+  color:#333;
+  border-right: 1px solid #EDEDED;
+  border-bottom: 1px solid #EDEDED;
+}
+.datePickerWeekdayLabel,
+.datePickerWeekendLabel {
+  background: #fff;
+  padding: 0px 4px 2px;
+  cursor: default;
+  color:#666;
+  font-size:70%;
+  font-weight:normal;
+}
+.datePickerDay {
+  padding: 4px 7px;
+  cursor: hand;
+  cursor: pointer;
+}
+.datePickerDayIsWeekend {
+  background: #f7f7f7;
+}
+.datePickerDayIsFiller {
+  color: #999;
+  font-weight:normal;
+}
+.datePickerDayIsValue {
+  background: #d7dfe8;
+}
+.datePickerDayIsDisabled {
+  color: #AAAAAA;
+  font-style: italic;
+}
+.datePickerDayIsHighlighted {
+  background: #F0E68C;
+}
+.datePickerDayIsValueAndHighlighted {
+  background: #d7dfe8;
+}
+.datePickerDayIsToday {
+  padding: 3px;
+  color: #fff;
+  background: url(images/hborder.png) repeat-x 0px -2607px;
+}
+.datePickerMonthSelector {
+  width: 100%;
+  padding: 1px 0 5px 0;
+  background: #fff;
+}
+.datePickerPreviousButton,
+.datePickerNextButton,
+.datePickerPreviousYearButton,
+.datePickerNextYearButton {
+  font-size: 120%;
+  line-height: 1em;
+  color: #3a6aad;
+  cursor: hand;
+  cursor: pointer;
+  font-weight: bold;
+  padding: 0px 4px;
+  outline: none;
+}
+td.datePickerMonth,
+td.datePickerYear {
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+  font-size: 100%;
+  font-weight: bold;
+  color: #333;
+}
+.gwt-DateBox {
+  padding: 5px 4px;
+  border: 1px solid #ccc;
+  border-top: 1px solid #999;
+  font-size: 100%;
+}
+.gwt-DateBox input {
+  width: 8em;
+}
+.dateBoxFormatError {
+  background: #ffcccc;
+}
+.dateBoxPopup {
+	z-index:2;
+	padding: 0px;
+}
+
+.gwt-Grid {
+	padding: 100px;
+}
+
+.gwt-DockPanel {
+	padding: 100px;
+}
+
+.styleZ {
+	padding: 5px;
+}
+
+.flextable{
+	padding: 5px;
+}
+
+.container {
+    
+}
+.one {
+    margin-left:10px;
+    width: 30%;
+    height: 500px;
+    
+    float: left;
+}
+.two {
+	margin-left: 30%;
+    height: 500px;
+    background: blue;
+   
+}
+
+
+.gwt-Label {
+	padding:5px;
+}
+
+.gwt-TextBox {
+	padding: 5px;
+}
+
+.gwt-DateBox {
+	padding: 5px;
+}
+
+.two td {
+	padding: 5px;
+	margin: 5px;
+}
+
+.HeadingTable {
+	font-size: 40px;
+	font-weight: Heavy;
+	padding: 20px;
+	margin: 20px;
+}
+
+.TEFButton {
+	text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin-left: 50%;
+    padding: 10px 24px;
+
+}
+
+.title {
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.CommentTextArea {
+	z-index: 999;
+	
+}
+
+.commentsFlex {
+	
+	width:100%;
+	
+	margin: 5px;
+	
+}
+
+.commentsFlex td {
+	
+}
+
+
+.commentsFlexImage {
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+    margin-bottom: 0;
+    text-align: center;
+    padding-right: 10px;
+    padding-top: 10px;
+    
+    border-top: 1px solid #ddd;
+    /* border-top: 1px solid #ddd; */
+    
+
+}
+
+.commentsFlexDate {
+	text-align: right;
+	width: 15%;
+	margin-left:auto;
+    margin-right:auto;
+    padding: 5px;
+    border-top: 1px solid #ddd;
+    
+}
+
+.commentsFlexComment {
+	width: auto;
+	padding: 5px;
+	border-top: 1px solid #ddd;
+	/* border-top: 1px solid #ddd; */
+	
+}
+
+.commentsFlexName {
+	text-align: center;
+    width: 10%;
+    white-space: nowrap;
+    padding: 2px;
+    /*border: 1px solid #ddd; */
+    height: 100%;
+    vertical-align: text-top;
+    
+    
+}
+
+.buttonz {
+	width:auto;
+	border:0;
+	padding:5px 10px;
+	background:#0d223f;
+	color:white;
+	border-radius:0;
+	font-size:14px;
+	display:inline-block;
+	vertical-align:top;
+	height:33px;
+	outline:none;
+	cursor: pointer;
+    -webkit-appearance: button;
+    background-color: #0D223F;
+    white-space:nowrap;
+    
+}	
+
+#tablebit {
+	float: left;
+	padding: 5px;
+	width: 100%;
+}
+
+#detailbit {
+	padding: 5px;
+	
+}
+
+#topbit {
+	width: 100%;
+	padding: 10px 5px 5px 5px;
+	white-space:nowrap;
+	
+}
+
+#topbit .buttonz {
+	display: inline-block;
+	margin-left: auto;
+	margin-right: 0;
+	padding: 5px;
+	white-space:nowrap;
+	text-align: right;
+	float: right;
+	
+}
+
+#topbit .listBoxez {
+	display: inline-block;
+	margin-left: auto;
+	margin-right: 5px;
+	padding: 7.5px;
+	white-space:nowrap;
+	text-align: right;
+	float: right;
+}
+
+#topbit .listBoxez option {
+	padding: 5px;
+
+}
+
+#newticketbit {
+	padding: 5px;
+	
+}
+
+.buttonsFlexz {
+	/*display: inline-block;
+	float:left;
+	padding: 5px;
+	margin: 5px;
+	width: 100%; */
+}
+
+.userImage {
+	border-radius: 50%;
+}
+
+.buttonzFlexTextArea {
+	margin-right: 20px;
+	width: 100%;
+    height: 30%;
+}
+
+.buttonsFlexz tbody {
+	
+}
+
+.ticketDetailsTitleLabel {
+	font-size: 200%;
+	text-decoration: underline;
+	margin-left: 10px;
+}
+
+.ticketDetailsDateLabel {
+	float:left;
+	font-size: 150%;
+	margin-left: 15px;
+	padding-right: 5px;
+}
+
+.ticketDetailsPriorityLabel {
+	float:left;
+	font-size: 150%;
+	padding-right: 5px;
+}
+
+.ticketDetailsCategoryLabel {
+	float:left;
+	font-size: 150%;
+	padding-right: 5px;
+}
+
+.ticketDetailsStatusLabel {
+	float:left;
+	font-size: 150%;
+	padding-right: 5px;
+}
+
+.ticketDetailsAssigneeLabel {
+	float:left;
+	font-size: 150%;
+	padding-right: 5px;
+	margin-left: 15px;
+}
+
+.ticketDetailsDetailsLabel {
+	float: left;
+	font-size: 150%;
+}
+
+.fPanelDetails {
+	margin-left: 30px;
+	float:left;
+}
+		
+.hPanelDetailsLabel {
+	margin-left: 15px;
+	
+}
+
+.dateFlex {
+}
+
+.assigneeFlex {
+	
+}
+
+.ticketDetailsResult {
+	font-size: 125%;
+	padding-right: 15px;
+	font-style: italic;
+}
+
+.detailsFlex {
+	margin-left: 15px;
+
+}
+
+.ticketDetailsTextResult {
+	font-size: 125%;
+	padding-right: 15px;
+	font-style: italic;
+	padding-left: 15px;
+	margin-bottom: 20px;
+}
+
+
+ .buttonzflex .buttonz {
+ 	display: block;
+ 	       /*top right bottom left*/
+	margin: 20px 0px 5px 10px;
+	float: left;
+}
+
+.titleTextBoxLabel {
+	width: 100%;
+	padding: 5px;
+}
+
+.titleTextBox {
+	width:100%;
+}
+
+.detailsTextAreaLabel {
+	padding: 5px;
+}
+
+.detailsTextArea {
+	margin-right: 20px;
+	margin-bottom: 10px;
+	width: 100%;
+    height: 30%;
+}
+
+.newTicketPriorityListBox {
+	
+}
+
+.newTicketCategoryListBox {
+	
+}
+
+#newtickettopbit {
+	width: 100%;
+	padding: 10px 5px 5px 5px;
+	white-space:nowrap;
+}
+
+#newtickettopbit .listBoxez {
+	display: inline-block;
+	margin-left: auto;
+	margin-right: 5px;
+	padding: 7.5px;
+	white-space:nowrap;
+	text-align: right;
+	float: right;
+}
+
+#newtickettopbit .listBoxez option {
+	padding: 5px;
+
+}
+
+#newticketticketbit {
+	    padding-top: 20px;
+}
+
+.newTicketAttachmentButton {
+	width:auto;
+	border:0;
+	padding:5px 10px;
+	background:#0d223f;
+	color:white;
+	border-radius:0;
+	font-size:14px;
+	display:inline-block;
+	vertical-align:top;
+	height:33px;
+	outline:none;
+	cursor: pointer;
+    -webkit-appearance: button;
+    background-color: #0D223F;
+    white-space:nowrap;
+    
+    margin:5px;
+    
+}
+
+.newTicketCancelButton {
+	width:auto;
+	border:0;
+	padding:5px 10px;
+	background:#0d223f;
+	color:white;
+	border-radius:0;
+	font-size:14px;
+	display:inline-block;
+	vertical-align:top;
+	height:33px;
+	outline:none;
+	cursor: pointer;
+    -webkit-appearance: button;
+    background-color: #0D223F;
+    white-space:nowrap;
+    
+    float: right;
+    margin:5px;
+}
+
+.newTicketSubmitButton {
+	width:auto;
+	border:0;
+	padding:5px 10px;
+	background:#0d223f;
+	color:white;
+	border-radius:0;
+	font-size:14px;
+	display:inline-block;
+	vertical-align:top;
+	height:33px;
+	outline:none;
+	cursor: pointer;
+    -webkit-appearance: button;
+    background-color: #0D223F;
+    white-space:nowrap;
+    
+    float: right;
+    margin:5px;
+}
+
+.commentsFlex {
+	width: 100%;
 }

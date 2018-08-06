@@ -1,6 +1,7 @@
 package pillion.hba.hub.shared;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Comment implements Serializable {
@@ -9,6 +10,8 @@ public class Comment implements Serializable {
 	private String commentID;
 	private String comment;
 	private String user;
+	private String privacy;
+	private String imageURL;
 	
 	public String getCommentID() {
 		return commentID;
@@ -36,5 +39,20 @@ public class Comment implements Serializable {
 		this.user = user;
 	}
 
+	public void setCommentPrivacy(String privacy) {
+		this.privacy = privacy;
+	}
+	
+	public String getCommentPrivacy() {
+		return privacy;
+	}
 
+	public void setImageUrl(String imageURL) {
+		this.imageURL = imageURL;
+		
+	}
+	
+	public String getImageURL() {
+		return imageURL;
+	}
 }

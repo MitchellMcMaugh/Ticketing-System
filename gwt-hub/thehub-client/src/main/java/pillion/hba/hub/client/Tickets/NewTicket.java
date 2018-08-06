@@ -24,15 +24,13 @@ import com.google.gwt.user.client.ui.FormPanel;
 
 public class NewTicket {
 	
-	static final RedmineServiceAsync redmineService = GWT.create(RedmineService.class);
+	public static final RedmineServiceAsync redmineService = GWT.create(RedmineService.class);
 	
-	static FlowPanel newTicketFlex = new FlowPanel();
+	public static FlowPanel newTicketFlex = new FlowPanel();
 	
-	static FileUpload upload = new FileUpload();
+	public static FileUpload upload = new FileUpload();
 	
-	static FormPanel form = new FormPanel();
-	
-	static byte[] data;
+	public static FormPanel form = new FormPanel();
 	
 	public static FlowPanel newTicket() {
 		
@@ -58,7 +56,11 @@ public class NewTicket {
 		
 		// L I S T   B O X E S
 		
-		String[] ticketFilterPriorities = {"Priority", "Low", "Normal", "High", "Urgent"};
+		String[] ticketFilterPriorities = {"Priority", 
+				"Low", 
+				"Normal", 
+				"High", 
+				"Urgent"};
 		
 		for (int i = 0; i < ticketFilterPriorities.length; i++) {
 			newTicketPriorityListBox.addItem(ticketFilterPriorities[i]);
@@ -66,10 +68,19 @@ public class NewTicket {
 		RootPanel.get("newtickettopbit").add(newTicketPriorityListBox);
 		newTicketPriorityListBox.setSelectedIndex(0);
 		
-		
-		
-		String[] ticketFilterCategories = {"Category", "Affinity Issue", "Big Hand Issue", "Hardware Issue", "Lost File Issue", "Microsoft Office 365 Issue", "Microsoft Windows Issue",
-				"Printing Issue", "Remote Desktop Issue", "Software Issue", "User Login Issue", "Other Issue"};
+		String[] ticketFilterCategories = {
+				"Category", 
+				"Affinity Issue", 
+				"Big Hand Issue", 
+				"Hardware Issue", 
+				"Lost File Issue", 
+				"Microsoft Office 365 Issue", 
+				"Microsoft Windows Issue",
+				"Printing Issue", 
+				"Remote Desktop Issue", 
+				"Software Issue", 
+				"User Login Issue", 
+				"Other Issue"};
 		for (int i = 0; i < ticketFilterCategories.length; i++) {
 			newTicketCategoryListBox.addItem(ticketFilterCategories[i]);
 		}
@@ -97,8 +108,9 @@ public class NewTicket {
 			    upload.setName("uploadFormElement");
 			    upload.click();
 			    
+			    upload.getFilename();
+			    
 			    form.setAction("/b/barnacle/attch");
-				
 				form.setEncoding(FormPanel.ENCODING_MULTIPART);
 			    form.setMethod(FormPanel.METHOD_POST);
 			    
@@ -142,6 +154,10 @@ public class NewTicket {
 		submitTicketButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				
+				Window.confirm(upload.getFilename());
+				
+				
+				form.add(upload);
 				form.submit();
 				
 				String titleTextValue = titleTextBox.getText();
@@ -149,7 +165,7 @@ public class NewTicket {
 				String ticketPriorityListBoxValue = newTicketPriorityListBox.getSelectedItemText().toString();
 				String ticketCategoryListBoxValue = newTicketCategoryListBox.getSelectedItemText().toString();
 				
-				if (titleTextValue == "") {Window.alert("Title must not be blank!");}
+				if (titleTextValue == "") {Window.alert("Subject must not be blank!");}
 				
 				else if (detailsTextAreaValue == "") {Window.alert("Details must not be blank!");}
 				
@@ -164,8 +180,6 @@ public class NewTicket {
 							//Clears Short Description Textbox and Details TextArea.
 							titleTextBox.setValue(null);
 							detailsTextArea.setValue(null);
-							
-							
 							
 							RootPanel.get("newticketticketbit").remove(newTicketFlex);
 							newTicketFlex.clear();

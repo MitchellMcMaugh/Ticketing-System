@@ -1,7 +1,6 @@
 package pillion.hba.hub.client;
 
-import java.util.Arrays;
-import java.util.Comparator;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gwt.core.client.GWT;
@@ -12,18 +11,18 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.cellview.client.CellTable;
-import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.cellview.client.HasKeyboardSelectionPolicy.KeyboardSelectionPolicy;
-import com.google.gwt.user.cellview.client.SimplePager;
+import com.google.gwt.user.cellview.client.SimplePager.TextLocation;
+import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.view.client.ListDataProvider;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
-import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.Label;
 
 import pillion.hba.hub.shared.RedmineService;
 import pillion.hba.hub.shared.RedmineServiceAsync;
@@ -43,13 +42,29 @@ public class TicketPage {
 	public static String selectedCategory;
 	public static String selectedPriority;
 	public static Tickets initialData = new Tickets();
+	private static List TableList = new ArrayList();
+	private static MySimplePager.Resources pagerResources = GWT.create(MySimplePager.Resources.class);
+	private static MySimplePager pager = new MySimplePager(TextLocation.CENTER, pagerResources, false, 0,true);
+	private static ListDataProvider dataProvider = new ListDataProvider();
+	private static Tickets results = new Tickets();
+	public static String imageURL = new String();
+	public static String userName = new String();
+	
+	
 	
 	private Element listTicketsPanel, newTicketPanel, viewTicketPanel;
 	
 	
 	public void go() {
 		
-		cellTable.setVisibleRange(0, 250);
+		redmineService.getData(new AsyncCallback<String>() {
+			public void onSuccess(String url) {
+				int position = ordinalIndexOf(url, "¯\\_(ツ)_/¯", 1);
+				imageURL = url.substring(0, position);
+				userName = url.substring(position + 9);	
+						;}
+			public void onFailure(Throwable e) { throw new RuntimeException(e); }
+		});
 		
 		selectedCategory = "Category Filter";
 		selectedPriority = "Priority Filter";
@@ -61,6 +76,7 @@ public class TicketPage {
 				FlowPanel newTicketFlex = new FlowPanel();
 				newTicketFlex = pillion.hba.hub.client.Tickets.NewTicket.newTicket();
 				cellTable.setVisible(false);
+				pager.setVisible(false);
 				RootPanel.get("newticketticketbit").add(newTicketFlex);
 				RootPanel.get("topbit").remove(newTicketButton);
 				RootPanel.get("topbit").remove(ticketFilterCategoryListBox);
@@ -68,17 +84,32 @@ public class TicketPage {
 			}
 		});
 		
+			addDateColumn(cellTable);
+		    addPriorityColumn(cellTable);
+		    addStatusColumn(cellTable);
+		    addCategoryColumn(cellTable);
+		    addTitleColumn(cellTable);
+		    addAssigneeColumn(cellTable);
+		    
+		    cellTable.setColumnWidth(0, "5%");
+		    cellTable.setColumnWidth(1, "5%");
+		    cellTable.setColumnWidth(2, "5%");
+		    cellTable.setColumnWidth(3, "5%");
+		    cellTable.setColumnWidth(4, "20%");
+		    cellTable.setColumnWidth(5, "5%");
+		    
+		    cellTable.redrawHeaders();
+		    cellTable.setRowData(0, initialData);
+		    RootPanel.get("tablebit").add(cellTable);
+		
+		    int pageCount = 0;
+		    
 		redmineService.getTickets(new AsyncCallback<Tickets>() {
 			public void onSuccess(Tickets result) { populateTickets(result);}
 			public void onFailure(Throwable e) { throw new RuntimeException(e); }
 		});
 		
-	    addDateColumn(cellTable);
-	    addPriorityColumn(cellTable);
-	    addStatusColumn(cellTable);
-	    addCategoryColumn(cellTable);
-	    addTitleColumn(cellTable);
-	    addAssigneeColumn(cellTable);
+	   
 		
 		ticketsForm();
 		
@@ -86,11 +117,10 @@ public class TicketPage {
 	
 	public static void ticketsForm() {
 		
-		
-		
 		ticketFilterCategoryListBox.clear();
 		ticketFilterPriorityListBox.clear();
 
+		pager.setVisible(true);
 		cellTable.setVisible(true);
 		
 		cellTable.setStyleName("tbl-ticket-list");
@@ -184,16 +214,17 @@ public class TicketPage {
 			}
 		});		
 		
-	// Add a selection model to handle user selection.
+	// Add a selection model to handle user selection for celltable.
 	    final SingleSelectionModel<Ticket> singleSelectionModel = new SingleSelectionModel<Ticket>();
 	    cellTable.setSelectionModel(singleSelectionModel);
 	    singleSelectionModel.setSelected(singleSelectionModel.getSelectedObject(), false);
 	    singleSelectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
 	      public void onSelectionChange(SelectionChangeEvent event) {
-	    	  Ticket selectedEmployee = singleSelectionModel.getSelectedObject();
-	        if (selectedEmployee != null) {
-	        	FlowPanel tDetails = pillion.hba.hub.client.Tickets.TicketDetails.ticketDetails(selectedEmployee);
+	    	  Ticket selectedTicket = singleSelectionModel.getSelectedObject();
+	        if (selectedTicket != null) {
+	        	FlowPanel tDetails = pillion.hba.hub.client.Tickets.TicketDetails.ticketDetails(selectedTicket, imageURL, userName);
 				cellTable.setVisible(false);
+				pager.setVisible(false);
 				RootPanel.get("topbit").remove(newTicketButton);
 				RootPanel.get("topbit").remove(ticketFilterCategoryListBox);
 				RootPanel.get("topbit").remove(ticketFilterPriorityListBox);
@@ -204,12 +235,22 @@ public class TicketPage {
 		
 	}
 	
-	public static void populateTickets(Tickets results) {
+	public static void populateTickets(Tickets Asyncresults) {
+		
+		
+		results.addAll(Asyncresults);
 		initialData.addAll(results);
 	    cellTable.setRowData(0, results);
-	    cellTable.setRowCount(results.size(), true);
+	    cellTable.setRowCount(results.size(), true); 
 	    
-	    RootPanel.get("tablebit").add(cellTable);
+	    dataProvider = new ListDataProvider();
+	    pager.setDisplay(cellTable);
+	    dataProvider.addDataDisplay(cellTable);
+	    dataProvider.setList(results);
+	    pager.setPageSize(10);
+	    pager.setStyleName("pager");
+	    
+	    RootPanel.get("tablebit").add(pager);
 	    
 		}	
 	
@@ -296,28 +337,46 @@ public class TicketPage {
 	    }
 	    
 	    private static void filter() {
+	    	
+	    	pager.firstPage();
+	    	
 	    	selectedCategory = ticketFilterCategoryListBox.getSelectedItemText();
 	    	selectedPriority = ticketFilterPriorityListBox.getSelectedItemText();
 			
-			Tickets resultz = new Tickets();
-			resultz.addAll(initialData);
-			
 			//Change Change
 			if (selectedCategory != "Category Filter" && selectedPriority != "Priority Filter") {
-		    	resultz.removeIf(x -> x.getCategory() != selectedCategory);
-				resultz.removeIf(x -> x.getPriority() != selectedPriority);
+				results.removeAll(results);
+		    	results.addAll(initialData);
+				results.removeIf(x -> x.getCategory() != selectedCategory);
+				results.removeIf(x -> x.getPriority() != selectedPriority);
+				
+				
 			}
 			//Default Change
 			if (selectedCategory == "Category Filter" && selectedPriority != "Priority Filter") {
-				resultz.removeIf(x -> x.getPriority() != selectedPriority);
+				results.removeAll(results);
+		    	results.addAll(initialData);
+				results.removeIf(x -> x.getPriority() != selectedPriority);
+				
 			}
 			//Change Default
 			if (selectedCategory != "Category Filter" && selectedPriority == "Priority Filter") {
-		    	resultz.removeIf(x -> x.getCategory() != selectedCategory);
+				results.removeAll(results);
+		    	results.addAll(initialData);
+				
+				results.removeIf(x -> x.getCategory() != selectedCategory);
+				
 			}
-
-			cellTable.setRowData(0, resultz);
-			cellTable.setRowCount(resultz.size(), true);
+			
+			//Default Default
+			if (selectedCategory == "Category Filter" && selectedPriority == "Priority Filter") {
+		    	results.removeAll(results);
+		    	results.addAll(initialData);
+			}
+			
+			cellTable.setRowData(0, results);
+			cellTable.setRowCount(results.size(), true);
+			dataProvider.refresh();
 			
 	    }
 	

@@ -9,4 +9,6 @@ public interface RedmineService extends RemoteService {
 	Ticket newTicket(String ticketPriority, String ticketCategory, String ticketShortDescription, String ticketDetails);
 	Comments getComments(int id);
 	Comment newComment(String comment, int issueID);
+	String getData();
+	
 }

@@ -27,29 +27,54 @@ public class WPDataService {
 
 	public static Optional<WPUser> userFromUserName(String userName) {
 		
-		Jdbi jdbi = Jdbi.create(DBUtils.getMySQLDataSource("mysql,wp,wp,wp"));
+		//svr_db_user_pw
+		Jdbi jdbi = Jdbi.create(DBUtils.getMySQLDataSource("192.168.2.160,mitchwp,mitchwp,mitchwp"));
+		
 
 		jdbi.registerRowMapper(WPUser.class,WPRowMappers.wpUserRowMapper);
 		
 		Handle handle = jdbi.open();
 
-		return handle.createQuery("SELECT * FROM wp.wp_users where user_login = :loginName")
+		return handle.createQuery("SELECT * FROM wp_users where user_login = :loginName")
 				.bind("loginName", userName)
 				.mapTo(WPUser.class).findFirst();
 		
 	}
 	
+	public static Optional<String> userImageURL(String userName) {
+		System.out.println(userName);
+		Jdbi jdbi = Jdbi.create(DBUtils.getMySQLDataSource("192.168.2.160,mitchwp,mitchwp,mitchwp"));
+		
+		jdbi.registerRowMapper(WPUser.class,WPRowMappers.wpUserRowMapper);
+		Handle handle = jdbi.open();
+		
+		Optional<String> imageURL = Optional.empty();
+		
+		Optional<Integer> ID = handle.createQuery("SELECT ID FROM mitchwp.wp_users WHERE user_login = :loginName")
+				.bind("loginName", userName)
+				.mapTo(Integer.class).findFirst();
+		if (ID.isPresent()) {
+			imageURL =  handle.createQuery("SELECT meta_value FROM mitchwp.wp_usermeta WHERE meta_key = 'wp_user_avatars' AND user_id = :ID")
+				.bind("ID", ID.get())
+				.mapTo(String.class).findFirst();
+			if (imageURL.isPresent()) {
+			    return imageURL;
+			}
+		}
+		return imageURL;
+	}
 	
 	public static UserMetadata userMetadataFromUserName(Integer userId) {
 		UserMetadata umd = new UserMetadata();
 
 		try {
-			Jdbi jdbi = Jdbi.create(DBUtils.getMySQLDataSource("mysql,wp,wp,wp"));
+			Jdbi jdbi = Jdbi.create(DBUtils.getMySQLDataSource("192.168.2.160,mitchwp,mitchwp,mitchwp"));
 
 			Handle handle = jdbi.open();
-
+			
+			//Changed this query
 			List<Map<String, Object>> rows = handle
-					.createQuery("SELECT * FROM wp.wp_usermeta where user_id=:userId").bind("userId", userId).mapToMap()
+					.createQuery("SELECT * FROM wp_usermeta where user_id=:userId").bind("userId", userId).mapToMap()
 					.list();
 
 			for(Map<String, Object> row: rows) {

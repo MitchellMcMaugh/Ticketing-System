@@ -7,4 +7,5 @@ public interface RedmineServiceAsync {
 	void newTicket(String ticketPriority, String ticketCategory, String ticketShortDescription, String ticketDetails, AsyncCallback<Ticket> ticket);
 	void getComments(int id, com.google.gwt.user.client.rpc.AsyncCallback<Comments> comments);
 	void newComment(String comment, int issueID, com.google.gwt.user.client.rpc.AsyncCallback<Comment> commentAdd);
+	void getData(AsyncCallback<String> url);
 }

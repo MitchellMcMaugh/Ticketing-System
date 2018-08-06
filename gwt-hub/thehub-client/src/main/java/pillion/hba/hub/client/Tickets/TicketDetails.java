@@ -3,27 +3,26 @@ package pillion.hba.hub.client.Tickets;
 import java.util.Comparator;
 
 import com.google.gwt.core.client.GWT;
-
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.DateLabel;
+import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.Image;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextArea;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.DateLabel;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.FlowPanel;
 
+import pillion.hba.hub.shared.Comment;
+import pillion.hba.hub.shared.Comments;
 import pillion.hba.hub.shared.RedmineService;
 import pillion.hba.hub.shared.RedmineServiceAsync;
 import pillion.hba.hub.shared.Ticket;
-import pillion.hba.hub.shared.Comment;
-import pillion.hba.hub.shared.Comments;
 
 public class TicketDetails {
 
@@ -38,7 +37,7 @@ public class TicketDetails {
 	static TextArea ticketAddCommentTextArea = new TextArea();
 	private static RedmineServiceAsync redmineService = GWT.create(RedmineService.class);
 	
-	public static FlowPanel ticketDetails(Ticket t) {
+	public static FlowPanel ticketDetails(Ticket t, String imageURL, String userName) {
 		
 		RootPanel.get("tablebit").remove(ticketDetailsTable);
 		ticketDetailsTable.clear();
@@ -46,136 +45,233 @@ public class TicketDetails {
 		
 		// C R E A T I N G     D I S P L A Y
 
-		//Title
-		FlowPanel hPanelTitle = new FlowPanel();
-		hPanelTitle.setStyleName("hPanelTitle");
-		
-		//Date
-		dateFlex.setStyleName("dateFlex");
-		
-		//Description Label
-		VerticalPanel hPanelDetailsLabel = new VerticalPanel();
-		hPanelDetailsLabel.setStyleName("hPanelDetailsLabel");
-
-		//Assignee
-		assigneeFlex.setStyleName("assigneeFlex");
+			//Title
+			FlowPanel hPanelTitle = new FlowPanel();
+			hPanelTitle.setStyleName("hPanelTitle");
+			
+			//Date
+			dateFlex.setStyleName("dateFlex");
+			
+			//Description Label
+			VerticalPanel hPanelDetailsLabel = new VerticalPanel();
+			hPanelDetailsLabel.setStyleName("hPanelDetailsLabel");
+	
+			//Assignee
+			assigneeFlex.setStyleName("assigneeFlex");
 		
 		// C R E A T I N G     D E T A I L S
 		
-		String title = t.getTitle();
-		//t.getTitle().substring(TitleStart);
-		String category = t.getCategory();
-		
+			String title = t.getTitle();
+			String category = t.getCategory();
 		
 		// T I T L E
-		Label ticketTitleLabel = new Label();
-		
-		ticketTitleLabel.setText(title);
-		titleFlex.setWidget(0, 1, ticketTitleLabel);
-		
-		ticketTitleLabel.setStyleName("ticketDetailsTitleLabel");
+			Label ticketTitleLabel = new Label();
+			
+			ticketTitleLabel.setText(title);
+			titleFlex.setWidget(0, 1, ticketTitleLabel);
+			
+			ticketTitleLabel.setStyleName("ticketDetailsTitleLabel");
 		
 		// D A T E     L O G G E D
-		Label ticketDateLoggedLabel = new Label();
-		Label ticketDateLogged = new Label();
-		
-		ticketDateLoggedLabel.setText("Date:");
-		DateTimeFormat fmt = DateTimeFormat.getFormat("dd/MM/yyyy, hh:mma z");
-		String DLog = fmt.format(t.getLogged());
-		ticketDateLogged.setText(DLog);
-		
-		dateFlex.setWidget(0, 0, ticketDateLoggedLabel);
-		dateFlex.setWidget(0, 1, ticketDateLogged);
-
-		ticketDateLogged.setStyleName("ticketDetailsResult");
-		ticketDateLoggedLabel.setStyleName("ticketDetailsDateLabel");	
+			Label ticketDateLoggedLabel = new Label();
+			Label ticketDateLogged = new Label();
+			
+			ticketDateLoggedLabel.setText("Date:");
+			DateTimeFormat fmt = DateTimeFormat.getFormat("dd/MM/yyyy, hh:mma z");
+			String DLog = fmt.format(t.getLogged());
+			ticketDateLogged.setText(DLog);
+			
+			dateFlex.setWidget(0, 0, ticketDateLoggedLabel);
+			dateFlex.setWidget(0, 1, ticketDateLogged);
+	
+			ticketDateLogged.setStyleName("ticketDetailsResult");
+			ticketDateLoggedLabel.setStyleName("ticketDetailsDateLabel");	
 		
 		// P R I O R I T Y
-		Label ticketPriorityLabel = new Label();
-		Label ticketPriority = new Label();
-		
-		ticketPriorityLabel.setText("Priority:");
-		ticketPriority.setText(t.getPriority());
-		
-		ticketDetailsTable.setWidget(2, 0, ticketPriorityLabel);
-		ticketDetailsTable.setWidget(2, 1, ticketPriority);
-		
-		ticketPriorityLabel.setStyleName("ticketDetailsPriorityLabel");
-		ticketPriority.setStyleName("ticketDetailsResult");
+			Label ticketPriorityLabel = new Label();
+			Label ticketPriority = new Label();
+			
+			ticketPriorityLabel.setText("Priority:");
+			ticketPriority.setText(t.getPriority());
+			
+			ticketDetailsTable.setWidget(2, 0, ticketPriorityLabel);
+			ticketDetailsTable.setWidget(2, 1, ticketPriority);
+			
+			ticketPriorityLabel.setStyleName("ticketDetailsPriorityLabel");
+			ticketPriority.setStyleName("ticketDetailsResult");
 		
 		// C A T E G O R Y
-		Label ticketCategoryLabel = new Label();
-		Label ticketCategory = new Label();
-		
-		ticketCategoryLabel.setText("Category:");
-		ticketCategory.setText(category);
-		
-		ticketDetailsTable.setWidget(2, 2, ticketCategoryLabel);
-		ticketDetailsTable.setWidget(2, 3, ticketCategory);
-		
-		ticketCategoryLabel.setStyleName("ticketDetailsCategoryLabel");
-		ticketCategory.setStyleName("ticketDetailsResult");
+			Label ticketCategoryLabel = new Label();
+			Label ticketCategory = new Label();
+			
+			ticketCategoryLabel.setText("Category:");
+			ticketCategory.setText(category);
+			
+			ticketDetailsTable.setWidget(2, 2, ticketCategoryLabel);
+			ticketDetailsTable.setWidget(2, 3, ticketCategory);
+			
+			ticketCategoryLabel.setStyleName("ticketDetailsCategoryLabel");
+			ticketCategory.setStyleName("ticketDetailsResult");
 		
 		// S T A T U S
-		Label ticketStatusLabel = new Label();
-		Label ticketStatus = new Label();
-		
-		ticketStatusLabel.setText("Status:");
-		ticketStatus.setText(t.getStatus());
-		
-		ticketDetailsTable.setWidget(2, 4, ticketStatusLabel);
-		ticketDetailsTable.setWidget(2, 5, ticketStatus);
-		
-		ticketStatusLabel.setStyleName("ticketDetailsStatusLabel");
-		ticketStatus.setStyleName("ticketDetailsResult");
+			Label ticketStatusLabel = new Label();
+			Label ticketStatus = new Label();
+			
+			ticketStatusLabel.setText("Status:");
+			ticketStatus.setText(t.getStatus());
+			
+			ticketDetailsTable.setWidget(2, 4, ticketStatusLabel);
+			ticketDetailsTable.setWidget(2, 5, ticketStatus);
+			
+			ticketStatusLabel.setStyleName("ticketDetailsStatusLabel");
+			ticketStatus.setStyleName("ticketDetailsResult");
 		
 		// A S S I G N E E
-		Label ticketAssigneeLabel = new Label();
-		Label ticketAssignee = new Label();
-		
-		ticketAssigneeLabel.setText("Assignee:");
-		ticketAssignee.setText(t.getAssignee());
-		
-		assigneeFlex.setWidget(0, 0, ticketAssigneeLabel);
-		assigneeFlex.setWidget(0, 1, ticketAssignee);
-		
-		ticketAssigneeLabel.setStyleName("ticketDetailsAssigneeLabel");
-		ticketAssignee.setStyleName("ticketDetailsResult");
+			Label ticketAssigneeLabel = new Label();
+			Label ticketAssignee = new Label();
+			
+			ticketAssigneeLabel.setText("Assignee:");
+			ticketAssignee.setText(t.getAssignee());
+			
+			assigneeFlex.setWidget(0, 0, ticketAssigneeLabel);
+			assigneeFlex.setWidget(0, 1, ticketAssignee);
+			
+			ticketAssigneeLabel.setStyleName("ticketDetailsAssigneeLabel");
+			ticketAssignee.setStyleName("ticketDetailsResult");
 		
 		// D E T A I L S
-		Label ticketDetailsLabel = new Label();
-		Label ticketDetails = new Label();
+			Label ticketDetailsLabel = new Label();
+			Label ticketDetails = new Label();
+			
+			ticketDetailsLabel.setText("Description:");
+			ticketDetails.setText(t.getDescription());
+			
+			hPanelDetailsLabel.add(ticketDetailsLabel);
+			hPanelDetailsLabel.add(ticketDetails);
+			
+			ticketDetailsLabel.setStyleName("ticketDetailsDetailsLabel");
+			ticketDetails.setStyleName("ticketDetailsTextResult");
 		
-		ticketDetailsLabel.setText("Description:");
-		ticketDetails.setText(t.getDescription());
+		//Add new comment section.
+		Button ticketSubmitCommentButton = new Button();
+		ticketSubmitCommentButton.setStyleName("buttonz");
+		ticketSubmitCommentButton.setText("Submit Comment");
+		ticketSubmitCommentButton.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				
+				String comment = ticketAddCommentTextArea.getText();
+				
+				//Submits comment if not blank.
+				if (comment != "" && comment != null) {
+				redmineService.newComment(comment, t.getTicketID(), new AsyncCallback<Comment>() {
+	
+					public void onFailure(Throwable e) { throw new RuntimeException(e); }
+					
+					//On successful comment return to main screen.
+					public void onSuccess(Comment result) {							
+						hPanelTitle.clear();
+						hPanelDetailsLabel.clear();
+						
+						dateFlex.removeAllRows();
+						dateFlex.clear();
+						
+						assigneeFlex.removeAllRows();
+						assigneeFlex.clear();
+						
+						buttonsFlex.removeAllRows();
+						buttonsFlex.clear();
+						vPanel.remove(buttonsFlex);
+						
+						titleFlex.removeAllRows();
+						titleFlex.clear();
+						
+						commentsFlex.removeAllRows();
+						commentsFlex.clear();
+						vPanel.remove(commentsFlex);
+
+						vPanel.clear();
+						
+						pillion.hba.hub.client.TicketPage.ticketsForm();
+						
+					}}
+				
+			);
+				
+				}
+				else {
+					Window.alert("Comment must not be blank!");
+				}
+				ticketAddCommentTextArea.setText(null);
+	        }
+			
+	    });
+
 		
-		hPanelDetailsLabel.add(ticketDetailsLabel);
-		hPanelDetailsLabel.add(ticketDetails);
+		Image userImage2 = new Image();
+		userImage2.addStyleName("userImage");
+		userImage2.setUrl(imageURL);
 		
-		ticketDetailsLabel.setStyleName("ticketDetailsDetailsLabel");
-		ticketDetails.setStyleName("ticketDetailsTextResult");
+		commentsFlex.getFlexCellFormatter().setStyleName(0, 2,"commentsFlexDate" );
+		commentsFlex.getFlexCellFormatter().setStyleName(0, 1, "commentsFlexComment");
+		commentsFlex.getFlexCellFormatter().setStyleName(0, 0, "commentsFlexImage");
+		commentsFlex.getFlexCellFormatter().setStyleName(1, 0, "commentsFlexName");
+		
+		userImage2.setPixelSize(50, 50);
+		
+		Label nameLabel2 = new Label();
+		nameLabel2.setText(userName);
+		
+		commentsFlex.setWidget(0, 0, userImage2);
+		commentsFlex.setWidget(1, 0, nameLabel2);
+		commentsFlex.setWidget(0, 1, ticketAddCommentTextArea);
+		commentsFlex.setWidget(0, 2, ticketSubmitCommentButton);
+		
+		ticketAddCommentTextArea.setStyleName("buttonzFlexTextArea");
+		
+		ticketAddCommentTextArea.setVisibleLines(5);
+		
+		//Comment 2 RowSpan
+		commentsFlex.getFlexCellFormatter().setRowSpan(0, 1, 2);
+		
+		//Date 2 RowSpan
+		commentsFlex.getFlexCellFormatter().setRowSpan(0, 2, 2);
+		
+		//Image 1 RowSpan
+		commentsFlex.getFlexCellFormatter().setRowSpan(0, 0, 1);
+		
+		//Name 1 Rowspan
+		commentsFlex.getFlexCellFormatter().setRowSpan(1, 0, 1);
+		
 		
 		//Get comments from Ticket.
+		
+		Image loadingBar = new Image();
+		loadingBar.setUrl("https://i.imgur.com/u8dhq7M.gif");
+		RootPanel.get("newticketbit").add(loadingBar);
+		loadingBar.setStyleName("loadingBar");
+
 		redmineService.getComments(t.getTicketID(), new AsyncCallback<Comments>() {
 	
 			public void onFailure(Throwable e) { throw new RuntimeException(e);}
 	
 			public void onSuccess(Comments result) {
-				int NamePosition = 0;
-				int PicPosition = -1;
-				
+				//Flextable position below new comment box.
+				int NamePosition = 4;
+				int PicPosition = 3;
+
 				//Sort by date reversed.
 				result.sort(Comparator.comparing(Comment::getLogged).reversed());
 				
 				commentsFlex.setStyleName("commentsFlex");
 				
-				for (int i = 0;i <= result.size(); i++) {					
+				for (int i = 0;i < result.size(); i++) {					
 					if (result.get(i).getComment() != null && result.get(i).getComment() != "") {
 						
 						//Image
 						Image userImage = new Image();
 						userImage.addStyleName("userImage");
-						userImage.setUrl("http://www.weirdhut.com/wp-content/uploads/2013/01/Funny-Cat-tongue.jpg");
+						userImage.setUrl(result.get(i).getImageURL());
+						
 						NamePosition = NamePosition + 2;
 						PicPosition = PicPosition + 2;
 						userImage.setPixelSize(50, 50);
@@ -194,20 +290,14 @@ public class TicketDetails {
 						commentsFlex.setWidget(PicPosition, 1, commentLabel);
 						
 						//DateTime
-						DateTimeFormat fmt = DateTimeFormat.getFormat("hh:mma dd/MM/yyyy");
+						DateTimeFormat fmt = DateTimeFormat.getFormat("hh:mm a dd/MM/yyyy");
 						DateLabel dateTimeLabel = new DateLabel(fmt);
+						
 						dateTimeLabel.setValue(result.get(i).getLogged());
 						commentsFlex.setWidget(PicPosition, 2, dateTimeLabel);
 						
-						//Text stripping
-						int CommentStart = ordinalIndexOf(comment, ":", 3) + 2;
-						int NameStart = ordinalIndexOf(comment, "#", 3) + 2;
+						commentLabel.setText(comment);
 						
-						String nameActual = comment.substring(NameStart, CommentStart - 2);
-						String commentActual = comment.substring(CommentStart);
-						
-						commentLabel.setText(commentActual);
-						nameLabel.setText(nameActual);
 						
 						//Comment 2 RowSpan
 						commentsFlex.getFlexCellFormatter().setRowSpan(PicPosition, 1, 2);
@@ -233,131 +323,11 @@ public class TicketDetails {
 						}
 						
 					}
-					if (i == result.size() - 1) {
-						//Add new comment section.
-						Button ticketSubmitCommentButton = new Button();
-						ticketSubmitCommentButton.setStyleName("buttonz");
-						ticketSubmitCommentButton.setText("Submit Comment");
-						ticketSubmitCommentButton.addClickHandler(new ClickHandler() {
-							public void onClick(ClickEvent event) {
-								
-								String comment = ticketAddCommentTextArea.getText();
-								
-								//Window.confirm(comment + String.valueOf(t.getTicketID()));
-								if (comment != "" && comment != null) {
-								redmineService.newComment(comment, t.getTicketID(), new AsyncCallback<Comment>() {
-					
-									public void onFailure(Throwable e) { throw new RuntimeException(e); }
-									
-									//On successful comment return to main screen.
-									public void onSuccess(Comment result) {							
-										hPanelTitle.clear();
-										hPanelDetailsLabel.clear();
-										
-										dateFlex.removeAllRows();
-										dateFlex.clear();
-										
-										assigneeFlex.removeAllRows();
-										assigneeFlex.clear();
-										
-										buttonsFlex.removeAllRows();
-										buttonsFlex.clear();
-										vPanel.remove(buttonsFlex);
-										
-										titleFlex.removeAllRows();
-										titleFlex.clear();
-										
-										commentsFlex.removeAllRows();
-										commentsFlex.clear();
-										vPanel.remove(commentsFlex);
 
-										vPanel.clear();
-										
-										pillion.hba.hub.client.TicketPage.ticketsForm();
-										
-									}}
-								
-							);
-								
-								}
-								else {
-									Window.alert("Comment must not be blank!");
-								}
-								ticketAddCommentTextArea.setText(null);
-					        }
-							
-					    });
-						
-						Image userImage2 = new Image();
-						userImage2.addStyleName("userImage");
-						userImage2.setUrl("http://www.weirdhut.com/wp-content/uploads/2013/01/Funny-Cat-tongue.jpg");
-
-						commentsFlex.insertRow(0);
-						commentsFlex.insertRow(1);
-						
-						commentsFlex.getFlexCellFormatter().setStyleName(0, 2,"commentsFlexDate" );
-						commentsFlex.getFlexCellFormatter().setStyleName(0, 1, "commentsFlexComment");
-						commentsFlex.getFlexCellFormatter().setStyleName(0, 0, "commentsFlexImage");
-						commentsFlex.getFlexCellFormatter().setStyleName(1, 0, "commentsFlexName");
-						
-						userImage2.setPixelSize(50, 50);
-						
-						Label nameLabel2 = new Label();
-						nameLabel2.setText("Name");
-						
-//						Label dateLabel2 = new Label();
-						//CHANGE TO CORRECT
-//						dateLabel2.setText("AHH");
-						
-						commentsFlex.setWidget(0, 0, userImage2);
-						commentsFlex.setWidget(1, 0, nameLabel2);
-						commentsFlex.setWidget(0, 1, ticketAddCommentTextArea);
-						commentsFlex.setWidget(0, 2, ticketSubmitCommentButton);
-						
-						ticketAddCommentTextArea.setStyleName("buttonzFlexTextArea");
-						
-						ticketAddCommentTextArea.setVisibleLines(5);
-						
-						//Comment 2 RowSpan
-						commentsFlex.getFlexCellFormatter().setRowSpan(0, 1, 2);
-						
-						//Date 2 RowSpan
-						commentsFlex.getFlexCellFormatter().setRowSpan(0, 2, 2);
-						
-						//Image 1 RowSpan
-						commentsFlex.getFlexCellFormatter().setRowSpan(0, 0, 1);
-						
-						//Name 1 Rowspan
-						commentsFlex.getFlexCellFormatter().setRowSpan(1, 0, 1);
-					}
 				}
+				RootPanel.get("newticketbit").remove(loadingBar);
 			}
 		});
-		
-		Button ticketAddCommentButton = new Button();
-		ticketAddCommentButton.setStyleName("buttonz");
-		ticketAddCommentButton.setText("Add Comment");
-		
-		Button ticketCancelCommentButton = new Button();
-		ticketCancelCommentButton.setStyleName("buttonz");
-		ticketCancelCommentButton.setText("Cancel");
-		ticketCancelCommentButton.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				
-				//Clear Submit Comment Button
-				buttonsFlex.clearCell(1, 0);
-				
-				//Clear Cancel Button
-				buttonsFlex.clearCell(1, 1);
-				
-				//Clear Text Area
-				buttonsFlex.clearCell(2, 0);
-				
-				//Set Add Comment Button
-				buttonsFlex.setWidget(0, 0, ticketAddCommentButton);
-
-	        }
-	    });
 		
 		buttonsFlex.setSize("90%", "100%");
 		
@@ -394,6 +364,8 @@ public class TicketDetails {
 				vPanel.remove(commentsFlex);
 
 				vPanel.clear();
+				
+				RootPanel.get("newticketbit").remove(loadingBar);
 				
 				pillion.hba.hub.client.TicketPage.ticketsForm();
 				

@@ -3814,3 +3814,17 @@ td.datePickerYear {
 .commentsFlex {
 	width: 100%;
 }
+
+.pager {
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 18%;
+    margin-top: 30px;
+}
+
+.loadingBar {
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

@@ -171,6 +171,8 @@ public class RM {
 		
 		System.out.println("GOT HERE 1");
 		
+		Attachment attachmentFile2 = mgr.getAttachmentManager().uplo
+		
 		//Attachment attachmentFile = mgr.getAttachmentManager().uploadAttachment(itemName, itemType, fileArray);
 		Attachment attachmentFile2 = mgr.getAttachmentManager().uploadAttachment(itemName, itemType, fileArray);
 		//mgr.getAttachmentManager().addAttachmentToIssue(issueID, attachmentFile2, itemType);

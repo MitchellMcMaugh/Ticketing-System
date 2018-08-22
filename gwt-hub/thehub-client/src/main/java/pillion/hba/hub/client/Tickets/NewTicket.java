@@ -1,7 +1,8 @@
 package pillion.hba.hub.client.Tickets;
 
-import com.google.gwt.core.client.GWT;
+import java.util.Arrays;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
@@ -21,40 +22,35 @@ import com.google.gwt.user.client.ui.FileUpload;
 
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.FormPanel;
+import com.google.gwt.user.client.ui.FormPanel.SubmitCompleteEvent;
+
 
 public class NewTicket {
 	
 	public static final RedmineServiceAsync redmineService = GWT.create(RedmineService.class);
-	
 	public static FlowPanel newTicketFlex = new FlowPanel();
-	
+	public static FlowPanel attachmentPanel = new FlowPanel();
 	public static FileUpload upload = new FileUpload();
-	
 	public static FormPanel form = new FormPanel();
-	
+	public static TextBox hidden = new TextBox();
+
 	public static FlowPanel newTicket() {
+		form.remove(attachmentPanel);
 		
-		Button submitTicketButton = new Button();
-		Button cancelTicketButton = new Button();
-		Button attachmentButton = new Button();
+		hidden.setText("0");
+		hidden.setName("hidden");
+		upload.setName("uploadFormElement");
+		hidden.setVisible(false);
+		upload.setVisible(true);
+		form.setAction("/b/barnacle/attch");
+		form.setEncoding(FormPanel.ENCODING_MULTIPART);
+		form.setMethod(FormPanel.METHOD_POST);
+		attachmentPanel.add(hidden);
+		attachmentPanel.add(upload);
+		form.add(attachmentPanel);
 		
-		Label titleTextBoxLabel = new Label();
-		TextBox titleTextBox = new TextBox();
-		titleTextBoxLabel.setStyleName("titleTextBoxLabel");
-		titleTextBox.setStyleName("titleTextBox");
-		
-		Label detailsTextAreaLabel = new Label();
-		TextArea detailsTextArea = new TextArea();
-		detailsTextArea.setVisibleLines(10);
-		detailsTextAreaLabel.setStyleName("detailsTextAreaLabel");
-		detailsTextArea.setStyleName("detailsTextArea");
-		
-		ListBox newTicketPriorityListBox = new ListBox();
-		ListBox newTicketCategoryListBox = new ListBox();
-		newTicketPriorityListBox.setStyleName("listBoxez");
-		newTicketCategoryListBox.setStyleName("listBoxez");
-		
-		// L I S T   B O X E S
+		// Priority List Box //
+		ListBox newTicketPriorityListBox = new ListBox(); newTicketPriorityListBox.setStyleName("listBoxez");
 		
 		String[] ticketFilterPriorities = {"Priority", 
 				"Low", 
@@ -65,8 +61,13 @@ public class NewTicket {
 		for (int i = 0; i < ticketFilterPriorities.length; i++) {
 			newTicketPriorityListBox.addItem(ticketFilterPriorities[i]);
 		}
+		
 		RootPanel.get("newtickettopbit").add(newTicketPriorityListBox);
 		newTicketPriorityListBox.setSelectedIndex(0);
+		// End Priority List Box //
+		
+		// Category List Box //
+		ListBox newTicketCategoryListBox = new ListBox(); newTicketCategoryListBox.setStyleName("listBoxez");
 		
 		String[] ticketFilterCategories = {
 				"Category", 
@@ -81,45 +82,41 @@ public class NewTicket {
 				"Software Issue", 
 				"User Login Issue", 
 				"Other Issue"};
+		
 		for (int i = 0; i < ticketFilterCategories.length; i++) {
 			newTicketCategoryListBox.addItem(ticketFilterCategories[i]);
 		}
+		
 		RootPanel.get("newtickettopbit").add(newTicketCategoryListBox);
 		newTicketCategoryListBox.setSelectedIndex(0);
+		// End Category List Box //
 		
-		// S U B J E C T
-		titleTextBoxLabel.setText("Subject");
+		// Subject //
+		Label titleTextBoxLabel = new Label("Subject"); titleTextBoxLabel.setStyleName("titleTextBoxLabel");
+		TextBox titleTextBox = new TextBox(); titleTextBox.setStyleName("titleTextBox");
+		
 		newTicketFlex.add(titleTextBoxLabel);
 		newTicketFlex.add(titleTextBox);
+		// End Subject //
 		
-		// D E T A I L S
-		detailsTextAreaLabel.setText("Details");
+		
+		
+		// Details //
+		Label detailsTextAreaLabel = new Label("Details"); detailsTextAreaLabel.setStyleName("detailsTextAreaLabel");
+		
+		TextArea detailsTextArea = new TextArea(); detailsTextArea.setStyleName("detailsTextArea");
+		detailsTextArea.setVisibleLines(10);
+		
 		newTicketFlex.add(detailsTextAreaLabel);
 		newTicketFlex.add(detailsTextArea);
+		// End Details //
 		
-		// B U T T O N S
-		//Attachment
-		attachmentButton.setText("Add Attachment");
-		attachmentButton.setStyleName("newTicketAttachmentButton");
-		newTicketFlex.add(attachmentButton);
-		attachmentButton.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				
-			    upload.setName("uploadFormElement");
-			    upload.click();
-			    
-			    upload.getFilename();
-			    
-			    form.setAction("/b/barnacle/attch");
-				form.setEncoding(FormPanel.ENCODING_MULTIPART);
-			    form.setMethod(FormPanel.METHOD_POST);
-			    
-			    newTicketFlex.add(form);
+		// Attachment Button //
+		newTicketFlex.add(form); upload.addStyleName("uploadTicketFile");
+		// End Attachment Button //
 		
-			}});
-		
-		//Cancel
-		cancelTicketButton.setText("Cancel");
+		// Cancel Button // 
+		Button cancelTicketButton = new Button("Cancel");
 		cancelTicketButton.setStyleName("newTicketCancelButton");
 		newTicketFlex.add(cancelTicketButton);
 		cancelTicketButton.addClickHandler(new ClickHandler() {
@@ -130,67 +127,69 @@ public class NewTicket {
 					cancelTrueFalse = Window.confirm("Are you sure you want to cancel?");
 				}
 				if (cancelTrueFalse == true){
-					
 					//Clears Short Description Textbox and Details TextArea.
 					titleTextBox.setValue(null);
 					detailsTextArea.setValue(null);
-					
-		
-					
+					form.remove(upload);
 					RootPanel.get("newticketticketbit").remove(newTicketFlex);
 					newTicketFlex.clear();
-					newTicketCategoryListBox.removeFromParent();
-					newTicketPriorityListBox.removeFromParent();
-					pillion.hba.hub.client.TicketPage.ticketsForm();
+					RootPanel.get("newtickettopbit").remove(newTicketCategoryListBox);
+			    	RootPanel.get("newtickettopbit").remove(newTicketPriorityListBox);
+					pillion.hba.hub.client.TicketPage.ticketsForm(false);
 					}
 				}
 			}
 		);
+		// End Cancel Button //
 		
-		//Submit
-		submitTicketButton.setText("Submit");
+		// Submit Button //
+		Button submitTicketButton = new Button("Submit");
 		submitTicketButton.setStyleName("newTicketSubmitButton");
 		newTicketFlex.add(submitTicketButton);
 		submitTicketButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				
-				Window.confirm(upload.getFilename());
-				
-				
-				form.add(upload);
-				form.submit();
-				
 				String titleTextValue = titleTextBox.getText();
 				String detailsTextAreaValue = detailsTextArea.getText();
 				String ticketPriorityListBoxValue = newTicketPriorityListBox.getSelectedItemText().toString();
 				String ticketCategoryListBoxValue = newTicketCategoryListBox.getSelectedItemText().toString();
 				
-				if (titleTextValue == "") {Window.alert("Subject must not be blank!");}
-				
-				else if (detailsTextAreaValue == "") {Window.alert("Details must not be blank!");}
-				
-				else if (ticketPriorityListBoxValue == "" || ticketPriorityListBoxValue == "Priority") {Window.alert("Priority must not be blank!");}
-				
-				else if (ticketCategoryListBoxValue == "" || ticketCategoryListBoxValue == "Category") {Window.alert("Category must not be blank!");}
-				
+				if (titleTextValue == "") {
+					Window.alert("Subject must not be blank!");
+				}
+				else if (detailsTextAreaValue == "") {
+					Window.alert("Details must not be blank!");
+				}
+				else if (ticketPriorityListBoxValue == "" || ticketPriorityListBoxValue == "Priority") {
+					Window.alert("Priority must not be blank!");
+				}
+				else if (ticketCategoryListBoxValue == "" || ticketCategoryListBoxValue == "Category") {
+					Window.alert("Category must not be blank!");
+				}
 				else  {
+					Window.confirm(detailsTextAreaValue);
 					redmineService.newTicket(ticketPriorityListBoxValue, ticketCategoryListBoxValue, titleTextValue, detailsTextAreaValue,  new AsyncCallback<Ticket>() {
 						public void onFailure(Throwable e) { throw new RuntimeException(e); }
 						public void onSuccess(Ticket result) {	
-							//Clears Short Description Textbox and Details TextArea.
+							hidden.setText(String.valueOf(result.getTicketID()));
+							form.submit();
+							form.addSubmitCompleteHandler(new FormPanel.SubmitCompleteHandler() {
+								public void onSubmitComplete(SubmitCompleteEvent event) {
+							    	  RootPanel.get("newtickettopbit").remove(newTicketCategoryListBox);
+							    	  RootPanel.get("newtickettopbit").remove(newTicketPriorityListBox);
+							    	  RootPanel.get("newticketticketbit").remove(newTicketFlex);
+							    	  newTicketFlex.clear();
+							    	  
+							    	  pillion.hba.hub.client.TicketPage.ticketsForm(true);
+							      }
+						    });
 							titleTextBox.setValue(null);
 							detailsTextArea.setValue(null);
-							
-							RootPanel.get("newticketticketbit").remove(newTicketFlex);
-							newTicketFlex.clear();
-							newTicketCategoryListBox.removeFromParent();
-							newTicketPriorityListBox.removeFromParent();
-							pillion.hba.hub.client.TicketPage.ticketsForm();
 						}});
 					}
 				}
 			});
-
+		// End Submit Button //
+		
 		return newTicketFlex;
 	}
 }

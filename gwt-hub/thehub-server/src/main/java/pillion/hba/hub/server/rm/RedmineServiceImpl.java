@@ -1,30 +1,37 @@
 package pillion.hba.hub.server.rm;
 
-import java.util.Optional;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.io.ByteArrayInputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.stream.Collectors;
 
 import javax.servlet.annotation.WebServlet;
 
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVPrinter;
+import org.apache.commons.csv.CSVRecord;
 import org.apache.commons.lang3.StringUtils;
 
 import com.taskadapter.redmineapi.RedmineException;
+import com.taskadapter.redmineapi.bean.Attachment;
 import com.taskadapter.redmineapi.bean.Issue;
-import com.taskadapter.redmineapi.bean.Journal;
 import com.taskadapter.redmineapi.bean.User;
 
 import pillion.hba.hub.server.HubRemoteServiceServlet;
 import pillion.hba.hub.server.wp.UserAvitars;
 import pillion.hba.hub.server.wp.UserMetadata;
-import pillion.hba.hub.server.wp.WPDataService;
 import pillion.hba.hub.server.wp.WPUser;
 import pillion.hba.hub.shared.Comment;
 import pillion.hba.hub.shared.Comments;
+import pillion.hba.hub.shared.Employees;
 import pillion.hba.hub.shared.RedmineService;
 import pillion.hba.hub.shared.Ticket;
+import pillion.hba.hub.shared.TicketAttachment;
+import pillion.hba.hub.shared.TicketAttachments;
 import pillion.hba.hub.shared.Tickets;
-import pillion.hba.hub.server.rm.RMDataService;
 
 
 @WebServlet("/barnacle/redmineService")
@@ -42,6 +49,20 @@ public class RedmineServiceImpl extends HubRemoteServiceServlet implements Redmi
 		ticket.setTicketID(issue.getId());
 		return ticket;
 	};
+	
+	private TicketAttachment fromAttachment(Attachment attachment) {
+		TicketAttachment attch = new TicketAttachment();
+		
+		attch.setAttachmentID(attachment.getId());
+		attch.setCreatedOn(attachment.getCreatedOn());
+		attch.setContentType(attachment.getContentType()) ;
+		attch.setDescription(attachment.getDescription()) ;
+		attch.setFileName(attachment.getFileName()) ;
+		attch.setFileSize(attachment.getFileSize().intValue());
+		attch.setToken(attachment.getToken());
+		attch.setContentURL(attachment.getContentURL());
+		return attch;
+	}
 	
 	@Override
 	public Tickets getTickets() {
@@ -68,57 +89,20 @@ public class RedmineServiceImpl extends HubRemoteServiceServlet implements Redmi
 	
 
 	public Comments getComments(int issueID) {
-//		try {	
-			//return new Comments(RM.findJournals(issueID).stream().map(i -> fromJournal(i)).collect(Collectors.toList()));
-			//List<Comment> commentsList = RMDataService.getJournals(issueID);
-//			return new Comments(RMDataService("journal", issueID));
 			return new Comments(RMDataService.getJournals(issueID).stream().collect(Collectors.toList()));
-					//.map(i -> fromJournal(i)).collect(Collectors.toList()))
-			//return comments;
-//		} catch (RedmineException e) {
-//			e.printStackTrace();
-//		}
-		//return null;
 	}
 	
-	private Comment fromJournal(Journal journal) {
-		Comment comment = new Comment();
-		comment.setLogged(journal.getCreatedOn());
-		comment.setComment(journal.getNotes());
-		comment.setUser(journal.getUser().getFullName());
-		Optional<String> userURL = WPDataService.userImageURL(comment.getUser().replaceAll("\\s+",""));
-		if (userURL.isPresent()) {
-			String urlSearchParameter = "i:250;";
-			int indexStart = ordinalIndexOf(userURL.get(), urlSearchParameter , 1);
-			String substring1 = userURL.get().substring(indexStart + urlSearchParameter.length() + 1);
-			String urlSearchParameter2 = "-250x250.jpg";
-			int indexEnd = ordinalIndexOf(substring1, urlSearchParameter2, 1);
-			String substring2 = substring1.substring(0, indexEnd + urlSearchParameter2.length());
-			Pattern r = Pattern.compile("((?:http|https)(?::\\/{2}[\\w]+)(?:[\\/|\\.]?)(?:[^\\s\\\"]*))");
-			String data = "";
-			Matcher m = r.matcher(substring2);
-			if (m.find()) {
-				 data = m.group(0);
-			}	
-			comment.setImageUrl(data);
-		}
-		return comment;
-		
-	}
-	
-	//@Override
 	public Ticket newTicket(String ticketPriority, String ticketCategory, String ticketShortDescription, String ticketDetails) {
 		try {
+			System.out.print(ticketDetails);
 			WPUser user = getLoggedInUser();
 			User redmineUser = RM.findUserByName(user.getUserLogin());
-			//String redmineUserString = redmineUser.toString();
-			Integer issueID = RM.newTicket(redmineUser, ticketPriority, ticketCategory, ticketShortDescription, ticketDetails);	
-			
+			Ticket issueID = fromIssue(RM.newIssue(redmineUser, ticketPriority, ticketCategory, ticketShortDescription, ticketDetails));
+			return issueID;
 		} catch (RedmineException e) {
 			e.printStackTrace();
+			return null;
 		}
-		return null;
-	
 	}
 	
 	public Comment newComment(String comment, int issueID) {
@@ -138,4 +122,61 @@ public class RedmineServiceImpl extends HubRemoteServiceServlet implements Redmi
 	    return pos;
 	}
 	
-}
+	public TicketAttachments getAttachments(int ticketID) {
+		try {
+			return new TicketAttachments(RM.getAttachments(ticketID).stream().map(i -> fromAttachment(i)).collect(Collectors.toList()));
+		}
+		catch(RedmineException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public Integer deleteAttachment(int attachmentID) {
+		try {
+			RM.deleteAttachment(attachmentID);
+		}
+		catch(RedmineException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public Employees getEmployees() {
+//		try {
+//			byte[] csv = RM.getAD();
+//			CSVParser parser = CSVFormat.newFormat(',').parse(
+//				    new InputStreamReader(new ByteArrayInputStream(csv), "UTF8"));
+//				CSVPrinter printer = CSVFormat.newFormat(',').print(out);
+//				for (CSVRecord record : parser) {
+//				  try {
+//				    printer.printRecord(record);
+//				  } catch (Exception e) {
+//				    throw new RuntimeException("Error at line "
+//				      + parser.getCurrentLineNumber(), e);
+//				  }
+//				}
+//				parser.close();
+//				printer.close();
+//		}
+//		catch(RedmineException e) {
+//			e.printStackTrace();
+		
+		return null;
+	}
+		
+//		public void givenCSVFile_whenRead_thenContentsAsExpected() throws IOException {
+//		    Reader in = new FileReader("book.csv");
+//		    new FileReader();
+//		    Iterable<CSVRecord> records = CSVFormat.DEFAULT
+//		      .withHeader(HEADERS)
+//		      .withFirstRecordAsHeader()
+//		      .parse(in);
+//		    for (CSVRecord record : records) {
+//		        String author = record.get("author");
+//		        String title = record.get("title");
+//		        assertEquals(AUTHOR_BOOK_MAP.get(author), title);
+//		    }
+//		}
+	}
+

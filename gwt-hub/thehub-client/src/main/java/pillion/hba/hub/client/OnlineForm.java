@@ -4,6 +4,7 @@ import pillion.hba.hub.client.OnlineFormMenu.OnlineFormMenu;
 import pillion.hba.hub.client.OnlineForms.TravelExpenseForm;
 import pillion.hba.hub.client.OnlineForms.UseOfPersonalMotorVehicleForWorkRelatedTravelForm;
 import pillion.hba.hub.client.OnlineForms.WithdrawalFromTrustAccountForm;
+import pillion.hba.hub.client.OnlineForms.GoogleChart;
 
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -38,10 +39,11 @@ public class OnlineForm {
 	public static void doStuffWithPageNumber(String selected) {
 
 		if (selected == "Online Forms") {ClearForms();}
+		else if (selected == "Google Chart") {ClearForms(); GoogleCharts(status);}
 		else if (selected == "Consent for Photo and Video Recording and Release") {ClearForms();ConsentForPhotoAndVideoRecordingAndRelease(status);}
 		else if (selected == "Courier Approval Form") {ClearForms();CourierApprovalForm(status);}
 		else if (selected == "Deposit to Trust Account" ) {ClearForms();DepositToTrustAccount(status);}
-		else if (selected == "File Closing Form") {ClearForms();FileClosingForm(status, grid);}
+		else if (selected == "File Closing Form") {ClearForms();FileClosingForm(status);}
 		else if (selected == "File Opening Form") {ClearForms();FileOpeningForm(status);}
 		else if (selected == "HBA Giving Program Application Form") {ClearForms();HBAGivingProgramApplicationForm(status);}
 		else if (selected == "New Client Form") {ClearForms();NewClientForm(status);}
@@ -60,7 +62,7 @@ public class OnlineForm {
 			ConsentForPhotoAndVideoRecordingAndRelease(status);
 			CourierApprovalForm(status);
 			DepositToTrustAccount(status);
-			FileClosingForm(status, grid);
+			FileClosingForm(status);
 			FileOpeningForm(status);
 			HBAGivingProgramApplicationForm(status);
 			NewClientForm(status);
@@ -86,12 +88,19 @@ public class OnlineForm {
 	public static void DepositToTrustAccount(String status) {
 	}
 	
-	public static void FileClosingForm(String status, FlexTable grid) {
-		grid = pillion.hba.hub.client.OnlineForms.FileClosingForm.fileClosingForm(status, grid);
+	public static void FileClosingForm(String status) {
+		//grid = pillion.hba.hub.client.OnlineForms.FileClosingForm.fileClosingForm(status, grid);
 		RootPanel.get("two").add(grid);
 	}
 	
+	
+	
 	public static void FileOpeningForm(String status) {
+	}
+	
+	public static void GoogleCharts(String status) {
+		grid = pillion.hba.hub.client.OnlineForms.GoogleChart.GoogleChartMethod(status, grid);
+		RootPanel.get("two").add(grid);
 	}
 	
 	public static void HBAGivingProgramApplicationForm(String status) {

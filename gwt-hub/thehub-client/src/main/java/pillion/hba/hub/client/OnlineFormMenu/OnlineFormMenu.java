@@ -39,6 +39,7 @@ public class OnlineFormMenu extends VerticalPanel{
     data.add("Deposit to Trust Account");
     data.add("File Closing Form");
     data.add("File Opening Form");
+    data.add("Google Chart");
     data.add("HBA Giving Program Application Form");
     data.add("New Client Form");
     data.add("Petty Cash Form");

@@ -44,4 +44,21 @@
 		<nature>com.gwtplugins.gwt.eclipse.core.gwtNature</nature>
 		<nature>org.eclipse.wst.common.project.facet.core.nature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>src/main/java/pillion/hba/hub/client/Tickets/Final Minus Icon.png</name>
+			<type>1</type>
+			<location>C:/Users/mitchellmcmaugh/Desktop/Final Minus Icon.png</location>
+		</link>
+		<link>
+			<name>src/main/java/pillion/hba/hub/client/Tickets/Final Plus Icon.png</name>
+			<type>1</type>
+			<location>C:/Users/mitchellmcmaugh/Desktop/Final Plus Icon.png</location>
+		</link>
+		<link>
+			<name>src/main/java/pillion/hba/hub/client/Tickets/Trash_Can-512.png</name>
+			<type>1</type>
+			<location>C:/Users/mitchellmcmaugh/Desktop/Trash_Can-512.png</location>
+		</link>
+	</linkedResources>
 </projectDescription>

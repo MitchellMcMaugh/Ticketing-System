@@ -1,10 +1,6 @@
 package pillion.hba.hub.client;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.dom.client.Element;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -35,25 +31,19 @@ public class TicketPage {
 	
 	static DateTimeFormat sdf = DateTimeFormat.getFormat("dd/MM/yyyy");
 	
-	public static Button newTicketButton = new Button();
-	public static ListBox ticketFilterPriorityListBox = new ListBox();
-	public static ListBox ticketFilterCategoryListBox = new ListBox();
-	public static CellTable<Ticket> cellTable = new CellTable<Ticket>();
-	public static String selectedCategory;
-	public static String selectedPriority;
-	public static Tickets initialData = new Tickets();
-	private static List TableList = new ArrayList();
-	private static MySimplePager.Resources pagerResources = GWT.create(MySimplePager.Resources.class);
-	private static MySimplePager pager = new MySimplePager(TextLocation.CENTER, pagerResources, false, 0,true);
-	private static ListDataProvider dataProvider = new ListDataProvider();
-	private static Tickets results = new Tickets();
-	public static String imageURL = new String();
-	public static String userName = new String();
-	
-	
-	
-	private Element listTicketsPanel, newTicketPanel, viewTicketPanel;
-	
+	static Button newTicketButton = new Button();
+	static ListBox ticketFilterPriorityListBox = new ListBox();
+	static ListBox ticketFilterCategoryListBox = new ListBox();
+	static CellTable<Ticket> cellTable = new CellTable<Ticket>();
+	static String selectedCategory;
+	static String selectedPriority;
+	static Tickets initialData = new Tickets();
+	static MySimplePager.Resources pagerResources = GWT.create(MySimplePager.Resources.class);
+	static MySimplePager pager = new MySimplePager(TextLocation.CENTER, pagerResources, false, 0,true);
+	static ListDataProvider<Ticket> dataProvider = new ListDataProvider<Ticket>();
+	static Tickets results = new Tickets();
+	static String imageURL = new String();
+	static String userName = new String();
 	
 	public void go() {
 		
@@ -75,6 +65,7 @@ public class TicketPage {
 			public void onClick(ClickEvent event) {
 				FlowPanel newTicketFlex = new FlowPanel();
 				newTicketFlex = pillion.hba.hub.client.Tickets.NewTicket.newTicket();
+				
 				cellTable.setVisible(false);
 				pager.setVisible(false);
 				RootPanel.get("newticketticketbit").add(newTicketFlex);
@@ -97,25 +88,31 @@ public class TicketPage {
 		    cellTable.setColumnWidth(3, "5%");
 		    cellTable.setColumnWidth(4, "20%");
 		    cellTable.setColumnWidth(5, "5%");
-		    
+
 		    cellTable.redrawHeaders();
 		    cellTable.setRowData(0, initialData);
 		    RootPanel.get("tablebit").add(cellTable);
-		
-		    int pageCount = 0;
-		    
-		redmineService.getTickets(new AsyncCallback<Tickets>() {
-			public void onSuccess(Tickets result) { populateTickets(result);}
-			public void onFailure(Throwable e) { throw new RuntimeException(e); }
-		});
-		
-	   
-		
-		ticketsForm();
-		
+
+			redmineService.getTickets(new AsyncCallback<Tickets>() {
+				public void onSuccess(Tickets result) { dataProvider.addDataDisplay(cellTable); populateTickets(result);}
+				public void onFailure(Throwable e) { throw new RuntimeException(e); }
+			});
+
+		    ticketsForm(false);
 	}
 	
-	public static void ticketsForm() {
+	public static void ticketsForm(Boolean bool) {
+	    cellTable.setVisible(true);
+	    pager.setVisible(true);
+		
+		if (bool) {
+			redmineService.getTickets(new AsyncCallback<Tickets>() {
+				public void onSuccess(Tickets result) { 
+					populateTickets(result);
+					}
+				public void onFailure(Throwable e) { throw new RuntimeException(e); }
+			});
+	    }
 		
 		ticketFilterCategoryListBox.clear();
 		ticketFilterPriorityListBox.clear();
@@ -236,17 +233,19 @@ public class TicketPage {
 	}
 	
 	public static void populateTickets(Tickets Asyncresults) {
+		results.clear();
+		initialData.clear();
 		
+		dataProvider.refresh();
 		
 		results.addAll(Asyncresults);
 		initialData.addAll(results);
 	    cellTable.setRowData(0, results);
 	    cellTable.setRowCount(results.size(), true); 
-	    
-	    dataProvider = new ListDataProvider();
+
 	    pager.setDisplay(cellTable);
-	    dataProvider.addDataDisplay(cellTable);
 	    dataProvider.setList(results);
+ 
 	    pager.setPageSize(10);
 	    pager.setStyleName("pager");
 	    
@@ -337,7 +336,6 @@ public class TicketPage {
 	    }
 	    
 	    private static void filter() {
-	    	
 	    	pager.firstPage();
 	    	
 	    	selectedCategory = ticketFilterCategoryListBox.getSelectedItemText();
@@ -363,9 +361,7 @@ public class TicketPage {
 			if (selectedCategory != "Category Filter" && selectedPriority == "Priority Filter") {
 				results.removeAll(results);
 		    	results.addAll(initialData);
-				
 				results.removeIf(x -> x.getCategory() != selectedCategory);
-				
 			}
 			
 			//Default Default
@@ -377,10 +373,5 @@ public class TicketPage {
 			cellTable.setRowData(0, results);
 			cellTable.setRowCount(results.size(), true);
 			dataProvider.refresh();
-			
 	    }
-	
-			
-	    
-
 }

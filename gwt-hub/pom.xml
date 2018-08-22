@@ -25,6 +25,11 @@
         <artifactId>javax.servlet-api</artifactId>
         <version>3.1.0</version>
       </dependency>
+      <dependency>
+    <groupId>com.googlecode.gwt-charts</groupId>
+    <artifactId>gwt-charts</artifactId>
+    <version>0.9.10</version>
+</dependency>
     </dependencies>
   </dependencyManagement>
 

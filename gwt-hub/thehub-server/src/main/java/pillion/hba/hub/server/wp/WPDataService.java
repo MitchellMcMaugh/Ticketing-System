@@ -1,7 +1,12 @@
 package pillion.hba.hub.server.wp;
 
 import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
 import java.net.URLDecoder;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -25,6 +30,21 @@ public class WPDataService {
 	
 	private static final String LOGGED_IN_COOKIE = "wordpress_logged_in_";
 
+	public static Optional<Connection> dbConnection() {
+		try {
+			String myDriver = "com.mysql.cj.jdbc.Driver";
+		    String myUrl = "jdbc:mysql://192.168.2.160/mitchwp";
+		    Class.forName(myDriver);
+		    Connection conn = DriverManager.getConnection(myUrl, "mitchwp", "mitchwp");
+		    return Optional.of(conn);
+		}
+		catch(Exception e) {
+			System.err.println("Got an exception! ");
+		    System.err.println(e.getMessage());
+		}
+		return Optional.empty();
+	}
+	
 	public static Optional<WPUser> userFromUserName(String userName) {
 		
 		//svr_db_user_pw
@@ -41,28 +61,44 @@ public class WPDataService {
 		
 	}
 	
-	public static Optional<String> userImageURL(String userName) {
-		System.out.println(userName);
-		Jdbi jdbi = Jdbi.create(DBUtils.getMySQLDataSource("192.168.2.160,mitchwp,mitchwp,mitchwp"));
+	public static String userImageURL(Connection conn, String userName) {		
 		
-		jdbi.registerRowMapper(WPUser.class,WPRowMappers.wpUserRowMapper);
-		Handle handle = jdbi.open();
+		Integer ID = 0;
+		String imageURL = "";
 		
-		Optional<String> imageURL = Optional.empty();
-		
-		Optional<Integer> ID = handle.createQuery("SELECT ID FROM mitchwp.wp_users WHERE user_login = :loginName")
-				.bind("loginName", userName)
-				.mapTo(Integer.class).findFirst();
-		if (ID.isPresent()) {
-			imageURL =  handle.createQuery("SELECT meta_value FROM mitchwp.wp_usermeta WHERE meta_key = 'wp_user_avatars' AND user_id = :ID")
-				.bind("ID", ID.get())
-				.mapTo(String.class).findFirst();
-			if (imageURL.isPresent()) {
-			    return imageURL;
-			}
+		try {
+			String query = "SELECT ID FROM mitchwp.wp_users WHERE user_login = '" + userName + "'";
+			
+			Statement st = conn.createStatement();
+		    ResultSet rs = st.executeQuery(query);
+		    
+		    while (rs.next()) { 
+		    	ID = rs.getInt("ID");
+		    }
+		    
+		    if (ID != null && ID != 0) {
+		    
+			    query = "SELECT meta_value FROM mitchwp.wp_usermeta WHERE meta_key = 'wp_user_avatars' AND user_id = " + ID;
+			    
+			    Statement st2 = conn.createStatement();
+			    ResultSet rs2 = st2.executeQuery(query);
+			    
+			    while (rs2.next()) { 
+			    	imageURL = rs2.getString("meta_value");
+			    	if (imageURL != "" && imageURL != null) {
+			    		return imageURL;
+			    	}
+			    }
+		    }
 		}
-		return imageURL;
-	}
+	    catch(Exception e) {
+			System.err.println("Got an exception! ");
+		    System.err.println(e.getMessage());
+		    return imageURL;
+		}
+	    return imageURL;
+	    }
+	
 	
 	public static UserMetadata userMetadataFromUserName(Integer userId) {
 		UserMetadata umd = new UserMetadata();

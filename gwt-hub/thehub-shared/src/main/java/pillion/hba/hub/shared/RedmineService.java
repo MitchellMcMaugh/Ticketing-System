@@ -1,5 +1,7 @@
 package pillion.hba.hub.shared;
 
+import java.util.ArrayList;
+
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
@@ -10,5 +12,8 @@ public interface RedmineService extends RemoteService {
 	Comments getComments(int id);
 	Comment newComment(String comment, int issueID);
 	String getData();
+	TicketAttachments getAttachments(int ticketID);
+	Integer deleteAttachment(int attachmentID);
+	Employees getEmployees();
 	
 }

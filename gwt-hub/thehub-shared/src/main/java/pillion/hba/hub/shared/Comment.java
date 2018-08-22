@@ -1,7 +1,6 @@
 package pillion.hba.hub.shared;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Comment implements Serializable {

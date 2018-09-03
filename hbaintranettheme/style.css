@@ -1388,7 +1388,7 @@ html.swipebox-html.swipebox-touch {
 }
 
 .lhs-menu {
-    padding: 30px 15px 0
+    /* padding: 30px 15px 0 */
 }
 
 .lhs-menu.apps {
@@ -1433,7 +1433,7 @@ html.swipebox-html.swipebox-touch {
 
 @media screen and (min-width: 1100px) {
     .lhs-menu {
-        padding: 60px 30px;
+        /* padding: 60px 30px; */
         width: 20%;
     }
     .lhs-menu a {
@@ -1585,6 +1585,7 @@ html.swipebox-html.swipebox-touch {
 @media screen and (min-width: 721px) {
     .content-head {
         padding: 30px 15px 30px 30px;
+		width: 100%;
     }
 }
 
@@ -2437,7 +2438,7 @@ ul li {
     position: relative
 }
 
-ul li:after {
+/* ul li:after {
     content: "";
     position: absolute;
     left: 8px;
@@ -2446,6 +2447,7 @@ ul li:after {
     height: 4px;
     background: #000
 }
+*/
 
 ol {
     padding: 0 0 10px 23px;
@@ -3482,19 +3484,34 @@ td.datePickerYear {
     padding-right: 10px;
     padding-top: 10px;
     
-    border-top: 1px solid #ddd;
+    
     /* border-top: 1px solid #ddd; */
     
 
 }
 
+.commentsFlexImageTop {
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0;
+    margin-bottom: 0;
+    text-align: center;
+    padding-right: 10px;
+    padding-top: 10px;
+    
+    
+    border-top: 1px solid #ddd;
+}
+
 .commentsFlexDate {
-	text-align: right;
-	width: 15%;
+	text-align: center;
+	width: 13%;
 	margin-left:auto;
     margin-right:auto;
     padding: 5px;
     border-top: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
     
 }
 
@@ -3502,7 +3519,8 @@ td.datePickerYear {
 	width: auto;
 	padding: 5px;
 	border-top: 1px solid #ddd;
-	/* border-top: 1px solid #ddd; */
+	border-bottom: 1px solid #ddd;
+	white-space: pre-wrap;
 	
 }
 
@@ -3514,6 +3532,7 @@ td.datePickerYear {
     /*border: 1px solid #ddd; */
     height: 100%;
     vertical-align: text-top;
+	border-bottom: 1px solid #ddd;
     
     
 }
@@ -3612,43 +3631,50 @@ td.datePickerYear {
 	font-size: 200%;
 	text-decoration: underline;
 	margin-left: 10px;
+	padding-bottom: 10px;
 }
 
 .ticketDetailsDateLabel {
-	float:left;
-	font-size: 150%;
-	margin-left: 15px;
+	text-align: right;
+	font-size: 125%;
+	font-weight: bold;
 	padding-right: 5px;
 }
 
 .ticketDetailsPriorityLabel {
-	float:left;
-	font-size: 150%;
+	text-align: right;
+	font-weight: bold;
+	font-size: 125%;
 	padding-right: 5px;
 }
 
 .ticketDetailsCategoryLabel {
-	float:left;
-	font-size: 150%;
+	text-align: right;
+	font-size: 125%;
 	padding-right: 5px;
+	font-weight: bold;
 }
 
 .ticketDetailsStatusLabel {
-	float:left;
-	font-size: 150%;
+	text-align: right;
+	font-size: 125%;
 	padding-right: 5px;
+	font-weight: bold;
 }
 
 .ticketDetailsAssigneeLabel {
-	float:left;
-	font-size: 150%;
+	text-align: right;
+	font-size: 125%;
 	padding-right: 5px;
-	margin-left: 15px;
+	font-weight: bold;
+	
 }
 
 .ticketDetailsDetailsLabel {
 	float: left;
-	font-size: 150%;
+	font-size: 125%;
+	font-weight: bold;
+	vertical-align:top;
 }
 
 .fPanelDetails {
@@ -3671,7 +3697,8 @@ td.datePickerYear {
 .ticketDetailsResult {
 	font-size: 125%;
 	padding-right: 15px;
-	font-style: italic;
+	/*font-style: italic;*/
+	padding-left: 10px;
 }
 
 .detailsFlex {
@@ -3679,16 +3706,17 @@ td.datePickerYear {
 
 }
 
+
 .ticketDetailsTextResult {
 	font-size: 125%;
 	padding-right: 15px;
 	font-style: italic;
-	padding-left: 15px;
-	margin-bottom: 20px;
+	margin-top: 5px;
+	
 }
 
 
- .buttonzflex .buttonz {
+.buttonzflex .buttonz {
  	display: block;
  	       /*top right bottom left*/
 	margin: 20px 0px 5px 10px;
@@ -3698,14 +3726,19 @@ td.datePickerYear {
 .titleTextBoxLabel {
 	width: 100%;
 	padding: 5px;
+	font-size: 125%;
+	font-weight: bold;
 }
 
 .titleTextBox {
 	width:100%;
+	border: 1px solid #ccc;
 }
 
 .detailsTextAreaLabel {
 	padding: 5px;
+	font-size: 125%;
+	font-weight: bold;
 }
 
 .detailsTextArea {
@@ -3713,6 +3746,7 @@ td.datePickerYear {
 	margin-bottom: 10px;
 	width: 100%;
     height: 30%;
+	border: 1px solid #ccc;
 }
 
 .newTicketPriorityListBox {
@@ -3737,6 +3771,8 @@ td.datePickerYear {
 	white-space:nowrap;
 	text-align: right;
 	float: right;
+	border: 1px solid #ccc;
+	
 }
 
 #newtickettopbit .listBoxez option {
@@ -3813,6 +3849,7 @@ td.datePickerYear {
 
 .commentsFlex {
 	width: 100%;
+	margin-top: 20px;
 }
 
 .pager {
@@ -3827,4 +3864,184 @@ td.datePickerYear {
 	display: block;
     margin-left: auto;
     margin-right: auto;
+}
+
+.uploadTicketFile {
+
+	padding:5px 10px;
+
+	color:black;
+
+	font-size:14px;
+
+	cursor: pointer;
+
+    white-space:nowrap;
+    float: left;
+    margin:5px;	
+}
+
+.BackButton {
+	text-align:right;
+	padding-bottom:10px;
+}
+
+.attachmentResult {
+	
+}
+
+.attachmentDetailsLabel {
+	text-align: right;
+	font-size: 125%;
+	padding-right: 5px;	
+	font-weight: bold;
+}
+
+.attachmentsLabel {
+	vertical-align: top;
+}
+
+#detailbit .com-google-gwt-user-cellview-client-CellTable-Style-cellTableOddRowCell {
+	background: white;
+	border: 0;
+}
+
+#detailbit .com-google-gwt-user-cellview-client-CellTable-Style-cellTableEvenRowCell {
+	background: white;
+	border: 0;
+}
+
+#detailbit .com-google-gwt-user-cellview-client-CellTable-Style-cellTableHeader {
+	
+}
+
+.columnone {
+	color: blue;
+	text-decoration: underline;
+}
+
+
+
+.rightText {
+	text-align: right;
+}
+
+.uploadAttachmentButton {
+	float: left;
+	margin-right: 10px;
+}
+
+.addAttachmentFlowPanel {
+	
+}
+
+.minusIcon {
+	float: left;
+	margin-right: 5px;
+}
+
+.plusIcon {
+	float: left;
+	margin-right: 5px;
+}
+
+.addNewAttachmentLabel {
+	float: left;
+	font-size: 125%;
+	padding-right: 15px;
+	padding-left: 10px;
+}
+
+.ticketAttachmentNumberHeader {
+
+	border-right: 1px solid #ddd;
+}
+
+.ticketAttachmentHeader {
+	border-bottom: 1px solid #ddd;
+	border-left: 1px solid #ddd;
+	border-right: 1px solid #ddd;
+	text-align: center;
+}
+
+.ticketAttachmentSizeHeader {
+	border-bottom: 1px solid #ddd;
+	border-left: 1px solid #ddd;
+	border-right: 1px solid #ddd;
+	text-align: center;
+}
+
+.ticketAttachmentDateHeader {
+	border-bottom: 1px solid #ddd;
+	border-left: 1px solid #ddd;
+	border-right: 1px solid #ddd;
+	text-align: center;
+}
+
+.ticketAttachmentNumber {
+	border-top: 1px solid #ddd;
+	border-right: 1px solid #ddd;
+	padding: 5px;
+	text-align: right;
+}
+
+.ticketAttachment {
+	border-top: 1px solid #ddd;
+	border-left: 1px solid #ddd;
+	border-right: 1px solid #ddd;
+	color: blue;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.ticketAttachmentSize {
+	border-top: 1px solid #ddd;
+	border-left: 1px solid #ddd;
+	border-right: 1px solid #ddd;
+}
+
+.ticketAttachmentDate {
+	border-top: 1px solid #ddd;
+	border-left: 1px solid #ddd;
+	border-right: 1px solid #ddd;
+}
+
+.ticketAttachmentBin {
+	border-top: 1px solid #ddd;
+	border-left: 1px solid #ddd;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.commentsFlexSubmitButton {
+	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+	text-align: center;
+	width: 20%;
+}
+
+.plusIcon {
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-top: 5px;
+	padding-bottom: 10px;
+}
+
+.minusIcon {
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-top: 5px;
+	padding-bottom: 10px;
+}
+
+.topAttachments {
+		vertical-align: top;
+}
+
+.ticketDetailsDetails {
+	font-size: 125%;
+	padding-right: 15px;
+	padding-top: 5px;
+	padding-left: 10px;
+	white-space: pre-wrap;
 }

@@ -1,11 +1,13 @@
 package pillion.hba.hub.server.rm;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 
 import com.taskadapter.redmineapi.Include;
 import com.taskadapter.redmineapi.Params;
@@ -18,24 +20,62 @@ import com.taskadapter.redmineapi.bean.IssueFactory;
 import com.taskadapter.redmineapi.bean.Journal;
 import com.taskadapter.redmineapi.bean.User;
 import com.taskadapter.redmineapi.internal.ResultsWrapper;
+import org.apache.log4j.Logger;
 
 import pillion.hba.hub.server.wp.WPUser;
 
 public class RM {
 
-	static String uri = "http://redmine";
-	static String apiAccessKey = "02d0937d07cef5031ccc67e98483fb739c46d5d5";
-	static String projectKey = "Support-Test";
+	final static Logger log = Logger.getLogger(RM.class);
+	
+	static String uri;
+	static String apiAccessKey;
 
-	public static void main(String... args) throws RedmineException {	}
+	private static Properties prop;
+
+	public static void main(String... args) throws RedmineException {
+		
+			log.debug("Hello this is a debug message");
+			log.info("Hello this is an info message");
+		
+	}
+	
+	private static Properties getProperties() {
+		log.debug("Hello this is a debug message");
+		log.info("Hello this is an info message");
+		Properties prop = new Properties();
+		InputStream input = null;
+		System.out.println("Is being called 1");
+		try {
+			input = new FileInputStream("C:\\Users\\mitchellmcmaugh\\Desktop\\barnacle.properties");
+			prop.load(input);
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		} finally {
+			if (input != null) {
+				try {
+					input.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return prop;
+	}
 
 	public static List<Issue> findTickets(Integer userId) throws RedmineException {
+		prop = getProperties();
+		uri = prop.getProperty("redmineUrl");
+		apiAccessKey = prop.getProperty("redmineApiKey");
+
 		RedmineManager mgr = RedmineManagerFactory.createWithApiKey(uri, apiAccessKey);
 		 
 		Params params = new Params();
-		params.add("project_id", "10");
+
+		params.add("project_id", prop.getProperty("projectID"));
 		params.add("cf_1","" + userId);
-		params.add("limit", "100");
+
+		params.add("limit", prop.getProperty("redmineResultLimit"));
 		ResultsWrapper<Issue> issues = mgr.getIssueManager().getIssues(params);
 		List<Issue> results = issues.getResults();
 		
@@ -54,6 +94,10 @@ public class RM {
 	}
 	
 	public static User findUserByName(String userName) throws RedmineException {
+		prop = getProperties();
+		uri = prop.getProperty("redmineUrl");
+		apiAccessKey = prop.getProperty("redmineApiKey");
+		
 		RedmineManager mgr = RedmineManagerFactory.createWithApiKey(uri, apiAccessKey);
 		ResultsWrapper<User> result = mgr.getUserManager().getUsers(Collections.singletonMap("name", userName));
 		List<User> users = result.getResults();

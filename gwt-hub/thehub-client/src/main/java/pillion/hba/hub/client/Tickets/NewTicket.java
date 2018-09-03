@@ -154,19 +154,18 @@ public class NewTicket {
 				String ticketCategoryListBoxValue = newTicketCategoryListBox.getSelectedItemText().toString();
 				
 				if (titleTextValue == "") {
-					Window.alert("Subject must not be blank!");
+					Window.alert("Please enter a subject for your issue.");
 				}
 				else if (detailsTextAreaValue == "") {
-					Window.alert("Details must not be blank!");
+					Window.alert("Please enter a description for your issue.");
 				}
 				else if (ticketPriorityListBoxValue == "" || ticketPriorityListBoxValue == "Priority") {
-					Window.alert("Priority must not be blank!");
+					Window.alert("Please select category.");
 				}
 				else if (ticketCategoryListBoxValue == "" || ticketCategoryListBoxValue == "Category") {
-					Window.alert("Category must not be blank!");
+					Window.alert("Please select category.");
 				}
 				else  {
-					Window.confirm(detailsTextAreaValue);
 					redmineService.newTicket(ticketPriorityListBoxValue, ticketCategoryListBoxValue, titleTextValue, detailsTextAreaValue,  new AsyncCallback<Ticket>() {
 						public void onFailure(Throwable e) { throw new RuntimeException(e); }
 						public void onSuccess(Ticket result) {	

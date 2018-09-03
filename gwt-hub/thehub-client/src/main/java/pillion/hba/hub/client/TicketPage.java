@@ -47,6 +47,8 @@ public class TicketPage {
 	
 	public void go() {
 		
+		
+		
 		redmineService.getData(new AsyncCallback<String>() {
 			public void onSuccess(String url) {
 				int position = ordinalIndexOf(url, "¯\\_(ツ)_/¯", 1);

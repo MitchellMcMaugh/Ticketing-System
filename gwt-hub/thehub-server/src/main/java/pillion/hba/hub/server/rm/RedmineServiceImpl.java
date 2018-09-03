@@ -68,7 +68,9 @@ public class RedmineServiceImpl extends HubRemoteServiceServlet implements Redmi
 	public Tickets getTickets() {
 		try {
 			WPUser user = getLoggedInUser();
+			System.out.println(user.getUserLogin());
 			User redmineUser = RM.findUserByName(user.getUserLogin());			
+			System.out.println(redmineUser.getId());
 			return new Tickets(RM.findTickets(redmineUser.getId()).stream().map(i -> fromIssue(i)).collect(Collectors.toList()));
 		} catch (RedmineException e) {
 			e.printStackTrace();
@@ -94,7 +96,6 @@ public class RedmineServiceImpl extends HubRemoteServiceServlet implements Redmi
 	
 	public Ticket newTicket(String ticketPriority, String ticketCategory, String ticketShortDescription, String ticketDetails) {
 		try {
-			System.out.print(ticketDetails);
 			WPUser user = getLoggedInUser();
 			User redmineUser = RM.findUserByName(user.getUserLogin());
 			Ticket issueID = fromIssue(RM.newIssue(redmineUser, ticketPriority, ticketCategory, ticketShortDescription, ticketDetails));
